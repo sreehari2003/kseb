@@ -8,7 +8,7 @@
 <br />
 <div align="center">
   <a href="#link">
-    <img src="https://cdn.payrup.com/images/operators/electricity-bill-payment/kseb_logo.png" alt="Logo" width="80" height="80">
+    <img src="app\assets\kseb_logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">KSEB Platform</h3>
@@ -49,11 +49,12 @@ This is a mobile App for kseb workers to ensure thier security from human errors
 
 ### Built With
 
-- [React Native ](https://nestjs.com/)
-- [Go-Lang](https://www.fastify.io/)
-- [Gin](https://www.prisma.io/)
-- [Typescript](https://nextjs.org/)
-- [PostreSQL](https://chakra-ui.com/)
+- [React Native ](https://expo.dev/)
+- [Go-Lang](https://go.dev/)
+- [Gin](https://gin-gonic.com/)
+- [Typescript](https://www.typescriptlang.org/)
+- [PostreSQL](https://www.postgresql.org/)
+- [Go-ORM](https://gorm.io/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -67,6 +68,7 @@ You need to install
 
 1. [Node v16](https://nodejs.org/en/)
 2. [pnpm](https://pnpm.io/)
+3. [GO lang](https://go.dev/)
 
 ### Installation
 
@@ -86,16 +88,19 @@ You need to install
 
 3. Copy the `.env.example` for each applications to `.env` in the same directory and fill the values required
 
-4. Start the api dev server and open `http://localhost:8000`
+4. Start the api dev server and open `http://localhost:8080`
 
    ```sh
-   pnpm --filter api dev
+   go run main.go
    ```
 
-5. Start the web application dev server and open `http://localhost:3000`
+5. Start the Mobile application on Android studio or Xcode
 
    ```sh
-   pnpm --filter web dev
+   cd app
+   yarn start --android
+   or
+   yarn start --ios
    ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
@@ -121,40 +126,16 @@ docker-compose up
 
 <details>
 
-  <summary>
+  <!-- <summary>
   All the commands for applications can be executed from the root directory using PNPM Workspace and Turborepo.
-  </summary>
-
-1. Web application PNPM commands
-
-   ```sh
-     pnpm --filter web <pnpm options>
-   ```
-
-2. API Server PNPM commands
-
-   ```sh
-     pnpm --filter api <pnpm options>
-   ```
-
-3. Turbo Pipeline Commands
-
-   ```sh
-     pnpm turbo run <pipeline_action_1> <pipeline_action_2>
-   ```
-
-4. Package installation command
-
-   ```sh
-   pnpm add "package-name" --filter "workspace-name"
-   ```
+  </summary> -->
 
 ### Misc Commands
 
 1. Run lint
 
    ```sh
-     pnpm lint
+     yarn lint
    ```
 
 2. Run lint with autofixable fixes
