@@ -26,9 +26,3 @@ These instructions will help you set up a development environment for the API.
   
 ## Documentation
 The Swagger documentation provides a detailed description of the API's endpoints, request/response formats, and error handling.
-
-## Code
-The code in this repository implements the API endpoints described in the Swagger documentation. It is written in the programming language specified in the Technical Requirements section of the documentation.
-
-## Support
-If you need help or have any questions, please open an issue in the repository or contact the repository owner directly.
