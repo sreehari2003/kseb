@@ -103,6 +103,22 @@ You need to install
    yarn start --ios
    ```
 
+### Swagger
+Install dependencies:
+` go get `
+
+Install the `swag` and `gin-swagger` packages:
+
+```
+go get -u github.com/swaggo/swag/cmd/swag
+go get -u github.com/swaggo/gin-swagger
+```
+
+Generate the Swagger documentation:
+```
+swag init
+```
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ### Installation with Docker compose
