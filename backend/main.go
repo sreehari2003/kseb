@@ -1,18 +1,18 @@
 package main
 
 import (
-	"kseb/auth"
-	"kseb/docs"
-	"kseb/middlewares"
-	"kseb/router"
 	"log"
 	"os"
+
+	"github.com/joho/godotenv"
+	"github.com/sreehari2003/kseb/auth"
+	"github.com/sreehari2003/kseb/docs"
+	"github.com/sreehari2003/kseb/middlewares"
+	"github.com/sreehari2003/kseb/router"
 
 	swaggerFiles "github.com/swaggo/files"
 
 	ginSwagger "github.com/swaggo/gin-swagger"
-
-	"github.com/joho/godotenv"
 )
 
 func main() {
@@ -34,7 +34,10 @@ func main() {
 	router := router.CreateRoute()
 	// use ginSwagger middleware to serve the API docs
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	middlewares.Register(router)
+	// cors handling middlewares and supertokens middlewares
+	router.Use(middlewares.Cors())
+	router.Use(middlewares.Supertokens())
+
 	router.Run("localhost:" + PORT)
 	// use ginSwagger middleware to serve the API docs
 }
