@@ -4,7 +4,7 @@ FROM golang:alpine as builder
 # ENV GO111MODULE=on
 
 # Add Maintainer info
-LABEL maintainer="Steven Victor <chikodi543@gmail.com>"
+LABEL maintainer="Sreehari jayaraj <sreeharijayaraj03@gmail.com>"
 
 # Install git.
 # Git is required for fetching the dependencies.
@@ -39,4 +39,4 @@ COPY --from=builder /backend/.env .
 EXPOSE 8080
 
 #Command to run the executable
-CMD ["./main"]
+CMD ["go","run","main.go"]
