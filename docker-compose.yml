@@ -1,17 +1,25 @@
 version: '3'
 services:
-  app:
-    container_name: kseb_app
-    build: .
-    ports: 
-      - 8080:8080 
-    restart: on-failure
-    volumes:
-      - api:/usr/src/app/
-    depends_on:
-      - fullstack-postgres
-    networks:
-      - fullstack
+  # app:
+  #   container_name: kseb_app
+  #   build: 
+  #    dockerfile: ./backend/Dockerfile       
+  #    context: .
+  #   ports: 
+  #     - 8080:8080 
+  #   restart: on-failure
+  #   volumes:
+  #     - ./:/app
+  #     - api:/usr/src/app/
+  #   depends_on:
+  #     - fullstack-postgres
+  #   networks:
+  #     - fullstack
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: "4.0"
+  #         memory: 200M
 
 
   fullstack-postgres:

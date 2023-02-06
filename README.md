@@ -103,9 +103,16 @@ You need to install
    yarn start --ios
    ```
 
+6. For GO HOT RELOAD
+
+   ```sh
+     nodemon --exec go run main.go --signal SIGTERM
+   ```
+
 ### Swagger
+
 Install dependencies:
-` go get `
+`go get`
 
 Install the `swag` and `gin-swagger` packages:
 
@@ -115,6 +122,7 @@ go get -u github.com/swaggo/gin-swagger
 ```
 
 Generate the Swagger documentation:
+
 ```
 swag init
 ```

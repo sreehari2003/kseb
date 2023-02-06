@@ -11,10 +11,10 @@ LABEL maintainer="Sreehari jayaraj <sreeharijayaraj03@gmail.com>"
 RUN apk update && apk add --no-cache git
 
 # Set the current working directory inside the container 
-WORKDIR /backend
+WORKDIR /
 
 # Copy go mod and sum files 
-COPY go.mod go.sum ./
+COPY go.mod go.sum /
 
 # Download all dependencies. Dependencies will be cached if the go.mod and the go.sum files are not changed 
 RUN go mod download 
@@ -39,4 +39,4 @@ COPY --from=builder /backend/.env .
 EXPOSE 8080
 
 #Command to run the executable
-CMD ["go","run","main.go"]
+CMD ["go","main.go"]
