@@ -49,7 +49,7 @@ This is a mobile App for kseb workers to ensure thier security from human errors
 
 ### Built With
 
-- [React Native ](https://expo.dev/)
+- [NEXT JS](https://nextjs.org/)
 - [Go-Lang](https://go.dev/)
 - [Gin](https://gin-gonic.com/)
 - [Typescript](https://www.typescriptlang.org/)
@@ -67,7 +67,7 @@ This is a mobile App for kseb workers to ensure thier security from human errors
 You need to install
 
 1. [Node v16](https://nodejs.org/en/)
-2. [pnpm](https://pnpm.io/)
+2. [Yarn](https://yarnpkg.com/)
 3. [GO lang](https://go.dev/)
 
 ### Installation
@@ -94,13 +94,11 @@ You need to install
    go run main.go
    ```
 
-5. Start the Mobile application on Android studio or Xcode
+5. Start the Web application
 
    ```sh
-   cd app
-   yarn start --android
-   or
-   yarn start --ios
+   cd web
+   yarn run dev
    ```
 
 6. For GO HOT RELOAD
@@ -113,14 +111,6 @@ You need to install
 
 Install dependencies:
 `go get`
-
-Install the `swag` and `gin-swagger` packages:
-
-```
-go get -u github.com/swaggo/swag/cmd/swag
-go get -u github.com/swaggo/gin-swagger
-```
-
 Generate the Swagger documentation:
 
 ```
@@ -165,7 +155,7 @@ docker-compose up
 2. Run lint with autofixable fixes
 
    ```sh
-     pnpm lint-fix
+     yan lint-fix
    ```
 
 </details>
