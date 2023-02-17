@@ -44,7 +44,7 @@ require (
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
 	github.com/stretchr/testify v1.8.1 // indirect
 	github.com/swaggo/files v1.0.0
-	github.com/swaggo/gin-swagger v1.5.3 // indirect
+	github.com/swaggo/gin-swagger v1.5.3
 	github.com/swaggo/swag v1.8.10
 	github.com/twilio/twilio-go v0.26.0 // indirect
 	github.com/ugorji/go/codec v1.2.9 // indirect
