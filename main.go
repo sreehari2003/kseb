@@ -6,6 +6,8 @@ import (
 
 	"github.com/joho/godotenv"
 	"github.com/sreehari2003/kseb/auth"
+	"github.com/sreehari2003/kseb/controller"
+	"github.com/sreehari2003/kseb/db"
 	"github.com/sreehari2003/kseb/middlewares"
 	"github.com/sreehari2003/kseb/router"
 )
@@ -17,6 +19,11 @@ func main() {
 		log.Fatal("Error loading .env file")
 	}
 	PORT := os.Getenv("PORT")
+	// initialising an instance of postgres db
+	db := db.Init()
+	// using dependency injection to pass instance
+	// of db to contoller functions
+	controller.New(db)
 	auth.Init()
 
 	router := router.CreateRoute()
