@@ -7,11 +7,8 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="#link">
-    <img src="app\assets\kseb_logo.png" alt="Logo" width="80" height="80">
-  </a>
 
-  <h3 align="center">KSEB Platform</h3>
+# <h1 align="center">KSEB</h1>
 
   <p align="center">
     We ensure security for kseb workers from their on-Site working environment 
