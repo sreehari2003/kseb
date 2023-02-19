@@ -11,4 +11,5 @@ func Connect() {
 		panic(err)
 	}
 	db.AutoMigrate()
+
 }
