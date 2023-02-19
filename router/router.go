@@ -1,6 +1,8 @@
 package router
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	"github.com/sreehari2003/kseb/docs"
 
@@ -20,5 +22,12 @@ func CreateRoute() *gin.Engine {
 	router := gin.Default()
 	// use ginSwagger middleware to serve the API docs
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	router.GET("/", func(c *gin.Context) {
+		res := map[string]interface{}{
+			"data": "Server is up and running",
+			"ok":   true,
+		}
+		c.JSON(http.StatusOK, res)
+	})
 	return router
 }
