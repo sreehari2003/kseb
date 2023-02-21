@@ -23,10 +23,10 @@ func main() {
 	db := db.Init()
 	// using dependency injection to pass instance
 	// of db to contoller functions
-	controller.New(db)
+	h := controller.New(db)
 	auth.Init()
 
-	router := router.CreateRoute()
+	router := router.CreateRoute(h)
 
 	// cors handling middlewares and supertokens middlewares
 	router.Use(middlewares.Cors())

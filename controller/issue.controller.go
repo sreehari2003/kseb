@@ -11,15 +11,15 @@ import (
 	"gorm.io/gorm"
 )
 
-type handler struct {
+type Handler struct {
 	DB *gorm.DB
 }
 
-func New(db *gorm.DB) handler {
-	return handler{db}
+func New(db *gorm.DB) Handler {
+	return Handler{db}
 }
 
-func (h handler) CreateIssue(c *gin.Context) {
+func (h Handler) CreateIssue(c *gin.Context) {
 	//clear previous error if any
 	errList := map[string]string{}
 	var issue = models.Issue{}
@@ -76,7 +76,7 @@ func (h handler) CreateIssue(c *gin.Context) {
 
 }
 
-func (h handler) GetAllIssues(c *gin.Context) {
+func (h Handler) GetAllIssues(c *gin.Context) {
 	// results will be stored in this variable
 	// if request is successful
 	var issues []models.Issue
@@ -85,4 +85,8 @@ func (h handler) GetAllIssues(c *gin.Context) {
 	}
 }
 
-func (h handler) GetIssueByID(c *gin.Context) {}
+func (h Handler) GetIssueByID(c *gin.Context) {}
+
+func Helo() string {
+	return "hello"
+}

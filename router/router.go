@@ -4,14 +4,14 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/sreehari2003/kseb/controller"
 	"github.com/sreehari2003/kseb/docs"
-
 	swaggerFiles "github.com/swaggo/files"
 
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func CreateRoute() *gin.Engine {
+func CreateRoute(h controller.Handler) *gin.Engine {
 	docs.SwaggerInfo.Title = "KSEB"
 	docs.SwaggerInfo.Description = "KSEB app development"
 	docs.SwaggerInfo.Version = "1.0"
@@ -29,5 +29,14 @@ func CreateRoute() *gin.Engine {
 		}
 		c.JSON(http.StatusOK, res)
 	})
+
+	v1 := router.Group("/api/v1")
+	issue := v1.Group("/issue")
+	{
+		// accesing controller by method
+		issue.POST("/", h.CreateIssue)
+		issue.GET("/", h.GetAllIssues)
+	}
+
 	return router
 }
