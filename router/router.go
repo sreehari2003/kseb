@@ -1,16 +1,17 @@
 package router
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/sreehari2003/kseb/docs"
 	"net/http"
 
+	"github.com/gin-gonic/gin"
+	"github.com/sreehari2003/kseb/controller"
+	"github.com/sreehari2003/kseb/docs"
 	swaggerFiles "github.com/swaggo/files"
 
 	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
-func CreateRoute() *gin.Engine {
+func CreateRoute(h controller.Handler) *gin.Engine {
 	docs.SwaggerInfo.Title = "KSEB"
 	docs.SwaggerInfo.Description = "KSEB app development"
 	docs.SwaggerInfo.Version = "1.0"
@@ -21,23 +22,21 @@ func CreateRoute() *gin.Engine {
 	router := gin.Default()
 	// use ginSwagger middleware to serve the API docs
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-	router.GET("/", HealthCheck)
-	return router
-}
+	router.GET("/", func(c *gin.Context) {
+		res := map[string]interface{}{
+			"data": "Server is up and running",
+			"ok":   true,
+		}
+		c.JSON(http.StatusOK, res)
+	})
 
-// HealthCheck godoc
-// @Summary Show the status of server.
-// @Description get the status of server.
-// @Tags root
-// @Accept */*
-// @Produce json
-// @Success 200 {object} map[string]interface{}
-// @Router / [get]
-func HealthCheck(c *gin.Context) {
-	res := map[string]interface{}{
-		"data": "Server is up and running",
-		"ok":   true,
+	v1 := router.Group("/api/v1")
+	issue := v1.Group("/issue")
+	{
+		// accesing controller by method
+		issue.POST("/", h.CreateIssue)
+		issue.GET("/", h.GetAllIssues)
 	}
 
-	c.JSON(http.StatusOK, res)
+	return router
 }
