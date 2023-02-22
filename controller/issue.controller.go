@@ -87,6 +87,3 @@ func (h Handler) GetAllIssues(c *gin.Context) {
 
 func (h Handler) GetIssueByID(c *gin.Context) {}
 
-func Helo() string {
-	return "hello"
-}
