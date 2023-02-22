@@ -11,7 +11,12 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@chakra-ui/next-js": "^2.0.1",
+    "@chakra-ui/react": "^2.5.1",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
     "@next/font": "13.1.6",
+    "framer-motion": "^9.0.7",
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
