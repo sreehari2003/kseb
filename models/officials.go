@@ -24,7 +24,9 @@ type Officials struct {
 // we might migrate to validation libraries later
 func (i *Officials) Validate() map[string]string {
 	var err error
-
+	// used this to validate the phon number is null or not
+	var checkNum *int
+	checkNum = &i.Phone
 	var errormessage = make(map[string]string)
 	if i.Name == "" {
 		err = errors.New("Required Name")
@@ -34,7 +36,7 @@ func (i *Officials) Validate() map[string]string {
 		err = errors.New("Required Role")
 		errormessage["Required_Role"] = err.Error()
 	}
-	if i.Phone == nil {
+	if checkNum == nil {
 		err = errors.New("Required phone")
 		errormessage["Required_phone"] = err.Error()
 	}

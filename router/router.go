@@ -36,6 +36,7 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 		// accesing controller by method
 		issue.POST("/", h.CreateIssue)
 		issue.GET("/", h.GetAllIssues)
+		issue.GET("/:id", h.GetIssueByID)
 	}
 
 	return router
