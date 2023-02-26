@@ -3,12 +3,15 @@ import {
   Button,
   Flex,
   Heading,
+  PinInput,
+  PinInputField,
   Input,
   InputGroup,
   InputLeftAddon,
   Text,
   Icon,
   Box,
+  HStack,
 } from '@chakra-ui/react';
 import { MdOutlineMessage } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
@@ -16,7 +19,7 @@ import { useState } from 'react';
 
 const Home = () => {
   const { register, handleSubmit } = useForm();
-  const [isOtpSent, setOtpSent] = useState<boolean>(true);
+  const [isOtpSent, setOtpSent] = useState<boolean>(false);
   const phoneSubmit = (data) => {
     setOtpSent(true);
     console.log(Number(data.phonenumber));
@@ -59,7 +62,31 @@ const Home = () => {
           </Flex>
         </Flex>
       )}
-      {isOtpSent && <h1>hello world</h1>}
+      {isOtpSent && (
+        <Flex alignItems="center" direction="column">
+          <Text as="b" mb={10} textAlign="end">
+            OTP
+          </Text>
+          <HStack mb={5}>
+            <PinInput>
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+              <PinInputField />
+            </PinInput>
+          </HStack>
+          <Button
+            type="submit"
+            size="md"
+            height="48px"
+            width="30%"
+            border="2px"
+            colorScheme="purple"
+          >
+            verify
+          </Button>
+        </Flex>
+      )}
     </Box>
   );
 };
