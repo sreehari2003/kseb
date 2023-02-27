@@ -13,7 +13,7 @@
     },
     "ecmaVersion": "latest",
     "sourceType": "module",
-    "project": "./web/tsconfig.json"
+    "project": "./tsconfig.json"
   },
   "settings": {
     "react": {
