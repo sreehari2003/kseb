@@ -27,9 +27,14 @@ type Officials struct {
 func (i *Officials) Validate() map[string]string {
 	var err error
 <<<<<<< HEAD
+<<<<<<< HEAD
 	// used this to validate the phon number is null or not
 	var checkNum *int
 	checkNum = &i.Phone
+=======
+	var j *int
+	j = &i.Phone
+>>>>>>> 5ad080b (feat:created officials controller)
 =======
 	var j *int
 	j = &i.Phone
@@ -44,7 +49,11 @@ func (i *Officials) Validate() map[string]string {
 		errormessage["Required_Role"] = err.Error()
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	if checkNum == nil {
+=======
+	if j == nil {
+>>>>>>> 5ad080b (feat:created officials controller)
 =======
 	if j == nil {
 >>>>>>> 5ad080b (feat:created officials controller)
