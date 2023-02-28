@@ -1,6 +1,8 @@
 package auth
 
 import (
+	"os"
+
 	"github.com/supertokens/supertokens-golang/recipe/passwordless"
 	"github.com/supertokens/supertokens-golang/recipe/passwordless/plessmodels"
 	"github.com/supertokens/supertokens-golang/recipe/session"
@@ -8,13 +10,14 @@ import (
 )
 
 func Init() {
+	SUPERTOKENS_URI := os.Getenv("SUPERTOKENS_URI")
+	SUPERTOKENS_API_KEY := os.Getenv("SUPERTOKENS_API_KEY")
 	apiBasePath := "/auth"
 	websiteBasePath := "/auth"
 	err := supertokens.Init(supertokens.TypeInput{
 		Supertokens: &supertokens.ConnectionInfo{
-			// https://try.supertokens.com is for demo purposes. Replace this with the address of your core instance (sign up on supertokens.com), or self host a core.
-			ConnectionURI: "https://try.supertokens.com",
-			// APIKey: <API_KEY(if configured)>,
+			ConnectionURI: SUPERTOKENS_URI,
+			APIKey:        SUPERTOKENS_API_KEY,
 		},
 		AppInfo: supertokens.AppInfo{
 			AppName:         "kseb",

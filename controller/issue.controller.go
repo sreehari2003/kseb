@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -72,6 +71,7 @@ func (h Handler) CreateIssue(c *gin.Context) {
 		"status":   http.StatusCreated,
 		"response": "Issue created successfully",
 		"ok":       true,
+		"data":     body,
 	})
 
 }
@@ -81,9 +81,35 @@ func (h Handler) GetAllIssues(c *gin.Context) {
 	// if request is successful
 	var issues []models.Issue
 	if result := h.DB.Find(&issues); result.Error != nil {
-		fmt.Println(result.Error)
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "couldn't find the issues",
+			"ok":     false,
+		})
 	}
+	c.JSON(http.StatusCreated, gin.H{
+		"status":   http.StatusCreated,
+		"response": "Issues read successfully",
+		"ok":       true,
+		"data":     issues,
+	})
 }
 
-func (h Handler) GetIssueByID(c *gin.Context) {}
+func (h Handler) GetIssueByID(c *gin.Context) {
+	var issues []models.Issue
+	id := c.Param("id")
+	if result := h.DB.Find(&issues, id); result.Error != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "couldn't find the issue",
+			"ok":     false,
+		})
+	}
 
+	c.JSON(http.StatusCreated, gin.H{
+		"status":   http.StatusCreated,
+		"response": "Issue read successfully",
+		"ok":       true,
+		"data":     issues,
+	})
+}
