@@ -8,16 +8,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/sreehari2003/kseb/models"
-	"gorm.io/gorm"
 )
-
-type HandlerOfficial struct {
-	DB *gorm.DB
-}
-
-func NewOffical(db *gorm.DB) Handler {
-	return Handler{db}
-}
 
 func (h Handler) CreateOffical(c *gin.Context) {
 	//clear previous error if any
