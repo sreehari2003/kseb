@@ -1,21 +1,23 @@
 package models
 
-import "errors"
+import (
+	"errors"
+)
 
 type ROLE string
 
 const (
-	// AE - Assistant Enginer
+	// AE - Assistant Engineer
 	AE ROLE = "AE"
-	// SE - sub enginer
+	// SE - sub engineer
 	SE ROLE = "SE"
-	//OV - overcier
+	//OV - overseer
 	OV ROLE = "OV"
 )
 
 type Officials struct {
 	Id    uint   `gorm:"primary_key;auto_increment" json:"id"`
-	Name  string `gorm:"size:255;not null" json:"title"`
+	Name  string `gorm:"size:255;not null" json:"name"`
 	Role  ROLE   `sql:"type:ENUM('SE', 'AE', 'OV')" gorm:"column:role"`
 	Phone int    `gorm:"not null" json:"phone"`
 }
@@ -24,9 +26,14 @@ type Officials struct {
 // we might migrate to validation libraries later
 func (i *Officials) Validate() map[string]string {
 	var err error
+<<<<<<< HEAD
 	// used this to validate the phon number is null or not
 	var checkNum *int
 	checkNum = &i.Phone
+=======
+	var j *int
+	j = &i.Phone
+>>>>>>> 5ad080b (feat:created officials controller)
 	var errormessage = make(map[string]string)
 	if i.Name == "" {
 		err = errors.New("Required Name")
@@ -36,7 +43,11 @@ func (i *Officials) Validate() map[string]string {
 		err = errors.New("Required Role")
 		errormessage["Required_Role"] = err.Error()
 	}
+<<<<<<< HEAD
 	if checkNum == nil {
+=======
+	if j == nil {
+>>>>>>> 5ad080b (feat:created officials controller)
 		err = errors.New("Required phone")
 		errormessage["Required_phone"] = err.Error()
 	}
