@@ -10,6 +10,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// struct
 type Handler struct {
 	DB *gorm.DB
 }
