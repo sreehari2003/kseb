@@ -6,6 +6,7 @@ import (
 	"github.com/supertokens/supertokens-golang/recipe/passwordless"
 	"github.com/supertokens/supertokens-golang/recipe/passwordless/plessmodels"
 	"github.com/supertokens/supertokens-golang/recipe/session"
+	"github.com/supertokens/supertokens-golang/recipe/userroles"
 	"github.com/supertokens/supertokens-golang/supertokens"
 )
 
@@ -33,7 +34,8 @@ func Init() {
 					Enabled: true,
 				},
 			}),
-			session.Init(nil), // initializes session features
+			session.Init(nil),   // initializes session features
+			userroles.Init(nil), // initialize user roles
 		},
 	})
 
