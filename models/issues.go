@@ -1,8 +1,13 @@
 package models
 
-import "errors"
+import (
+	"errors"
+
+	"gorm.io/gorm"
+)
 
 type Issue struct {
+	gorm.Model
 	Id     uint   `gorm:"primary_key;auto_increment" json:"id"`
 	Title  string `gorm:"size:255;not null" json:"title"`
 	Desc   string `gorm:"size:255;not null" json:"desc"`
