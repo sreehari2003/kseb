@@ -7,4 +7,7 @@ const config: ThemeConfig = {
 
 export const theme = extendTheme({
   config,
+  fonts: {
+    heading: `'Inter', sans-serif`,
+  },
 });
