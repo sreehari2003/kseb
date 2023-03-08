@@ -124,10 +124,11 @@ const App = () => {
       <IssueModal isOpen={isOpen} onClose={onClose} setData={setData} />
       <Box minH="100vh">
         <Flex
-          p="7"
+          p="7x"
           height="90px"
+          width="107%"
           backgroundColor="#7B8DDB"
-          justifyContent="space-between"
+          justifyContent="space-around"
           alignItems="center"
         >
           <Heading fontSize="30px" fontWeight="400">
