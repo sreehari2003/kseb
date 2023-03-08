@@ -1,7 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
 
-'use client';
-
 import {
   Button,
   Flex,
@@ -56,12 +54,12 @@ const Home = () => {
   };
 
   return (
-    <Box>
-      <Flex height="25vh" alignItems="center" justifyContent="center" mt={10}>
+    <Box p="7">
+      <Flex height="250px" alignItems="center" justifyContent="center" mt={10}>
         <Icon as={MdOutlineMessage} w={20} h={20} />
       </Flex>
       {!isOtpSent && (
-        <Flex height="75vh" alignItems="Flex-start" justifyContent="center">
+        <Flex alignItems="Flex-start" justifyContent="center">
           <Flex direction="column">
             <Text as="b" color="black" fontSize="2xl" mb={10} textAlign="center">
               Enter Mobile Number
