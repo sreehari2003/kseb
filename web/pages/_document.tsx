@@ -1,5 +1,5 @@
 import React from 'react';
-import NextDocument, { Html, Head, Main, NextScript } from 'next/document';
+import NextDocument, { Html, Main, NextScript, Head } from 'next/document';
 import { theme } from '@app/theme';
 import { ColorModeScript } from '@chakra-ui/react';
 
@@ -7,9 +7,7 @@ export default class Document extends NextDocument {
   render() {
     return (
       <Html lang="en">
-        <Head>
-          <title>Suraksha-KSEB</title>
-        </Head>
+        <Head />
         <body>
           <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <Main />
