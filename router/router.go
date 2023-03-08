@@ -44,8 +44,7 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 		issue.GET("/:id", h.GetIssueByID)
 	}
 
-	v2 := router.Group("/api/v2")
-	officials := v2.Group("/officials")
+	officials := v1.Group("/officials")
 	{
 		// accesing controller by method
 		officials.POST("/", h.CreateOffical)
