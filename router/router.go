@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sreehari2003/kseb/controller"
 	"github.com/sreehari2003/kseb/docs"
+	"github.com/sreehari2003/kseb/middlewares"
 	swaggerFiles "github.com/swaggo/files"
 
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -20,6 +21,11 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
 	router := gin.Default()
+
+	// cors handling middlewares and supertokens middlewares
+	router.Use(middlewares.Cors())
+	router.Use(middlewares.Supertokens())
+
 	// use ginSwagger middleware to serve the API docs
 	router.GET("/", func(c *gin.Context) {
 		res := map[string]interface{}{

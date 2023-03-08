@@ -21,7 +21,7 @@ func Init() {
 		},
 		AppInfo: supertokens.AppInfo{
 			AppName:         "kseb",
-			APIDomain:       "http://localhost:8080",
+			APIDomain:       "http://localhost:8000",
 			WebsiteDomain:   "http://localhost:3000",
 			APIBasePath:     &apiBasePath,
 			WebsiteBasePath: &websiteBasePath,

@@ -42,7 +42,7 @@
     "import/no-extraneous-dependencies": [
       "error",
       {
-        "devDependencies": ["**/*.e2e-spec.*", "**/*.spec.*", "**/*.test.*"],
+        "devDependencies": true,
         "peerDependencies": true
       }
     ]

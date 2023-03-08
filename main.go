@@ -8,7 +8,6 @@ import (
 	"github.com/sreehari2003/kseb/auth"
 	"github.com/sreehari2003/kseb/controller"
 	"github.com/sreehari2003/kseb/db"
-	"github.com/sreehari2003/kseb/middlewares"
 	"github.com/sreehari2003/kseb/router"
 )
 
@@ -27,10 +26,6 @@ func main() {
 	auth.Init()
 
 	router := router.CreateRoute(h)
-
-	// cors handling middlewares and supertokens middlewares
-	router.Use(middlewares.Cors())
-	router.Use(middlewares.Supertokens())
 
 	router.Run("localhost:" + PORT)
 	// use ginSwagger middleware to serve the API docs
