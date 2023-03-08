@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -17,7 +16,7 @@ func (h Handler) CreateOffical(c *gin.Context) {
 	body, err := io.ReadAll(c.Request.Body)
 	// if error in marsheling body
 	if err != nil {
-		errList["Invalid_body"] = "Unable to get request"
+		errList["Invalid_body"] = "invalid data provided"
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusUnprocessableEntity,
 			"error":  errList,
@@ -28,7 +27,7 @@ func (h Handler) CreateOffical(c *gin.Context) {
 
 	err = json.Unmarshal(body, &officials)
 	if err != nil {
-		errList["Invalid_body"] = "Unable to get request"
+		errList["Invalid_body"] = "Invalid data provided"
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusUnprocessableEntity,
 			"error":  errList,
@@ -49,7 +48,7 @@ func (h Handler) CreateOffical(c *gin.Context) {
 
 	// creating data in db
 	// if error send error to client
-	err = h.DB.Create(&body).Error
+	err = h.DB.Create(&officials).Error
 	if err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
@@ -63,6 +62,7 @@ func (h Handler) CreateOffical(c *gin.Context) {
 		"status":   http.StatusCreated,
 		"response": "Issue created successfully",
 		"ok":       true,
+		"data":     officials,
 	})
 
 }
@@ -72,8 +72,19 @@ func (h Handler) GetAllOfficials(c *gin.Context) {
 	// if request is successful
 	var Official []models.Officials
 	if result := h.DB.Find(&Official); result.Error != nil {
-		fmt.Println(result.Error)
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "couldn't save your data",
+			"ok":     false,
+		})
+		return
 	}
+	c.JSON(http.StatusCreated, gin.H{
+		"status":   http.StatusCreated,
+		"response": "Data read sfully",
+		"ok":       true,
+		"data":     Official,
+	})
 }
 
 func (h Handler) GetOfficialsByID(c *gin.Context) {}

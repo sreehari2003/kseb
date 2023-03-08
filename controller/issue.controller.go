@@ -12,7 +12,7 @@ import (
 
 type Handler struct {
 	DB *gorm.DB
-}																																																																																																																																																																																																																																																																																																																																																																																																
+}
 
 func New(db *gorm.DB) Handler {
 	return Handler{db}
@@ -25,7 +25,7 @@ func (h Handler) CreateIssue(c *gin.Context) {
 	body, err := io.ReadAll(c.Request.Body)
 	// if error in marsheling body
 	if err != nil {
-		errList["Invalid_body"] = "Unable to get request"
+		errList["Invalid_body"] = "error in reading user data"
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusUnprocessableEntity,
 			"error":  errList,
@@ -36,7 +36,7 @@ func (h Handler) CreateIssue(c *gin.Context) {
 
 	err = json.Unmarshal(body, &issue)
 	if err != nil {
-		errList["Invalid_body"] = "Unable to get request"
+		errList["Invalid_body"] = "error in reading user data"
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusUnprocessableEntity,
 			"error":  errList,
@@ -56,22 +56,14 @@ func (h Handler) CreateIssue(c *gin.Context) {
 	}
 
 	// creating data in db
-	// if error send error to client
-	err = h.DB.Create(&body).Error
-	if err != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{
-			"status": http.StatusInternalServerError,
-			"error":  "couldn't save your data",
-			"ok":     false,
-		})
-		return
-	}
+	h.DB.Create(&issue)
+
 	// sending succes message with data to client
 	c.JSON(http.StatusCreated, gin.H{
 		"status":   http.StatusCreated,
 		"response": "Issue created successfully",
 		"ok":       true,
-		"data":     body,
+		"data":     issue,
 	})
 
 }

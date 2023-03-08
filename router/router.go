@@ -21,7 +21,6 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 
 	router := gin.Default()
 	// use ginSwagger middleware to serve the API docs
-	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	router.GET("/", func(c *gin.Context) {
 		res := map[string]interface{}{
 			"data": "Server is up and running",
@@ -39,5 +38,6 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 		issue.GET("/:id", h.GetIssueByID)
 	}
 
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return router
 }
