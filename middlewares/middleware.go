@@ -1,6 +1,7 @@
 package middlewares
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-contrib/cors"
@@ -23,6 +24,7 @@ func Supertokens() gin.HandlerFunc {
 		supertokens.Middleware(http.HandlerFunc(
 			func(rw http.ResponseWriter, r *http.Request) {
 				c.Next()
+				fmt.Println(c.Request.Header)
 			})).ServeHTTP(c.Writer, c.Request)
 		// we call Abort so that the next handler in the chain is not called, unless we call Next explicitly
 		c.Abort()

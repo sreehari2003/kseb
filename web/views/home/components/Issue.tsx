@@ -13,33 +13,60 @@ import {
   ModalOverlay,
   Textarea,
   Flex,
+  useToast,
   FormErrorMessage,
 } from '@chakra-ui/react';
 import { InferType } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { issueValidator } from '@app/views/validator';
+import { surakshaAPI } from '@app/config';
 import { FileInput } from './File';
 
 interface Prop {
   isOpen: boolean;
   onClose: () => void;
+  setData: React.Dispatch<any>;
 }
 
 type Event = InferType<typeof issueValidator>;
 
-export const IssueModal = ({ isOpen, onClose }: Prop) => {
+export const IssueModal = ({ isOpen, onClose, setData }: Prop) => {
+  const toast = useToast();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<Event>({
     mode: 'onSubmit',
     resolver: yupResolver(issueValidator),
   });
 
-  const handleFormData: SubmitHandler<Event> = (data) => {
-    console.log(data);
+  const handleFormData: SubmitHandler<Event> = async (datas) => {
+    console.log(datas);
+    try {
+      const { data } = await surakshaAPI.post('/issue', datas);
+      if (!data.ok) {
+        throw new Error();
+      } else {
+        setData(data);
+        toast({
+          title: 'Issue creation Successfull.',
+          description: 'Issue was created successfully',
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        });
+      }
+    } catch {
+      toast({
+        title: 'Issue creation failed.',
+        description: 'Something went wrong when creating issue',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    }
   };
 
   return (
@@ -80,7 +107,7 @@ export const IssueModal = ({ isOpen, onClose }: Prop) => {
             <Button colorScheme="blue" w="40%" variant="outline" onClick={() => onClose()}>
               Cancel
             </Button>
-            <Button colorScheme="purple" w="40%" type="submit">
+            <Button colorScheme="purple" w="40%" type="submit" isLoading={isSubmitting}>
               Confirm
             </Button>
           </Flex>

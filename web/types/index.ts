@@ -1,3 +1,18 @@
 export type Child = {
   children: React.ReactNode;
 };
+
+export interface Issue {
+  CreatedAt: Date;
+  UpdatedAt: Date;
+  DeletedAt: Date;
+  id: number;
+  title: string;
+  desc: string;
+  post_id: string;
+}
+export interface Data {
+  data: Issue;
+  ok: boolean;
+  response: string;
+}
