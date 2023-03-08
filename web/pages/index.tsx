@@ -43,7 +43,7 @@ const App = () => {
           isClosable: true,
         });
       } finally {
-        setLoading(false);
+        setLoading(true);
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -73,7 +73,6 @@ const App = () => {
         </Flex>
         <Center
           flexWrap="wrap"
-          position="relative"
           flexDir={{ base: 'column', md: 'row' }}
           columnGap="50px"
           rowGap="50px"
