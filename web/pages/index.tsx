@@ -1,40 +1,70 @@
-import { Box, Flex, Heading, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Heading,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Button,
+  Icon,
+  useDisclosure,
+} from '@chakra-ui/react';
 import React from 'react';
 import { BsSearch } from 'react-icons/bs';
-import { Card } from '@app/views/home';
+import { GrAdd } from 'react-icons/gr';
+import { Card, IssueModal } from '@app/views/home';
 
-const App = () => (
-  <Box>
-    <Flex height="90px" width="100%" backgroundColor="#7B8DDB">
-      <Box height="24px" width="71px" ml="42px" mt="32px" mb="34px">
-        <Heading fontSize="19.98px" fontWeight="400" fontStyle="inter" lineHeight="24.18px">
-          ISSUES
+const App = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  return (
+    <Box width="100%" h="100vh">
+      <IssueModal isOpen={isOpen} onClose={onClose} />
+      <Flex
+        bg="red"
+        p="7"
+        height="90px"
+        backgroundColor="#7B8DDB"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Heading fontSize="30px" fontWeight="400">
+          Suraksha
         </Heading>
-      </Box>
-      <Box height="24" width="119px" ml="42px" mt="32px" mb="34px">
-        <Heading
-          fontSize="19.98px"
-          fontWeight="400"
-          fontStyle="inter"
-          lineHeight="24.18px"
-          color="white"
+        <Box>
+          <InputGroup>
+            <InputLeftElement pointerEvents="none">
+              <BsSearch />
+            </InputLeftElement>
+            <Input type="string" placeholder="search" />
+          </InputGroup>
+        </Box>
+      </Flex>
+      <Flex flexWrap="wrap" position="relative" flexDir={{ base: 'column', md: 'row' }}>
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Button
+          colorScheme="purple"
+          shadow="lg"
+          rounded="full"
+          right="90"
+          bottom="10"
+          position="fixed"
+          p="6"
+          onClick={() => onOpen()}
         >
-          ADDISSUES
-        </Heading>
-      </Box>
-      <Box mt="24px" ml="750px" mr="61px" mb="24.6px">
-        <InputGroup>
-          <InputLeftElement pointerEvents="none">
-            <BsSearch />
-          </InputLeftElement>
-          <Input type="tel" placeholder="search" />
-        </InputGroup>
-      </Box>
-    </Flex>
-    <Flex>
-      <Card />
-    </Flex>
-  </Box>
-);
+          <Icon as={GrAdd} color="white" fontSize="20px" />
+        </Button>
+      </Flex>
+    </Box>
+  );
+};
 
 export default App;
