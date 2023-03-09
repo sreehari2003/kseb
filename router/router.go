@@ -7,6 +7,7 @@ import (
 	"github.com/sreehari2003/kseb/controller"
 	"github.com/sreehari2003/kseb/docs"
 	"github.com/sreehari2003/kseb/middlewares"
+
 	swaggerFiles "github.com/swaggo/files"
 
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -21,10 +22,11 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
 	router := gin.Default()
-
 	// cors handling middlewares and supertokens middlewares
 	router.Use(middlewares.Cors())
+
 	router.Use(middlewares.Supertokens())
+	router.Use(gin.Recovery())
 
 	// use ginSwagger middleware to serve the API docs
 	router.GET("/", func(c *gin.Context) {
@@ -36,21 +38,15 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 	})
 
 	v1 := router.Group("/api/v1")
-	issue := v1.Group("/issue")
-	{
-		// accesing controller by method
-		issue.POST("/", h.CreateIssue)
-		issue.GET("/", h.GetAllIssues)
-		issue.GET("/:id", h.GetIssueByID)
-	}
+	// accesing controller by method
+	v1.POST("/issue", h.CreateIssue)
+	v1.GET("/issue", h.GetAllIssues)
+	v1.GET("/issue/:id", h.GetIssueByID)
 
-	officials := v1.Group("/officials")
-	{
-		// accesing controller by method
-		officials.POST("/", h.CreateOffical)
-		officials.GET("/", h.GetAllOfficials)
-		officials.GET("/:id", h.GetOfficialsByID)
-	}
+	// accesing controller by method
+	v1.POST("/officials", h.CreateOffical)
+	v1.GET("/officials", h.GetAllOfficials)
+	v1.GET("/officials/:id", h.GetOfficialsByID)
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return router
