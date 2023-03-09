@@ -20,8 +20,10 @@ import { BsSearch } from 'react-icons/bs';
 import { Issue } from '@app/types';
 
 import { surakshaAPI } from '@app/config';
+import { NextPageWithLayout } from 'next';
+import { BaseLayout} from "@app/layout"
 
-const App = () => {
+const App :NextPageWithLayout= () => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState<Issue[] | null>(null);
@@ -53,25 +55,7 @@ const App = () => {
   if (isLoading) {
     return (
       <Box minH="100vh">
-        <Flex
-          p="7"
-          height="90px"
-          backgroundColor="#7B8DDB"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Heading fontSize="30px" fontWeight="400">
-            Suraksha
-          </Heading>
-          <Box>
-            <InputGroup>
-              <InputLeftElement pointerEvents="none">
-                <BsSearch />
-              </InputLeftElement>
-              <Input type="string" placeholder="search" />
-            </InputGroup>
-          </Box>
-        </Flex>
+         <IssueModal isOpen={isOpen} onClose={onClose} setData={setData} />
         <Center
           flexWrap="wrap"
           flexDir={{ base: 'column', md: 'row' }}
@@ -115,6 +99,18 @@ const App = () => {
             <SkeletonCircle size="10" />
             <SkeletonText mt="4" noOfLines={6} spacing="4" skeletonHeight="2" />
           </Box>
+          <Button
+            colorScheme="purple"
+            shadow="lg"
+            rounded="full"
+            right={{ base: '10', md: '90' }}
+            bottom="10"
+            position="fixed"
+            p="6"
+            onClick={() => onOpen()}
+          >
+            <Icon as={GrAdd} color="white" fontSize="20px" />
+          </Button>
         </Center>
       </Box>
     );
@@ -124,25 +120,7 @@ const App = () => {
     <>
       <IssueModal isOpen={isOpen} onClose={onClose} setData={setData} />
       <Box minH="100vh">
-        <Flex
-          p="7"
-          height="90px"
-          backgroundColor="#7B8DDB"
-          justifyContent="space-between"
-          alignItems="center"
-        >
-          <Heading fontSize="30px" fontWeight="400">
-            Suraksha
-          </Heading>
-          <Box>
-            <InputGroup>
-              <InputLeftElement pointerEvents="none">
-                <BsSearch />
-              </InputLeftElement>
-              <Input type="string" placeholder="search" />
-            </InputGroup>
-          </Box>
-        </Flex>
+     
         <Center
           flexWrap="wrap"
           position="relative"
@@ -180,5 +158,7 @@ const App = () => {
     </>
   );
 };
+
+App.Layout = BaseLayout;
 
 export default App;
