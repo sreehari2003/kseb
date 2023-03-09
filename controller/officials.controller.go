@@ -81,10 +81,27 @@ func (h Handler) GetAllOfficials(c *gin.Context) {
 	}
 	c.JSON(http.StatusCreated, gin.H{
 		"status":   http.StatusCreated,
-		"response": "Data read sfully",
+		"response": "Data read successfully",
 		"ok":       true,
 		"data":     Official,
 	})
 }
 
-func (h Handler) GetOfficialsByID(c *gin.Context) {}
+func (h Handler) GetOfficialsByID(c *gin.Context) {
+	var Officials []models.Officials
+	id := c.Param("id")
+	if result := h.DB.Find(&Officials, id); result.Error != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "couldn't find the data",
+			"ok":     false,
+		})
+	}
+
+	c.JSON(http.StatusCreated, gin.H{
+		"status":   http.StatusCreated,
+		"response": "Data read successfully",
+		"ok":       true,
+		"data":     Officials,
+	})
+}
