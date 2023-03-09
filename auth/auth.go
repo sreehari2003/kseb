@@ -13,7 +13,7 @@ func Init() {
 	SUPERTOKENS_URI := os.Getenv("SUPERTOKENS_URI")
 	SUPERTOKENS_API_KEY := os.Getenv("SUPERTOKENS_API_KEY")
 	apiBasePath := "/auth"
-	websiteBasePath := "/auth"
+	websiteBasePath := "/"
 	err := supertokens.Init(supertokens.TypeInput{
 		Supertokens: &supertokens.ConnectionInfo{
 			ConnectionURI: SUPERTOKENS_URI,

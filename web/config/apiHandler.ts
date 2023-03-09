@@ -6,7 +6,7 @@ export const surakshaAPI = Axios.create({
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-  },
+  }
 });
 
 Session.addAxiosInterceptors(surakshaAPI);
