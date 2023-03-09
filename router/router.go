@@ -38,21 +38,15 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 	})
 
 	v1 := router.Group("/api/v1")
-	issue := v1.Group("/issue")
-	{
-		// accesing controller by method
-		issue.POST("/", h.CreateIssue)
-		issue.GET("/", h.GetAllIssues)
-		issue.GET("/:id", h.GetIssueByID)
-	}
+	// accesing controller by method
+	v1.POST("/issue", h.CreateIssue)
+	v1.GET("/issue", h.GetAllIssues)
+	v1.GET("/issue/:id", h.GetIssueByID)
 
-	officials := v1.Group("/officials")
-	{
-		// accesing controller by method
-		officials.POST("/", h.CreateOffical)
-		officials.GET("/", h.GetAllOfficials)
-		officials.GET("/:id", h.GetOfficialsByID)
-	}
+	// accesing controller by method
+	v1.POST("/officials", h.CreateOffical)
+	v1.GET("/officials", h.GetAllOfficials)
+	v1.GET("/officials/:id", h.GetOfficialsByID)
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return router
