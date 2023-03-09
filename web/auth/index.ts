@@ -6,7 +6,7 @@ export const authConfig = () => ({
     appName: 'kseb',
     apiDomain: 'http://localhost:8000',
     websiteDomain: 'http://localhost:3000',
-    apiBasePath: '/api',
+    apiBasePath: '/otp',
     websiteBasePath: '/auth',
   },
   recipeList: [

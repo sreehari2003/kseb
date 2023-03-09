@@ -26,6 +26,7 @@ const App = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState<Issue[] | null>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
+  console.log(data);
   useEffect(() => {
     (async () => {
       try {
@@ -43,7 +44,7 @@ const App = () => {
           isClosable: true,
         });
       } finally {
-        setLoading(true);
+        setLoading(false);
       }
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
