@@ -4,31 +4,24 @@ import {
   Center,
   Icon,
   useDisclosure,
-  Heading,
-  InputGroup,
-  Flex,
-  Input,
   useToast,
-  InputLeftElement,
   SkeletonCircle,
   SkeletonText,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { GrAdd } from 'react-icons/gr';
 import { Card, IssueModal } from '@app/views/home';
-import { BsSearch } from 'react-icons/bs';
 import { Issue } from '@app/types';
 
 import { surakshaAPI } from '@app/config';
 import { NextPageWithLayout } from 'next';
-import { BaseLayout} from "@app/layout"
+import { BaseLayout } from '@app/layout';
 
-const App :NextPageWithLayout= () => {
+const App: NextPageWithLayout = () => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState<Issue[] | null>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
-  console.log(data);
   useEffect(() => {
     (async () => {
       try {
@@ -55,7 +48,7 @@ const App :NextPageWithLayout= () => {
   if (isLoading) {
     return (
       <Box minH="100vh">
-         <IssueModal isOpen={isOpen} onClose={onClose} setData={setData} />
+        <IssueModal isOpen={isOpen} onClose={onClose} setData={setData} />
         <Center
           flexWrap="wrap"
           flexDir={{ base: 'column', md: 'row' }}
@@ -120,7 +113,6 @@ const App :NextPageWithLayout= () => {
     <>
       <IssueModal isOpen={isOpen} onClose={onClose} setData={setData} />
       <Box minH="100vh">
-     
         <Center
           flexWrap="wrap"
           position="relative"
