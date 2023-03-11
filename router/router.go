@@ -48,6 +48,11 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 	v1.GET("/officials", h.GetAllOfficials)
 	v1.GET("/officials/:id", h.GetOfficialsByID)
 
+	// accesing controller by method
+	v1.POST("/form", h.CreateForm)
+	v1.GET("/form", h.GetAllForm)
+	v1.GET("/form/:id", h.GetFormByID)
+
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return router
 }
