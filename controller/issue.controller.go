@@ -105,21 +105,3 @@ func (h Handler) GetIssueByID(c *gin.Context) {
 		"data":     issues,
 	})
 }
-func (h Handler) SearchIssuesByTitle(c *gin.Context) {
-	var issues []models.Issue
-	title := c.Query("title")
-	if result := h.DB.Where("title = ?", title).Find(&issues); result.Error != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{
-			"status": http.StatusInternalServerError,
-			"error":  "couldn't find the issues",
-			"ok":     false,
-		})
-	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"status":   http.StatusOK,
-		"response": "Issues search successful",
-		"ok":       true,
-		"data":     issues,
-	})
-}

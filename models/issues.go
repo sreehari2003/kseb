@@ -8,10 +8,12 @@ import (
 
 type Issue struct {
 	gorm.Model
-	Id     uint   `gorm:"primary_key;auto_increment" json:"id"`
-	Title  string `gorm:"size:255;not null" json:"title"`
-	Desc   string `gorm:"size:255;not null" json:"desc"`
-	PostID string `gorm:"not null" json:"post_id"`
+	Id      uint   `gorm:"primary_key;auto_increment" json:"id"`
+	Title   string `gorm:"size:255;not null" json:"title"`
+	Desc    string `gorm:"size:255;not null" json:"desc"`
+	PostID  string `gorm:"not null" json:"post_id"`
+	Form    Form   `gorm:"foreignkey:IssueID"`
+	IssueID uint
 }
 
 // custom vaidation for body data from backend
@@ -33,3 +35,11 @@ func (i *Issue) Validate() map[string]string {
 	}
 	return errormessage
 }
+
+// func GetIssueWithForm(db *gorm.DB, issueID uint) (*Issue, error) {
+// 	var issue Issue
+// 	if err := db.Preload("Form").First(&issue, issueID).Error; err != nil {
+// 		return nil, err
+// 	}
+// 	return &issue, nil
+// }
