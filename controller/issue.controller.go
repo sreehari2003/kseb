@@ -105,3 +105,22 @@ func (h Handler) GetIssueByID(c *gin.Context) {
 		"data":     issues,
 	})
 }
+
+func (h Handler) GetIssueWithFormHandler(c *gin.Context) {
+	id := c.Param("id")
+	var issue models.Issue
+	if result := h.DB.Preload("Form").First(&issue, id); result.Error != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "couldn't find the issue",
+			"ok":     false,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": "Issue read successfully",
+		"ok":       true,
+		"data":     issue,
+	})
+}
