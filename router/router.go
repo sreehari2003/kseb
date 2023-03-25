@@ -42,7 +42,6 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 	v1.POST("/issue", h.CreateIssue)
 	v1.GET("/issue", h.GetAllIssues)
 	v1.GET("/issue/:id", h.GetIssueByID)
-	// v1.g
 
 	// accesing controller by method
 	v1.POST("/officials", h.CreateOffical)
