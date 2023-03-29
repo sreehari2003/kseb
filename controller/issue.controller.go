@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -54,7 +55,6 @@ func (h Handler) CreateIssue(c *gin.Context) {
 		})
 		return
 	}
-
 	// creating data in db
 	h.DB.Create(&issue)
 
@@ -122,5 +122,29 @@ func (h Handler) GetIssueWithFormHandler(c *gin.Context) {
 		"response": "Issue read successfully",
 		"ok":       true,
 		"data":     issue,
+	})
+}
+
+func (h Handler) DeleteAllIssue(c *gin.Context) {
+	var issues []models.Issue
+	if err := h.DB.Preload("Form").Find(&issues).Error; err != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "couldn't Delete the issue",
+			"ok":     false,
+		})
+	}
+
+	for _, issue := range issues {
+		h.DB.Delete(&issue)
+	}
+
+	fmt.Print("api is here nice")
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": "All Issue Was Deleted successfully",
+		"ok":       true,
+		"data":     nil,
 	})
 }
