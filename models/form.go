@@ -18,7 +18,7 @@ type Form struct {
 	Transformer    string `gorm:"not null" json:"transformer"`
 	PostNO         string `gorm:"not null" json:"postno"`
 	ConsumerNO     int    `gorm:"not null" json:"consumerno"`
-	JobDiscription string `gorm:"not null" json:"jobdiscription"`
+	JobDescription string `gorm:"not null" json:"jobdescription"`
 	Nooflabours    int    `gorm:"not null" json:"nooflabours"`
 	IssueID        uint   `gorm:"uniqueIndex"`
 }
@@ -76,13 +76,13 @@ func (i *Form) Validate() map[string]string {
 		err = errors.New("Required ConsumerNO")
 		errormessage["Required_ConsumerNO"] = err.Error()
 	}
-	if i.JobDiscription == "" {
-		err = errors.New("Required JobDiscription")
-		errormessage["Required_JobDiscription"] = err.Error()
+	if i.JobDescription == "" {
+		err = errors.New("Required JobDescription")
+		errormessage["Required_JobDescription"] = err.Error()
 	}
 	if checkNooflabours == nil {
-		err = errors.New("Required Nooflabours")
-		errormessage["Required_Nooflabours"] = err.Error()
+		err = errors.New("Required No_of_labours")
+		errormessage["Required_No_of_labours"] = err.Error()
 	}
 
 	return errormessage
