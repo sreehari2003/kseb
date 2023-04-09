@@ -12,6 +12,7 @@ type Issue struct {
 	Title  string `gorm:"size:255;not null" json:"title"`
 	Desc   string `gorm:"size:255;not null" json:"desc"`
 	PostID string `gorm:"not null" json:"post_id"`
+	Form   *Form  `gorm:"foreignKey:IssueID;constraint:OnDelete:CASCADE;"`
 }
 
 // custom vaidation for body data from backend

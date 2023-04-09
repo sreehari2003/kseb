@@ -1,21 +1,35 @@
+import { Box, Heading, Flex, Text } from '@chakra-ui/react';
 import { Issue } from '@app/types';
-import { Box, Heading } from '@chakra-ui/react';
+import dayjs from 'dayjs';
 import React from 'react';
+import { useRouter } from 'next/router';
 
-export const Card = ({ id, title, desc, post_id }: Issue) => (
-  <Box borderWidth="1px" borderRadius="13.42px" color="#FFFFFF" height="306px" width="402.63px">
+export const Card = ({ id, title, desc, post_id, CreatedAt, UpdatedAt }: Issue) => {
+  const router = useRouter();
+
+  return (
     <Box
       borderWidth="1px"
       borderRadius="13.42px"
-      backgroundColor="#D9D9D9"
-      height="123.47px"
-      width="362.37px"
-      ml="20.13px"
-      mt="20.13px"
-    />
-    <Heading color="black">{desc}</Heading>
-    <Heading color="black">{id}</Heading>
-    <Heading color="black">{title}</Heading>
-    <Heading color="black">{post_id}</Heading>
-  </Box>
-);
+      color="#FFFFFF"
+      minHeight="306px"
+      width="402.63px"
+      p="4"
+      onClick={() => router.push(`/${id}`)}
+    >
+      <Flex justifyContent="space-between" mb="15px">
+        <Text color="grey">{dayjs(CreatedAt).format('DD/MM/YYYY')}</Text>
+        <Text color="grey">Updated:{dayjs(UpdatedAt).format('DD/MM/YYYY')}</Text>
+      </Flex>
+      <Heading color="black" fontSize="25px" mb="20px">
+        {title.toLocaleUpperCase()}
+      </Heading>
+      <Heading color="black" fontSize="20px">
+        Post number:{post_id}
+      </Heading>
+      <Text color="black" mt="20px">
+        {desc}
+      </Text>
+    </Box>
+  );
+};
