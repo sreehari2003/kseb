@@ -10,9 +10,22 @@ import (
 )
 
 func (h Handler) CreateForm(c *gin.Context) {
+	var issues []models.Issue
+
 	//clear previous error if any
 	errList := map[string]string{}
 	var form = models.Form{}
+	// accessing the issue id from request params
+	id := c.Query("id")
+	// next need to verify that whether the issue with\
+	// this ID exist or not ?
+	if result := h.DB.Find(&issues, id); result.Error != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "couldn't find the issue",
+			"ok":     false,
+		})
+	}
 	body, err := io.ReadAll(c.Request.Body)
 	// if error in marsheling body
 	if err != nil {
@@ -46,9 +59,11 @@ func (h Handler) CreateForm(c *gin.Context) {
 		return
 	}
 
+	// child := models.Form{body, issueID: id}
+
 	// creating data in db
 	// if error send error to client
-	err = h.DB.Create(&form).Error
+	// err := h.DB.Create(child).Error
 	if err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
