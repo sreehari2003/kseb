@@ -12,13 +12,13 @@ import {
   NumberInputField,
   Checkbox,
   Stack,
-  Center,
   FormControl,
   FormLabel,
   InputGroup,
   InputLeftAddon,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+
 const Home = () => {
   const [showNextPage1, setShowNextPage1] = useState(false);
   const [showNextPage2, setShowNextPage2] = useState(false);
@@ -112,7 +112,7 @@ const Home = () => {
             <FormControl id="input2" mb={4}>
               <FormLabel mb="3">PTW allows for the above work</FormLabel>
               <InputGroup mb="3">
-                <InputLeftAddon children="PTW no." />
+                <InputLeftAddon>PTW no.</InputLeftAddon>
                 <Input placeholder="0000" value={input8Value} onChange={handleInput8Change} />
               </InputGroup>
             </FormControl>
@@ -148,7 +148,7 @@ const Home = () => {
           <Text fontWeight="bold" mb="3">
             Section
           </Text>
-          <Input mb="3" variant="flushed"></Input>
+          <Input mb="3" variant="flushed" />
           <Text fontWeight="bold" mb="5">
             Nature of work
           </Text>
@@ -169,7 +169,7 @@ const Home = () => {
           <Text fontWeight="bold" mb="3">
             Job work reg.no./Complaint no.
           </Text>
-          <Input mb="3" variant="flushed"></Input>
+          <Input mb="3" variant="flushed" />
           <Text fontWeight="bold" mb="5">
             Voltage of electric conductor{' '}
           </Text>
@@ -181,11 +181,11 @@ const Home = () => {
             </NumberInputStepper>
           </NumberInput>
           <Text fontWeight="bold">place of work</Text>
-          <Input mb="3" variant="flushed"></Input>
+          <Input mb="3" variant="flushed" />
           <Text mb="3" fontWeight="bold">
             place of disconnection
           </Text>
-          <Input mb="3" variant="flushed"></Input>
+          <Input mb="3" variant="flushed" />
           <Flex justifyContent="space-between">
             <Button colorScheme="teal" mb="5" variant="outline" w="45%">
               Cancel
