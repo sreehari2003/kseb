@@ -6,6 +6,7 @@ require (
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.8.2
 	github.com/supertokens/supertokens-golang v0.9.14
+	gorm.io/gorm v1.24.5
 )
 
 require (
@@ -14,7 +15,6 @@ require (
 	github.com/jackc/pgx/v5 v5.3.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
-	gorm.io/gorm v1.24.5 // indirect
 )
 
 require (
@@ -52,9 +52,6 @@ require (
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/shurcooL/sanitized_anchor_name v1.0.0 // indirect
 	github.com/stretchr/testify v1.8.1 // indirect
-	github.com/swaggo/files v1.0.0
-	github.com/swaggo/gin-swagger v1.5.3
-	github.com/swaggo/swag v1.8.10
 	github.com/twilio/twilio-go v0.26.0 // indirect
 	github.com/ugorji/go/codec v1.2.9 // indirect
 	github.com/urfave/cli/v2 v2.24.3 // indirect

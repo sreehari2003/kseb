@@ -55,7 +55,7 @@ const Home = () => {
 
   return (
     <Box p="7">
-      <Flex height="250px" alignItems="center" justifyContent="center" mt={10}>
+      <Flex h="250" alignItems="center" justifyContent="center" mt={10}>
         <Icon as={MdOutlineMessage} w={20} h={20} />
       </Flex>
       {!isOtpSent && (

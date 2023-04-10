@@ -21,6 +21,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { issueValidator } from '@app/views/validator';
 import { surakshaAPI } from '@app/config';
+import { Issue } from '@app/types';
 import { FileInput } from './File';
 
 interface Prop {
@@ -43,13 +44,12 @@ export const IssueModal = ({ isOpen, onClose, setData }: Prop) => {
   });
 
   const handleFormData: SubmitHandler<Event> = async (datas) => {
-    console.log(datas);
     try {
       const { data } = await surakshaAPI.post('/issue', datas);
       if (!data.ok) {
         throw new Error();
       } else {
-        setData(data);
+        setData((el: Issue[]) => [...el, data.data]);
         toast({
           title: 'Issue creation Successfull.',
           description: 'Issue was created successfully',
