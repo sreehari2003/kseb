@@ -1,4 +1,5 @@
 export type NextState = {
-  changeStep: React.Dispatch<number>;
+  nextStep: () => void;
+  prevStep: () => void;
   currentStep: number;
 };
