@@ -8,52 +8,57 @@ import {
   NumberInputStepper,
   NumberIncrementStepper,
   NumberDecrementStepper,
-  Box,
-  Text,
+  FormControl,
+  FormLabel,
 } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
 import React from 'react';
 import { Select } from 'chakra-react-select';
 
+const typeOfWork = [
+  { label: 'Capital', value: 'Capital' },
+  { label: 'Maintainence', value: 'Maintainence' },
+  { label: 'Break-Down', value: 'Break-Down' },
+  { label: 'Revenue', value: 'Revenue' },
+];
+
 export const One = () => {
   const { register } = useFormContext();
   return (
-    <Box p="5">
-      <Flex alignItems="Flex-start" justifyContent="center">
-        <Flex direction="column" w="70%">
-          <Heading textAlign="center" mb="5">
-            PART 1
-          </Heading>
-          <Text fontWeight="bold" mb="3">
-            Section
-          </Text>
-          <Input mb="3" variant="flushed" {...register('')} />
-          <Text fontWeight="bold" mb="5">
-            Nature of work
-          </Text>
-          <Select />
-          <Text fontWeight="bold" mb="3">
-            Job work reg.no./Complaint no.
-          </Text>
-          <Input mb="3" variant="flushed" />
-          <Text fontWeight="bold" mb="5">
-            Voltage of electric conductor{' '}
-          </Text>
-          <NumberInput mb="5" defaultValue={220} size="sm" maxW={24}>
-            <NumberInputField />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
-          </NumberInput>
-          <Text fontWeight="bold">place of work</Text>
-          <Input mb="3" variant="flushed" />
-          <Text mb="3" fontWeight="bold">
-            place of disconnection
-          </Text>
-          <Input mb="3" variant="flushed" />
-        </Flex>
-      </Flex>
-    </Box>
+    <Flex direction="column" w="800px" mt="50px">
+      <Heading textAlign="center" mb="5">
+        Offical form (Part 1)
+      </Heading>
+      <FormControl>
+        <FormLabel>Section</FormLabel>
+        <Input mb="3" {...register('section')} />
+      </FormControl>
+      <FormControl mb="3">
+        <FormLabel>Nature of work</FormLabel>
+        <Select options={typeOfWork} />
+      </FormControl>
+      <FormControl>
+        <FormLabel>Job work reg.no./Complaint no.</FormLabel>
+        <Input />
+      </FormControl>
+      <FormControl>
+        <FormLabel>Voltage of electric conductor </FormLabel>
+        <NumberInput mb="5" defaultValue={220} size="sm" maxW={24}>
+          <NumberInputField />
+          <NumberInputStepper>
+            <NumberIncrementStepper />
+            <NumberDecrementStepper />
+          </NumberInputStepper>
+        </NumberInput>
+      </FormControl>
+      <FormControl>
+        <FormLabel>place of work</FormLabel>
+        <Input mb="3" />
+      </FormControl>
+      <FormControl>
+        <FormLabel mb="3">place of disconnection</FormLabel>
+        <Input mb="3" />
+      </FormControl>
+    </Flex>
   );
 };

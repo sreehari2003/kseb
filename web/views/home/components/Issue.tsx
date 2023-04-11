@@ -104,10 +104,10 @@ export const IssueModal = ({ isOpen, onClose, setData }: Prop) => {
           </ModalBody>
 
           <Flex justifyContent="space-around" mt="20px" mb="20px">
-            <Button colorScheme="blue" w="40%" variant="outline" onClick={() => onClose()}>
+            <Button colorScheme="teal" w="40%" variant="outline" onClick={() => onClose()}>
               Cancel
             </Button>
-            <Button bg="#9F82F2" w="40%" type="submit" isLoading={isSubmitting}>
+            <Button colorScheme="teal" w="40%" type="submit" isLoading={isSubmitting}>
               Confirm
             </Button>
           </Flex>

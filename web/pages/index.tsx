@@ -93,7 +93,7 @@ const App: NextPageWithLayout = () => {
             <SkeletonText mt="4" noOfLines={6} spacing="4" skeletonHeight="2" />
           </Box>
           <Button
-            colorScheme="purple"
+            colorScheme="teal"
             shadow="lg"
             rounded="full"
             right={{ base: '10', md: '90' }}
@@ -134,7 +134,7 @@ const App: NextPageWithLayout = () => {
               />
             ))}
           <Button
-            colorScheme="purple"
+            colorScheme="teal"
             shadow="lg"
             rounded="full"
             right={{ base: '10', md: '90' }}

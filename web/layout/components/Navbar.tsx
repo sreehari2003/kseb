@@ -1,13 +1,12 @@
-import { Box, Flex, Heading, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
-import React from 'react'
-import { BsSearch } from 'react-icons/bs'
+import { Box, Flex, Heading, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
+import React from 'react';
+import { BsSearch } from 'react-icons/bs';
 
-export const Navbar = () => {
-  return (
-    <Flex
+export const Navbar = () => (
+  <Flex
     p="7"
     height="90px"
-    backgroundColor="#9F82F2"
+    backgroundColor="teal"
     justifyContent="space-between"
     boxShadow="md"
     alignItems="center"
@@ -20,12 +19,11 @@ export const Navbar = () => {
         <InputLeftElement pointerEvents="none">
           <BsSearch />
         </InputLeftElement>
-        <Input type="string" placeholder="search"  bg="white"/>
+        <Input type="string" placeholder="search" bg="white" />
       </InputGroup>
     </Box>
     <Box>
       <Heading>fb</Heading>
     </Box>
   </Flex>
-  )
-}
+);
