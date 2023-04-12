@@ -25,7 +25,7 @@ const typeOfWork = [
 export const One = () => {
   const { register } = useFormContext();
   return (
-    <Flex direction="column" w="800px" mt="50px">
+    <Flex direction="column" w={{ base: '400px', md: '800px' }} mt="50px">
       <Heading textAlign="center" mb="5">
         Offical form (Part 1)
       </Heading>

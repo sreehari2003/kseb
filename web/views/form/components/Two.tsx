@@ -2,7 +2,7 @@ import { Flex, FormControl, FormLabel, Input, InputGroup, InputLeftAddon } from 
 import React from 'react';
 
 export const Two = () => (
-  <Flex justifyContent="center" w="800px">
+  <Flex justifyContent="center" w={{ base: '400px', md: '800px' }}>
     <Flex direction="column" w="100%">
       <FormControl id="input1" mb={4}>
         <FormLabel mt="10" mb="3">

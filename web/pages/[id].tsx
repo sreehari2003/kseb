@@ -5,15 +5,15 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InferType } from 'yup';
 import { One, Two, NavigationButtons, Three } from '@app/views/form';
-import { form } from '@app/views/validator';
+import { formOne } from '@app/views/validator';
 import { BaseLayout } from '@app/layout';
 
-type FormType = InferType<typeof form>;
+type FormType = InferType<typeof formOne>;
 
 const Home = () => {
   const methods = useForm<FormType>({
     mode: 'all',
-    resolver: yupResolver(form),
+    resolver: yupResolver(formOne),
   });
   const [currentStep, setCurrentStep] = useState<number>(1);
   const nextStep = () => {
