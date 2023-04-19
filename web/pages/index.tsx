@@ -1,16 +1,7 @@
-import {
-  Box,
-  Button,
-  Center,
-  Icon,
-  useDisclosure,
-  useToast,
-  SkeletonCircle,
-  SkeletonText,
-} from '@chakra-ui/react';
+import { Box, Button, Center, Icon, useDisclosure, useToast, Heading } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { GrAdd } from 'react-icons/gr';
-import { Card, IssueModal } from '@app/views/home';
+import { Card, IssueModal, Loader } from '@app/views/home';
 import { Issue } from '@app/types';
 
 import { surakshaAPI } from '@app/config';
@@ -46,67 +37,7 @@ const App: NextPageWithLayout = () => {
   }, []);
 
   if (isLoading) {
-    return (
-      <Box minH="100vh">
-        <IssueModal isOpen={isOpen} onClose={onClose} setData={setData} />
-        <Center
-          flexWrap="wrap"
-          flexDir={{ base: 'column', md: 'row' }}
-          columnGap="50px"
-          rowGap="50px"
-          p="6"
-        >
-          <Box padding="6" boxShadow="lg" bg="white" w="400px" h="300px">
-            <SkeletonCircle size="10" />
-            <SkeletonText mt="4" noOfLines={6} spacing="4" skeletonHeight="2" />
-          </Box>
-          <Box padding="6" boxShadow="lg" bg="white" w="400px" h="300px">
-            <SkeletonCircle size="10" />
-            <SkeletonText mt="4" noOfLines={6} spacing="4" skeletonHeight="2" />
-          </Box>
-          <Box padding="6" boxShadow="lg" bg="white" w="400px" h="300px">
-            <SkeletonCircle size="10" />
-            <SkeletonText mt="4" noOfLines={6} spacing="4" skeletonHeight="2" />
-          </Box>
-          <Box padding="6" boxShadow="lg" bg="white" w="400px" h="300px">
-            <SkeletonCircle size="10" />
-            <SkeletonText mt="4" noOfLines={6} spacing="4" skeletonHeight="2" />
-          </Box>
-          <Box padding="6" boxShadow="lg" bg="white" w="400px" h="300px">
-            <SkeletonCircle size="10" />
-            <SkeletonText mt="4" noOfLines={6} spacing="4" skeletonHeight="2" />
-          </Box>
-          <Box padding="6" boxShadow="lg" bg="white" w="400px" h="300px">
-            <SkeletonCircle size="10" />
-            <SkeletonText mt="4" noOfLines={6} spacing="4" skeletonHeight="2" />
-          </Box>
-          <Box padding="6" boxShadow="lg" bg="white" w="400px" h="300px">
-            <SkeletonCircle size="10" />
-            <SkeletonText mt="4" noOfLines={6} spacing="4" skeletonHeight="2" />
-          </Box>
-          <Box padding="6" boxShadow="lg" bg="white" w="400px" h="300px">
-            <SkeletonCircle size="10" />
-            <SkeletonText mt="4" noOfLines={6} spacing="4" skeletonHeight="2" />
-          </Box>
-          <Box padding="6" boxShadow="lg" bg="white" w="400px" h="300px">
-            <SkeletonCircle size="10" />
-            <SkeletonText mt="4" noOfLines={6} spacing="4" skeletonHeight="2" />
-          </Box>
-          <Button
-            colorScheme="teal"
-            shadow="lg"
-            rounded="full"
-            right={{ base: '10', md: '90' }}
-            bottom="10"
-            position="fixed"
-            p="6"
-            onClick={() => onOpen()}
-          >
-            <Icon as={GrAdd} color="white" fontSize="20px" />
-          </Button>
-        </Center>
-      </Box>
-    );
+    return <Loader />;
   }
 
   return (
@@ -133,6 +64,11 @@ const App: NextPageWithLayout = () => {
                 UpdatedAt={el.UpdatedAt}
               />
             ))}
+          {data?.length === 0 && (
+            <Center h="70vh">
+              <Heading>Nothing To See Here</Heading>
+            </Center>
+          )}
           <Button
             colorScheme="teal"
             shadow="lg"
