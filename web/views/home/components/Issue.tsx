@@ -58,6 +58,8 @@ export const IssueModal = ({ isOpen, onClose, setData }: Prop) => {
           isClosable: true,
         });
       }
+      // close modal after submission
+      onClose();
     } catch {
       toast({
         title: 'Issue creation failed.',
