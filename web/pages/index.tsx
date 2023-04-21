@@ -1,4 +1,13 @@
-import { Box, Button, Center, Icon, useDisclosure, useToast, Heading } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Flex,
+  Center,
+  Icon,
+  useDisclosure,
+  useToast,
+  Heading,
+} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { GrAdd } from 'react-icons/gr';
 import { Card, IssueModal, Loader } from '@app/views/home';
@@ -44,7 +53,7 @@ const App: NextPageWithLayout = () => {
     <>
       <IssueModal isOpen={isOpen} onClose={onClose} setData={setData} />
       <Box minH="100vh">
-        <Center
+        <Flex
           flexWrap="wrap"
           position="relative"
           flexDir={{ base: 'column', md: 'row' }}
@@ -81,7 +90,7 @@ const App: NextPageWithLayout = () => {
           >
             <Icon as={GrAdd} color="white" fontSize="20px" />
           </Button>
-        </Center>
+        </Flex>
       </Box>
     </>
   );
