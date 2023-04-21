@@ -81,6 +81,9 @@ You need to install
 
    ```sh
    yarn install
+   # for running the website
+   cd web
+   yarn install
    ```
 
 3. Copy the `.env.example` for each applications to `.env` in the same directory and fill the values required
