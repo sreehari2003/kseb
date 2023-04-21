@@ -79,8 +79,8 @@ func (h Handler) GetAllIssues(c *gin.Context) {
 			"ok":     false,
 		})
 	}
-	c.JSON(http.StatusCreated, gin.H{
-		"status":   http.StatusCreated,
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
 		"response": "Issues read successfully",
 		"ok":       true,
 		"data":     issues,
@@ -98,9 +98,40 @@ func (h Handler) GetIssueByID(c *gin.Context) {
 		})
 	}
 
-	c.JSON(http.StatusCreated, gin.H{
-		"status":   http.StatusCreated,
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
 		"response": "Issue read successfully",
+		"ok":       true,
+		"data":     issues,
+	})
+}
+
+// search the issue by its title
+func (h Handler) SearchIssueByTitle(c *gin.Context) {
+	var issues []models.Issue
+	title := c.Query("title")
+
+	if title == "" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status": http.StatusBadRequest,
+			"error":  "title parameter is required",
+			"ok":     false,
+		})
+		return
+	}
+
+	if result := h.DB.Where("title = ?", "%"+title+"%").Find(&issues); result.Error != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "couldn't find the issues",
+			"ok":     false,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": "Issue search successful",
 		"ok":       true,
 		"data":     issues,
 	})

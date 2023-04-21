@@ -31,6 +31,7 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 	v1.GET("/issue", h.GetAllIssues)
 	v1.GET("/issue/delete", h.DeleteAllIssue)
 	v1.GET("/issue/:id", h.GetIssueByID)
+	v1.GET("/issue/search", h.SearchIssueByTitle)
 	// v1.g
 
 	// accesing controller by method
