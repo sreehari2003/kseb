@@ -1,4 +1,4 @@
-import { Box, Heading, Flex, Text } from '@chakra-ui/react';
+import { Box, Heading, Flex, Text, Button } from '@chakra-ui/react';
 import { Issue } from '@app/types';
 import dayjs from 'dayjs';
 import React from 'react';
@@ -13,9 +13,8 @@ export const Card = ({ id, title, desc, post_id, CreatedAt, UpdatedAt }: Issue) 
       borderRadius="13.42px"
       color="#FFFFFF"
       minHeight="306px"
-      width="402.63px"
+      width="300px"
       p="4"
-      onClick={() => router.push(`/${id}`)}
     >
       <Flex justifyContent="space-between" mb="15px">
         <Text color="grey">{dayjs(CreatedAt).format('DD/MM/YYYY')}</Text>
@@ -30,6 +29,14 @@ export const Card = ({ id, title, desc, post_id, CreatedAt, UpdatedAt }: Issue) 
       <Text color="black" mt="20px">
         {desc}
       </Text>
+      <Flex justifyContent="space-between" mt="20px">
+        <Button colorScheme="teal" variant="outline">
+          View Status
+        </Button>
+        <Button colorScheme="teal" onClick={() => router.push(`/${id}`)}>
+          More Info
+        </Button>
+      </Flex>
     </Box>
   );
 };
