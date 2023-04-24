@@ -5,6 +5,7 @@ import SuperTokens, { SuperTokensWrapper } from 'supertokens-auth-react';
 import { ChakraProvider } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 import { authConfig } from '@app/auth';
+import Head from 'next/head';
 
 type ComponentWithPageLayout = AppProps & {
   Component: AppProps['Component'] & {
@@ -19,6 +20,9 @@ if (typeof window !== 'undefined') {
 const RootLayout = ({ Component, pageProps }: ComponentWithPageLayout) => (
   <SuperTokensWrapper>
     <ChakraProvider>
+      <Head>
+        <title>Suraksha | KSEB</title>
+      </Head>
       {Component.Layout ? (
         <Component.Layout>
           <Component {...pageProps} />
