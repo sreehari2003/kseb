@@ -247,7 +247,7 @@ const Home = () => {
                   height="48px"
                   width="100%"
                   border="2px"
-                  colorScheme="purple"
+                  colorScheme="teal"
                 >
                   GET OTP
                 </Button>
@@ -279,7 +279,7 @@ const Home = () => {
                 size="md"
                 height="48px"
                 border="2px"
-                colorScheme="purple"
+                colorScheme="teal"
                 w="100%"
               >
                 verify
