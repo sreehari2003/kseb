@@ -8,11 +8,12 @@ import {
   InputLeftAddon,
   Text,
   Icon,
-  Box,
+  Center,
   FormControl,
   FormLabel,
   useToast,
   FormErrorMessage,
+  Image,
 } from '@chakra-ui/react';
 import { MdOutlineMessage } from 'react-icons/md';
 import * as Yup from 'yup';
@@ -215,80 +216,83 @@ const Home = () => {
   };
 
   return (
-    <Box p="7">
-      <Flex h="250" alignItems="center" justifyContent="center" mt={10}>
-        <Icon as={MdOutlineMessage} w={20} h={20} />
-      </Flex>
-      {!isOTPscreenisVisible && (
-        <Flex alignItems="Flex-start" justifyContent="center">
-          <Flex direction="column">
-            <Text as="b" color="black" fontSize="2xl" mb={10} textAlign="center">
-              Enter Mobile Number
+    <Flex h="100vh" justifyContent="stretch">
+      <Image src="/auth.jpg" />
+      <Center flexDir="column" w="900px">
+        <Flex h="250" alignItems="center" justifyContent="center" mt={10}>
+          <Icon as={MdOutlineMessage} w={20} h={20} />
+        </Flex>
+        {!isOTPscreenisVisible && (
+          <Flex alignItems="Flex-start" justifyContent="center">
+            <Flex direction="column">
+              <Text as="b" color="black" fontSize="2xl" mb={10} textAlign="center">
+                Enter Mobile Number
+              </Text>
+              <Text fontSize="1xl" color="gray" mb={10}>
+                We will sent you{' '}
+                <Text as="b" color="black">
+                  one time password
+                </Text>{' '}
+                on this mobile number
+              </Text>
+              <form onSubmit={handleSubmit(phoneSubmit)}>
+                <FormControl isInvalid={!!errors.phoneNumber}>
+                  <FormLabel>Phone number</FormLabel>
+                  <InputGroup>
+                    <InputLeftAddon>+91</InputLeftAddon>
+                    <Input type="tel" {...register('phoneNumber')} />
+                  </InputGroup>
+                  <FormErrorMessage>Phone number is not valid</FormErrorMessage>
+                  <Button
+                    mt="10px"
+                    type="submit"
+                    size="md"
+                    height="48px"
+                    width="100%"
+                    border="2px"
+                    colorScheme="teal"
+                  >
+                    GET OTP
+                  </Button>
+                </FormControl>
+              </form>
+            </Flex>
+          </Flex>
+        )}
+        {isOTPscreenisVisible && (
+          <Flex alignItems="center" direction="column">
+            <Text as="b" mb={10} textAlign="end">
+              Please Enter the <b>OTP</b>
             </Text>
-            <Text fontSize="1xl" color="gray" mb={10}>
-              We will sent you{' '}
-              <Text as="b" color="black">
-                one time password
-              </Text>{' '}
-              on this mobile number
-            </Text>
-            <form onSubmit={handleSubmit(phoneSubmit)}>
-              <FormControl isInvalid={!!errors.phoneNumber}>
-                <FormLabel>Phone number</FormLabel>
-                <InputGroup>
-                  <InputLeftAddon>+91</InputLeftAddon>
-                  <Input type="tel" {...register('phoneNumber')} />
-                </InputGroup>
-                <FormErrorMessage>Phone number is not valid</FormErrorMessage>
+            <form onSubmit={handleOtpSubmit(otpSubmit)}>
+              <FormControl isInvalid={!!otpErrors.otp} w="300px">
+                <FormLabel>OTP</FormLabel>
+                <FormLabel
+                  onClick={resendOTP}
+                  color="#0075E4"
+                  _hover={{ cursor: 'pointer', textDecoration: 'underline' }}
+                >
+                  Resend SMS
+                </FormLabel>
+                <Input {...registerOTP('otp')} placeholder="Enter your OTP" />
+                <FormErrorMessage w="100%">Please Enter a valid otp</FormErrorMessage>
                 <Button
                   mt="10px"
                   type="submit"
                   size="md"
                   height="48px"
-                  width="100%"
                   border="2px"
                   colorScheme="teal"
+                  w="100%"
                 >
-                  GET OTP
+                  verify
                 </Button>
               </FormControl>
             </form>
           </Flex>
-        </Flex>
-      )}
-      {isOTPscreenisVisible && (
-        <Flex alignItems="center" direction="column">
-          <Text as="b" mb={10} textAlign="end">
-            Please Enter the <b>OTP</b>
-          </Text>
-          <form onSubmit={handleOtpSubmit(otpSubmit)}>
-            <FormControl isInvalid={!!otpErrors.otp} w="300px">
-              <FormLabel>OTP</FormLabel>
-              <FormLabel
-                onClick={resendOTP}
-                color="#0075E4"
-                _hover={{ cursor: 'pointer', textDecoration: 'underline' }}
-              >
-                Resend SMS
-              </FormLabel>
-              <Input {...registerOTP('otp')} placeholder="Enter your OTP" />
-              <FormErrorMessage w="100%">Please Enter a valid otp</FormErrorMessage>
-              <Button
-                mt="10px"
-                type="submit"
-                size="md"
-                height="48px"
-                border="2px"
-                colorScheme="teal"
-                w="100%"
-              >
-                verify
-              </Button>
-            </FormControl>
-          </form>
-        </Flex>
-      )}
-    </Box>
+        )}
+      </Center>
+    </Flex>
   );
 };
 
