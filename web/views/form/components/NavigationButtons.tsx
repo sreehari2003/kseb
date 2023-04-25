@@ -18,7 +18,7 @@ export const NavigationButtons = ({ currentStep, prevStep, nextStep }: NextState
           Close
         </Button>
       )}
-      <Button colorScheme="teal" variant="solid" onClick={nextStep} w="100%">
+      <Button colorScheme="teal" variant="solid" onClick={nextStep} w="100%" type="submit">
         Next
       </Button>
     </Center>

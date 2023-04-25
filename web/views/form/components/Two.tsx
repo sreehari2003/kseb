@@ -1,4 +1,4 @@
-import { Flex, FormControl, FormLabel, Input, InputGroup, InputLeftAddon } from '@chakra-ui/react';
+import { Flex, FormControl, FormLabel, Input, InputGroup, InputLeftAddon,FormErrorMessage } from '@chakra-ui/react';
 import React from 'react';
 
 export const Two = () => (
@@ -9,6 +9,7 @@ export const Two = () => (
           job description
         </FormLabel>
         <Input />
+        <FormErrorMessage>discription should not be empty</FormErrorMessage>
       </FormControl>
       <FormControl id="input2" mb={4}>
         <FormLabel mb="3">PTW allows for the above work</FormLabel>
@@ -16,14 +17,17 @@ export const Two = () => (
           <InputLeftAddon>PTW no.</InputLeftAddon>
           <Input placeholder="0000" />
         </InputGroup>
+        <FormErrorMessage>PTW number should not be empty</FormErrorMessage>
       </FormControl>
       <FormControl id="input3" mb={4}>
         <FormLabel mb="3">Name of the officer/designation issuing the PTW</FormLabel>
         <Input mb="3" />
+        <FormErrorMessage>Name should not be empty</FormErrorMessage>
       </FormControl>
       <FormControl id="input4" mb={4}>
         <FormLabel mb="3">Name/designation of officer receiving PTW</FormLabel>
         <Input mb="3" />
+        <FormErrorMessage>Name should not be empty</FormErrorMessage>
       </FormControl>
       <FormControl>
         <FormLabel>Power outages</FormLabel>
@@ -31,11 +35,13 @@ export const Two = () => (
       </FormControl>
       <FormControl>
         <FormLabel>Shorted locations</FormLabel>
+        <FormErrorMessage>location should not be empty</FormErrorMessage>
         <Input />
       </FormControl>
       <FormControl>
         <FormLabel mb="3">Earthed locations</FormLabel>
         <Input mb="3" />
+        <FormErrorMessage>location should not be empty </FormErrorMessage>
       </FormControl>
     </Flex>
   </Flex>
