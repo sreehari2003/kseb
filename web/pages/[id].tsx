@@ -5,17 +5,18 @@ import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InferType } from 'yup';
 import { One, Two, NavigationButtons, Three } from '@app/views/form';
-import { formOne } from '@app/views/validator';
+import { FinalForm, StepByStepForm } from '@app/views/validator';
 import { BaseLayout } from '@app/layout';
 
-type FormType = InferType<typeof formOne>;
+type FormType = InferType<typeof FinalForm>;
 
 const Home = () => {
+  const [currentStep, setCurrentStep] = useState<number>(1);
+  const isReadyForSubmission = currentStep === 3;
   const methods = useForm<FormType>({
     mode: 'all',
-    resolver: yupResolver(formOne),
+    resolver: yupResolver(StepByStepForm[currentStep]),
   });
-  const [currentStep, setCurrentStep] = useState<number>(1);
   const nextStep = () => {
     setCurrentStep((el) => el + 1);
   };
@@ -24,7 +25,14 @@ const Home = () => {
     setCurrentStep((el) => el - 1);
   };
 
-  const onSubmit: SubmitHandler<FormType> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<FormType> = (data) => {
+    if (isReadyForSubmission) {
+      // send post request
+      console.log(data);
+    } else {
+      nextStep();
+    }
+  };
   return (
     <Center>
       <FormProvider {...methods}>
@@ -32,7 +40,7 @@ const Home = () => {
           {currentStep === 1 && <One />}
           {currentStep === 2 && <Two />}
           {currentStep === 3 && <Three />}
-          <NavigationButtons nextStep={nextStep} prevStep={prevStep} currentStep={currentStep} />
+          <NavigationButtons prevStep={prevStep} currentStep={currentStep} />
         </form>
       </FormProvider>
     </Center>

@@ -9,12 +9,14 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   FormControl,
-  FormErrorMessage,
   FormLabel,
+  FormErrorMessage,
 } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { InferType } from 'yup';
 import { Select } from 'chakra-react-select';
+import { formOne } from '@app/views/validator';
 
 const typeOfWork = [
   { label: 'Capital', value: 'Capital' },
@@ -23,27 +25,39 @@ const typeOfWork = [
   { label: 'Revenue', value: 'Revenue' },
 ];
 
+type FormType = InferType<typeof formOne>;
+
 export const One = () => {
-  const { register } = useFormContext();
+  const {
+    register,
+    setFocus,
+    formState: { errors },
+  } = useFormContext<FormType>();
+  console.log(errors);
+
+  useEffect(() => {
+    setFocus('section');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Flex direction="column" w={{ base: '400px', md: '800px' }} mt="50px">
       <Heading textAlign="center" mb="5">
         Offical form (Part 1)
       </Heading>
-      <FormControl>
+      <FormControl isInvalid={!!errors.section} mb="3">
         <FormLabel>Section</FormLabel>
-        <Input mb="3" {...register('section')} />
-        <FormErrorMessage>section should not be empty</FormErrorMessage>
+        <Input {...register('section')} />
+        <FormErrorMessage>Section is a required field</FormErrorMessage>
       </FormControl>
       <FormControl mb="3">
         <FormLabel>Nature of work </FormLabel>
         <Select options={typeOfWork} />
         <FormErrorMessage>file should not be empty</FormErrorMessage>
       </FormControl>
-      <FormControl>
+      <FormControl isInvalid={!!errors.complaintNumber}>
         <FormLabel>Job work reg.no./Complaint no.</FormLabel>
-        <Input />
-        <FormErrorMessage>Number should not be empty</FormErrorMessage>
+        <Input {...register('complaintNumber')} />
+        <FormErrorMessage>complaint number is a required field</FormErrorMessage>
       </FormControl>
       <FormControl>
         <FormLabel>Voltage of electric conductor </FormLabel>
