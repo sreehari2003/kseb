@@ -7,12 +7,30 @@ import {
   useDisclosure,
   useToast,
   Heading,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalCloseButton,
+  Step,
+  StepIcon,
+  StepIndicator,
+  StepNumber,
+  StepSeparator,
+  StepStatus,
+  StepTitle,
+  Stepper,
+  useSteps,
+  interactivity,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { GrAdd } from 'react-icons/gr';
 import { Card, IssueModal, Loader } from '@app/views/home';
 import { Issue } from '@app/types';
-
+import {BsRecordCircle} from 'react-icons/bs'
+import {AiFillExclamationCircle} from 'react-icons/ai'
+import {BsFillCheckCircleFill} from 'react-icons/bs'
 import { surakshaAPI } from '@app/config';
 import { NextPageWithLayout } from 'next';
 import { BaseLayout } from '@app/layout';
@@ -20,8 +38,18 @@ import { BaseLayout } from '@app/layout';
 const App: NextPageWithLayout = () => {
   const toast = useToast();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen:isStatusOpen, onOpen:onStatusOpen, onClose:onStatusClose } = useDisclosure();
   const [data, setData] = useState<Issue[] | null>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
+  const steps = [
+    { title: 'Approved By Engineer'},
+    { title: 'On Working'},
+    { title: 'Completed', },
+  ]
+  const { activeStep } = useSteps({
+    index: 1,
+    count: steps.length,
+  })
   useEffect(() => {
     (async () => {
       try {
@@ -61,6 +89,41 @@ const App: NextPageWithLayout = () => {
           rowGap="50px"
           p="6"
         >
+          <Button onClick={onStatusOpen}
+          fontFamily={'inter'}
+          >View Status</Button>
+          <Modal isOpen={isStatusOpen} onClose={onStatusClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>View Status</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+          <Stepper 
+          index={activeStep} 
+          orientation='vertical'
+           height='400px' gap='0'>
+      {steps.map((step, index) => (
+        <Step key={index}>
+          <StepIndicator>
+            <StepStatus
+              complete={ <BsRecordCircle/>}
+              incomplete={ <BsFillCheckCircleFill/>}
+              active={ <AiFillExclamationCircle/>}
+            />
+          </StepIndicator>
+
+          <Box flexShrink='0'>
+            <StepTitle>{step.title}</StepTitle>
+          </Box>
+
+          <StepSeparator />
+        </Step>
+      ))}
+    </Stepper>
+
+          </ModalBody>
+        </ModalContent>
+      </Modal>
           {data &&
             data.map((el) => (
               <Card
@@ -97,5 +160,6 @@ const App: NextPageWithLayout = () => {
 };
 
 App.Layout = BaseLayout;
+
 
 export default App;
