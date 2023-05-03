@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import React from 'react';
 import { useRouter } from 'next/router';
 
-export const Card = ({ id, title, desc, post_id, CreatedAt, UpdatedAt }: Issue) => {
+export const Card = ({ id, title, desc, post_id, CreatedAt, UpdatedAt, onClick }: Issue) => {
   const router = useRouter();
 
   return (
@@ -30,7 +30,7 @@ export const Card = ({ id, title, desc, post_id, CreatedAt, UpdatedAt }: Issue) 
         {desc}
       </Text>
       <Flex justifyContent="space-between" mt="20px">
-        <Button colorScheme="teal" variant="outline">
+        <Button colorScheme="teal" variant="outline" onClick={onClick}>
           View Status
         </Button>
         <Button colorScheme="teal" onClick={() => router.push(`/${id}`)}>

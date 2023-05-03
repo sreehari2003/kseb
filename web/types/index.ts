@@ -10,6 +10,7 @@ export interface Issue {
   title: string;
   desc: string;
   post_id: string;
+  onClick: () => void;
 }
 export interface Data {
   data: Issue;
