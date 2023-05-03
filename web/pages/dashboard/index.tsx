@@ -35,7 +35,7 @@ const Dashboard: NextPageWithLayout = () => {
             width="187.46px"
             height="45.13px"
           >
-            Dashboard of the yaser
+            Dashboard
           </Heading>
         </Flex>
         <Grid alignItems="center" justifyContent="center">
