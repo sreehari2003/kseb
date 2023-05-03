@@ -1,11 +1,16 @@
 import * as Yup from 'yup';
 import { OptionalObjectSchema } from 'yup/lib/object';
 
+const PickAnOptionValidator = Yup.object({
+  value: Yup.string().required(),
+  label: Yup.string().required(),
+}).nullable();
+
 export const formOne = Yup.object({
   section: Yup.string().required(),
   typeofjob: Yup.string().required(),
   complaintNumber: Yup.string(),
-  voltage: Yup.number().required(),
+  voltage: PickAnOptionValidator.required(),
   location: Yup.string().required(),
   disconnectionPlace: Yup.string().required(),
 });
