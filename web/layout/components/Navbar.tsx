@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-import { Box, Flex, Button, Input, InputGroup, InputLeftElement, Image } from '@chakra-ui/react';
-=======
 import {
   Box,
   Flex,
-  Heading,
   Input,
   InputGroup,
   InputLeftElement,
@@ -13,21 +9,17 @@ import {
   ModalContent,
   ModalOverlay,
   useDisclosure,
+  Image,
+  Button,
 } from '@chakra-ui/react';
->>>>>>> f4d61a1 (fix: removed state and added final focus)
 import { BsSearch } from 'react-icons/bs';
 import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 export const Navbar = () => {
-<<<<<<< HEAD
-  const router = useRouter();
-=======
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
 
->>>>>>> f4d61a1 (fix: removed state and added final focus)
   return (
     <Flex
       p="7"
@@ -42,11 +34,7 @@ export const Navbar = () => {
         <Image src="/logo.png" w="200px" />
       </Link>
       <Box>
-<<<<<<< HEAD
-        <InputGroup w="350px">
-=======
         <InputGroup w="350px" onClick={onOpen}>
->>>>>>> f4d61a1 (fix: removed state and added final focus)
           <InputLeftElement pointerEvents="none">
             <BsSearch />
           </InputLeftElement>
@@ -54,12 +42,10 @@ export const Navbar = () => {
         </InputGroup>
       </Box>
       <Box>
-        <Button colorScheme="teal" onClick={() => router.push('/auth')}>
-          Login
+        <Button colorScheme="teal">
+          <Link href="/auth">Login</Link>
         </Button>
       </Box>
-<<<<<<< HEAD
-=======
       <Modal isOpen={isOpen} onClose={onClose} finalFocusRef={finalRef}>
         <ModalOverlay />
         <ModalContent>
@@ -68,7 +54,6 @@ export const Navbar = () => {
           </ModalBody>
         </ModalContent>
       </Modal>
->>>>>>> f4d61a1 (fix: removed state and added final focus)
     </Flex>
   );
 };
