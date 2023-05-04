@@ -1,4 +1,12 @@
-import { Flex, FormControl, FormLabel, Input, InputGroup, InputLeftAddon,FormErrorMessage } from '@chakra-ui/react';
+import {
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  InputGroup,
+  InputLeftAddon,
+  FormErrorMessage,
+} from '@chakra-ui/react';
 import React from 'react';
 
 export const Two = () => (

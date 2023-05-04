@@ -9,15 +9,12 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   FormControl,
-  useToast,
   FormErrorMessage,
-
   FormLabel,
 } from '@chakra-ui/react';
-import { SubmitHandler, useForm ,useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import React from 'react';
 import { Select } from 'chakra-react-select';
-import { formOne, formTwo } from '@app/views/validator/index';
 
 const typeOfWork = [
   { label: 'Capital', value: 'Capital' },
@@ -47,7 +44,6 @@ export const One = () => {
         <FormLabel>Job work reg.no./Complaint no.</FormLabel>
         <Input />
         <FormErrorMessage>Number should not be empty</FormErrorMessage>
-
       </FormControl>
       <FormControl>
         <FormLabel>Voltage of electric conductor </FormLabel>
