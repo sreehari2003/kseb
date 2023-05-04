@@ -12,7 +12,7 @@ import { Box, Flex, Grid, GridItem, Heading } from '@chakra-ui/react';
 const Dashboard: NextPageWithLayout = () => {
   return (
     <Flex
-      height="860px"
+      height="580px"
       width="293px"
       mt="10px"
       ml="10px"
@@ -21,8 +21,8 @@ const Dashboard: NextPageWithLayout = () => {
       flexDirection="column"
       borderRadius="20px"
     >
-      <Flex width="293px" h="67px" mt="20px" flexDirection="column">
-        <Flex h="74px" flexDirection="row" justifyContent="center" alignItems="center" pl="34px">
+      <Flex width="293px" h="58px" mt="10px" flexDirection="column">
+        <Flex h="58px" flexDirection="row" justifyContent="center" alignItems="center" pl="34px">
           <Box>
             <MdDashboard width="30px" height="30px"></MdDashboard>
           </Box>
@@ -42,8 +42,8 @@ const Dashboard: NextPageWithLayout = () => {
           <GridItem w="264px" h="1px" bg="white "></GridItem>
         </Grid>
       </Flex>
-      <Flex width="293px" h="76px" mt="2px" flexDirection="column">
-        <Flex h="74px" flexDirection="row" justifyContent="center" alignItems="center" pl="34px">
+      <Flex width="293px" h="60px" mt="2px" flexDirection="column">
+        <Flex h="58px" flexDirection="row" justifyContent="center" alignItems="center" pl="34px">
           <Box>
             <HiUserCircle width="30px" height="30px"></HiUserCircle>
           </Box>
@@ -63,8 +63,8 @@ const Dashboard: NextPageWithLayout = () => {
           <GridItem w="264px" h="1px" bg="white "></GridItem>
         </Grid>
       </Flex>
-      <Flex width="293px" h="76px" mt="2px" flexDirection="column">
-        <Flex h="74px" flexDirection="row" justifyContent="center" alignItems="center" pl="34px">
+      <Flex width="293px" h="60px" mt="2px" flexDirection="column">
+        <Flex h="58px" flexDirection="row" justifyContent="center" alignItems="center" pl="34px">
           <Box>
             <MdPeople width="30px" height="30px"></MdPeople>
           </Box>
@@ -84,8 +84,8 @@ const Dashboard: NextPageWithLayout = () => {
           <GridItem w="264px" h="1px" bg="white "></GridItem>
         </Grid>
       </Flex>
-      <Flex width="293px" h="76px" mt="2px" flexDirection="column">
-        <Flex h="74px" flexDirection="row" justifyContent="center" alignItems="center" pl="34px">
+      <Flex width="293px" h="60px" mt="2px" flexDirection="column">
+        <Flex h="58px" flexDirection="row" justifyContent="center" alignItems="center" pl="34px">
           <Box>
             <BsGraphUp width="30px" height="30px"></BsGraphUp>
           </Box>
@@ -105,8 +105,8 @@ const Dashboard: NextPageWithLayout = () => {
           <GridItem w="264px" h="1px" bg="white "></GridItem>
         </Grid>
       </Flex>
-      <Flex width="293px" h="76px" mt="2px" flexDirection="column">
-        <Flex h="74px" flexDirection="row" justifyContent="center" alignItems="center" pl="34px">
+      <Flex width="293px" h="60px" mt="2px" flexDirection="column">
+        <Flex h="58px" flexDirection="row" justifyContent="center" alignItems="center" pl="34px">
           <Box>
             <RiTodoFill width="30px" height="30px"></RiTodoFill>
           </Box>
@@ -126,8 +126,11 @@ const Dashboard: NextPageWithLayout = () => {
           <GridItem w="264px" h="1px" bg="white "></GridItem>
         </Grid>
       </Flex>
-      <Flex width="293px" h="76px" mt="380px" flexDirection="column">
-        <Flex h="74px" flexDirection="row" justifyContent="center" alignItems="center" pl="34px">
+      <Flex width="293px" h="60px" mt="195px" flexDirection="column">
+      <Grid alignItems="center" justifyContent="center">
+          <GridItem w="264px" h="1px" bg="white "></GridItem>
+        </Grid>
+        <Flex h="58px" flexDirection="row" justifyContent="center" alignItems="center" pl="34px">
           <Box>
             <AiOutlineLogout width="30px" height="30px"></AiOutlineLogout>
           </Box>
