@@ -1,6 +1,6 @@
 import { Box, Flex, Button, Input, InputGroup, InputLeftElement, Image } from '@chakra-ui/react';
-import React from 'react';
 import { BsSearch } from 'react-icons/bs';
+import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
