@@ -8,6 +8,7 @@ import { AiOutlineLogout } from 'react-icons/ai';
 import { BsGraphUp } from 'react-icons/bs';
 
 import { Box, Flex, Grid, GridItem, Heading } from '@chakra-ui/react';
+import Link from 'next/link';
 
 const Dashboard: NextPageWithLayout = () => (
   <Flex
@@ -55,7 +56,7 @@ const Dashboard: NextPageWithLayout = () => (
           width="187.46px"
           height="45.13px"
         >
-          Profile
+          <Link href={'/dashboard/profile'}>Profile</Link>
         </Heading>
       </Flex>
       <Grid alignItems="center" justifyContent="center">
