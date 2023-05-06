@@ -14,15 +14,12 @@ import {
   ModalBody,
   ModalCloseButton,
   Step,
-  StepIcon,
   StepIndicator,
-  StepNumber,
   StepSeparator,
   StepStatus,
   StepTitle,
   Stepper,
   useSteps,
-  interactivity,
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { GrAdd } from 'react-icons/gr';
