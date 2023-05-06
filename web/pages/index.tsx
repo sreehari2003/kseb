@@ -31,6 +31,7 @@ import {BsFillCheckCircleFill} from 'react-icons/bs'
 import { surakshaAPI } from '@app/config';
 import { NextPageWithLayout } from 'next';
 import { BaseLayout } from '@app/layout';
+import { color } from 'framer-motion';
 
 const App: NextPageWithLayout = () => {
   const toast = useToast();
@@ -89,7 +90,7 @@ const App: NextPageWithLayout = () => {
           <Button onClick={onStatusOpen}
           fontFamily={'inter'}
           >View Status</Button>
-          <Modal isOpen={isStatusOpen} onClose={onStatusClose}>
+          <Modal isOpen={true} onClose={onStatusClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>View Status</ModalHeader>
@@ -103,9 +104,9 @@ const App: NextPageWithLayout = () => {
         <Step key={index}>
           <StepIndicator>
             <StepStatus
-              complete={ <BsRecordCircle/>}
-              incomplete={ <BsFillCheckCircleFill/>}
-              active={ <AiFillExclamationCircle/>}
+              complete={ <Icon as = {BsRecordCircle}/>}
+              incomplete={ <Icon as = {BsFillCheckCircleFill} color='#418E9E' boxSize={8} />}
+              active={ <Icon as = {AiFillExclamationCircle} color='#418E9E' boxSize={8}/>}
             />
           </StepIndicator>
 
