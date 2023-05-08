@@ -98,7 +98,7 @@ export const Profile = () => {
           </GridItem>
         </Grid>
         <Flex align="center" justify="center" mt="50">
-          <Button variant="outline" w="70%" type="submit">
+          <Button variant="outline" w="70%" type="submit" colorScheme="teal">
             Submit
           </Button>
         </Flex>
