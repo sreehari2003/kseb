@@ -22,7 +22,7 @@ export const Navbar = () => {
 
   return (
     <Flex
-      p="7"
+      p="7px"
       height="90px"
       backgroundColor="teal"
       justifyContent="space-between"
@@ -34,7 +34,7 @@ export const Navbar = () => {
         <Image src="/logo.png" w="200px" />
       </Link>
       <Box>
-        <InputGroup w="350px" onClick={onOpen}>
+        <InputGroup w="100%">
           <InputLeftElement pointerEvents="none">
             <BsSearch />
           </InputLeftElement>

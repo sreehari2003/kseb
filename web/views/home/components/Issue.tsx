@@ -78,13 +78,13 @@ export const IssueModal = ({ isOpen, onClose, setData }: Prop) => {
         <form onSubmit={handleSubmit(handleFormData)}>
           <ModalHeader>
             <Heading as="h2" fontSize="30px">
-              Create a Issue
+              Create a issue
             </Heading>
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody rowGap="30px" display="flex" flexDir="column">
             <FormControl isInvalid={!!errors.title}>
-              <FormLabel fontSize="14px">Tile</FormLabel>
+              <FormLabel fontSize="14px">Title</FormLabel>
               <Input type="string" placeholder="issue" {...register('title')} />
               <FormErrorMessage>title should not be empty</FormErrorMessage>
             </FormControl>
@@ -96,7 +96,7 @@ export const IssueModal = ({ isOpen, onClose, setData }: Prop) => {
             <FormControl>
               <FormLabel fontSize="14px">Your cover image</FormLabel>
               <FileInput />
-              <FormErrorMessage>image should not be empmty</FormErrorMessage>
+              <FormErrorMessage>image should not be empty</FormErrorMessage>
             </FormControl>
             <FormControl isInvalid={!!errors.title}>
               <FormLabel fontSize="14px">Post Number</FormLabel>

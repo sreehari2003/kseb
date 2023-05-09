@@ -9,6 +9,7 @@ import {
   NumberIncrementStepper,
   NumberDecrementStepper,
   FormControl,
+  FormErrorMessage,
   FormLabel,
 } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
@@ -32,14 +33,17 @@ export const One = () => {
       <FormControl>
         <FormLabel>Section</FormLabel>
         <Input mb="3" {...register('section')} />
+        <FormErrorMessage>section should not be empty</FormErrorMessage>
       </FormControl>
       <FormControl mb="3">
-        <FormLabel>Nature of work</FormLabel>
+        <FormLabel>Nature of work </FormLabel>
         <Select options={typeOfWork} />
+        <FormErrorMessage>file should not be empty</FormErrorMessage>
       </FormControl>
       <FormControl>
         <FormLabel>Job work reg.no./Complaint no.</FormLabel>
         <Input />
+        <FormErrorMessage>Number should not be empty</FormErrorMessage>
       </FormControl>
       <FormControl>
         <FormLabel>Voltage of electric conductor </FormLabel>
@@ -50,14 +54,17 @@ export const One = () => {
             <NumberDecrementStepper />
           </NumberInputStepper>
         </NumberInput>
+        <FormErrorMessage>voltage should not be empty</FormErrorMessage>
       </FormControl>
       <FormControl>
         <FormLabel>place of work</FormLabel>
         <Input mb="3" />
+        <FormErrorMessage>place should not be empty</FormErrorMessage>
       </FormControl>
       <FormControl>
         <FormLabel mb="3">place of disconnection</FormLabel>
         <Input mb="3" />
+        <FormErrorMessage>place should not be empty</FormErrorMessage>
       </FormControl>
     </Flex>
   );
