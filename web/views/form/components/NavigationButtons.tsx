@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 import { NextState } from './types';
 
-export const NavigationButtons = ({ currentStep, prevStep, nextStep }: NextState) => {
+export const NavigationButtons = ({ currentStep, prevStep }: NextState) => {
   const router = useRouter();
   return (
     <Center justifyContent="space-between" gap="14px" w="100%" mb="30px">
@@ -18,7 +18,7 @@ export const NavigationButtons = ({ currentStep, prevStep, nextStep }: NextState
           Close
         </Button>
       )}
-      <Button colorScheme="teal" variant="solid" onClick={nextStep} w="100%" type="submit">
+      <Button colorScheme="teal" variant="solid" w="100%" type="submit">
         Next
       </Button>
     </Center>

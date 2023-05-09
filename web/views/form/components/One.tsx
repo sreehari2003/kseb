@@ -1,20 +1,10 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import {
-  Flex,
-  Heading,
-  Input,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
-  NumberIncrementStepper,
-  NumberDecrementStepper,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-} from '@chakra-ui/react';
-import { useFormContext } from 'react-hook-form';
-import React from 'react';
+import { Flex, Heading, Input, FormControl, FormLabel, FormErrorMessage } from '@chakra-ui/react';
+import { Controller, useFormContext } from 'react-hook-form';
+import React, { useEffect } from 'react';
+import { InferType } from 'yup';
 import { Select } from 'chakra-react-select';
+import { formOne } from '@app/views/validator';
 
 const typeOfWork = [
   { label: 'Capital', value: 'Capital' },
@@ -23,48 +13,75 @@ const typeOfWork = [
   { label: 'Revenue', value: 'Revenue' },
 ];
 
+const typeOfVoltage = [
+  { label: '230', value: '230' },
+  { label: '900', value: '900' },
+  { label: '1200', value: '1200' },
+];
+
+type FormType = InferType<typeof formOne>;
+
 export const One = () => {
-  const { register } = useFormContext();
+  const {
+    register,
+    setFocus,
+    control,
+    formState: { errors },
+  } = useFormContext<FormType>();
+  console.log(errors);
+
+  useEffect(() => {
+    setFocus('section');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <Flex direction="column" w={{ base: '400px', md: '800px' }} mt="50px">
       <Heading textAlign="center" mb="5">
         Offical form (Part 1)
       </Heading>
-      <FormControl>
+      <FormControl isInvalid={!!errors.section} mb="3">
         <FormLabel>Section</FormLabel>
-        <Input mb="3" {...register('section')} />
-        <FormErrorMessage>section should not be empty</FormErrorMessage>
+        <Input {...register('section')} />
+        <FormErrorMessage>Section is a required field</FormErrorMessage>
       </FormControl>
-      <FormControl mb="3">
-        <FormLabel>Nature of work </FormLabel>
-        <Select options={typeOfWork} />
-        <FormErrorMessage>file should not be empty</FormErrorMessage>
-      </FormControl>
-      <FormControl>
+      <Controller
+        control={control}
+        name="voltage"
+        render={({ field, fieldState: { error: proError } }) => (
+          <FormControl mb="3" isInvalid={!!proError}>
+            <FormLabel>Nature of work</FormLabel>
+            <Select options={typeOfWork} {...field} />
+            <FormErrorMessage>Please pick an option</FormErrorMessage>
+          </FormControl>
+        )}
+      />
+
+      <FormControl isInvalid={!!errors.complaintNumber}>
         <FormLabel>Job work reg.no./Complaint no.</FormLabel>
-        <Input />
-        <FormErrorMessage>Number should not be empty</FormErrorMessage>
+        <Input {...register('complaintNumber')} />
+        <FormErrorMessage>complaint number is a required field</FormErrorMessage>
       </FormControl>
-      <FormControl>
-        <FormLabel>Voltage of electric conductor </FormLabel>
-        <NumberInput mb="5" defaultValue={220} size="sm" maxW={24}>
-          <NumberInputField />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
-        <FormErrorMessage>voltage should not be empty</FormErrorMessage>
-      </FormControl>
-      <FormControl>
+      <Controller
+        control={control}
+        name="voltage"
+        render={({ field, fieldState: { error: proError } }) => (
+          <FormControl mb="3" isInvalid={!!proError}>
+            <FormLabel>Voltage of electric conductor </FormLabel>
+            <Select options={typeOfVoltage} {...field} />
+            <FormErrorMessage>Please pick an option</FormErrorMessage>
+          </FormControl>
+        )}
+      />
+
+      <FormControl isInvalid={!!errors.location} mb="12px">
         <FormLabel>place of work</FormLabel>
-        <Input mb="3" />
-        <FormErrorMessage>place should not be empty</FormErrorMessage>
+        <Input {...register('location')} />
+        <FormErrorMessage>required field</FormErrorMessage>
       </FormControl>
-      <FormControl>
-        <FormLabel mb="3">place of disconnection</FormLabel>
-        <Input mb="3" />
-        <FormErrorMessage>place should not be empty</FormErrorMessage>
+      <FormControl isInvalid={!!errors.disconnectionPlace} mb="12px">
+        <FormLabel>place of disconnection</FormLabel>
+        <Input {...register('disconnectionPlace')} />
+        <FormErrorMessage>required field</FormErrorMessage>
       </FormControl>
     </Flex>
   );
