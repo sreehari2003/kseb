@@ -57,7 +57,7 @@ const Dashboard: NextPageWithLayout = () => (
             width="187.46px"
             height="45.13px"
           >
-            <Link href={'/dashboard/profile'}>Profile</Link>
+            <Link href="/dashboard/profile">Profile</Link>
           </Heading>
         </Flex>
         <Grid alignItems="center" justifyContent="center">
@@ -180,7 +180,7 @@ const Dashboard: NextPageWithLayout = () => (
           </Heading>
         </Box>
         <Box ml="400px" height="40px" width="40px" mt="10px">
-          <AiOutlineBell width="40px" height="40px" size="25px"></AiOutlineBell>
+          <AiOutlineBell width="40px" height="40px" size="25px" />
         </Box>
       </Flex>
       <Flex
@@ -192,7 +192,7 @@ const Dashboard: NextPageWithLayout = () => (
         flexDirection="row"
       >
         <Box width="25px" height="25px" mr="5px">
-          <AiOutlineLeft size="25px" color="#D9D9D9"></AiOutlineLeft>{' '}
+          <AiOutlineLeft size="25px" color="#D9D9D9" />{' '}
         </Box>
         <Flex
           width="790px"
@@ -207,7 +207,7 @@ const Dashboard: NextPageWithLayout = () => (
             borderRadius="20px"
             width="250px"
             height="150px"
-          ></Box>
+          />
           <Box
             border="1px"
             borderColor="#0000001f"
@@ -215,7 +215,7 @@ const Dashboard: NextPageWithLayout = () => (
             width="250px"
             height="150px"
             ml="20px"
-          ></Box>
+          />
           <Box
             border="1px"
             borderColor="#0000001f"
@@ -223,11 +223,11 @@ const Dashboard: NextPageWithLayout = () => (
             width="250px"
             height="150px"
             ml="20px"
-          ></Box>
+          />
         </Flex>
         <Box width="25px" height="25px" ml="5px">
           {' '}
-          <AiOutlineRight values="" size="25px" color="#D9D9D9"></AiOutlineRight>
+          <AiOutlineRight values="" size="25px" color="#D9D9D9" />
         </Box>
       </Flex>
 
@@ -264,7 +264,7 @@ const Dashboard: NextPageWithLayout = () => (
             mt="10px"
             borderRadius="10px"
             bgColor="#418E9E"
-          ></Box>
+          />
           <Box
             width="850px"
             height="70px"
@@ -272,7 +272,7 @@ const Dashboard: NextPageWithLayout = () => (
             mt="5px"
             borderRadius="10px"
             bgColor="#DCDCDC"
-          ></Box>
+          />
           <Box
             width="850px"
             height="70px"
@@ -280,7 +280,7 @@ const Dashboard: NextPageWithLayout = () => (
             mt="5px"
             borderRadius="10px"
             bgColor="#DCDCDC"
-          ></Box>
+          />
         </Flex>
       </Flex>
       <Grid alignItems="center" justifyContent="center">
@@ -292,7 +292,7 @@ const Dashboard: NextPageWithLayout = () => (
           borderColor="#0000001f"
           borderRadius="20px"
           mt="-2px"
-        ></GridItem>
+        />
       </Grid>
     </Flex>
   </Flex>

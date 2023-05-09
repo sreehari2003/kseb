@@ -55,7 +55,7 @@ export const Profile = () => {
                     <Box as="span" ml="2" display="inline-block">
                       <InputGroup>
                         <InputLeftElement pointerEvents="none">
-                          <IconButton as={MdOutlineAddAPhoto} color="gray.600" aria-label={''} />
+                          <IconButton as={MdOutlineAddAPhoto} color="gray.600" aria-label="" />
                         </InputLeftElement>
                         <Input type="file" display="none" />
                       </InputGroup>
@@ -65,7 +65,7 @@ export const Profile = () => {
               </Box>
             </Box>
             <FormControl>
-              <FormLabel></FormLabel>
+              <FormLabel />
             </FormControl>
             <FormControl id="name" isInvalid={!!errors.name}>
               <FormLabel>Name</FormLabel>
