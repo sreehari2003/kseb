@@ -1,11 +1,25 @@
-import { Box, Flex, Button, Input, InputGroup, InputLeftElement, Image } from '@chakra-ui/react';
-import React from 'react';
+import {
+  Box,
+  Flex,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+  useDisclosure,
+  Image,
+  Button,
+} from '@chakra-ui/react';
 import { BsSearch } from 'react-icons/bs';
+import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
 export const Navbar = () => {
-  const router = useRouter();
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const finalRef = React.useRef(null);
+
   return (
     <Flex
       p="7px"
@@ -14,6 +28,7 @@ export const Navbar = () => {
       justifyContent="space-between"
       boxShadow="md"
       alignItems="center"
+      ref={finalRef}
     >
       <Link href="/">
         <Image src="/logo.png" w="200px" />
@@ -27,10 +42,18 @@ export const Navbar = () => {
         </InputGroup>
       </Box>
       <Box>
-        <Button colorScheme="teal" onClick={() => router.push('/auth')}>
-          Login
+        <Button colorScheme="teal">
+          <Link href="/auth">Login</Link>
         </Button>
       </Box>
+      <Modal isOpen={isOpen} onClose={onClose} finalFocusRef={finalRef}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalBody>
+            <Input type="string" placeholder="search" bg="white" />
+          </ModalBody>
+        </ModalContent>
+      </Modal>
     </Flex>
   );
 };
