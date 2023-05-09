@@ -137,6 +137,37 @@ func (h Handler) SearchIssueByTitle(c *gin.Context) {
 	})
 }
 
+// search the issue by its post number
+func (h Handler) SearchIssueByPostNumber(c *gin.Context) {
+	var issues []models.Issue
+	post_id := c.Query("post_id")
+
+	if post_id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status": http.StatusBadRequest,
+			"error":  "postNumber parameter is required",
+			"ok":     false,
+		})
+		return
+	}
+
+	if result := h.DB.Where("post_id = ?", post_id).Find(&issues); result.Error != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "couldn't find the issues",
+			"ok":     false,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": "Issue search successful",
+		"ok":       true,
+		"data":     issues,
+	})
+}
+
 func (h Handler) GetIssueWithFormHandler(c *gin.Context) {
 	id := c.Param("id")
 	var issue models.Issue
