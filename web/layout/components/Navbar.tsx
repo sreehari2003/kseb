@@ -38,7 +38,7 @@ export const Navbar = () => {
           <InputLeftElement pointerEvents="none">
             <BsSearch />
           </InputLeftElement>
-          <Input type="string" placeholder="search" bg="white" />
+          <Input type="string" placeholder="search" bg="white" onFocus={onOpen} />
         </InputGroup>
       </Box>
       <Box>
