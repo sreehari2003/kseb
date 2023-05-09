@@ -1,7 +1,8 @@
 import { Profile } from '@app/views/dashboard/components/Profile';
 import React from 'react';
-import { BaseLayout } from '@app/layout';
+import { DashBoardLayout } from '@app/layout';
+import { NextPageWithLayout } from 'next';
 
-const profileOne = () => <Profile />;
-profileOne.Layout = BaseLayout;
+const profileOne: NextPageWithLayout = () => <Profile />;
+profileOne.Layout = DashBoardLayout;
 export default profileOne;
