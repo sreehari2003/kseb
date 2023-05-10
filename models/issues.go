@@ -15,30 +15,6 @@ type Issue struct {
 	Form   *Form  `gorm:"foreignKey:IssueID;constraint:OnDelete:CASCADE;"`
 }
 
-// func (i *Issue) Create(db *gorm.DB) error {
-// 	// validate the data
-// 	validationErrors := i.Validate()
-// 	if len(validationErrors) > 0 {
-// 		return errors.New("Validation failed")
-// 	}
-
-// 	// create the form record
-// 	form := i.Form
-// 	if err := db.Create(&form).Error; err != nil {
-// 		return err
-// 	}
-
-// 	// set the issue ID in the form record
-// 	form.IssueID = i.ID
-
-// 	// create the issue record
-// 	if err := db.Create(i).Error; err != nil {
-// 		return err
-// 	}
-
-// 	return nil
-// }
-
 // custom vaidation for body data from backend
 // we might migrate to validation libraries later
 func (i *Issue) Validate() map[string]string {
