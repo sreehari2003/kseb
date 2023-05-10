@@ -12,5 +12,5 @@ export const phoneNumber = Yup.object({
 });
 
 export const OTP = Yup.object({
-  otp: Yup.string().min(4).max(4).required('Please Enter a valid otp'),
+  otp: Yup.string().min(6).max(6).required('Please Enter a valid otp'),
 });

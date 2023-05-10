@@ -50,7 +50,7 @@ export const Navbar = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalBody>
-            <Input type="string" placeholder="search" bg="white" />
+            <Input type="string" placeholder="search post number" bg="white" />
           </ModalBody>
         </ModalContent>
       </Modal>

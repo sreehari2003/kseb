@@ -27,15 +27,17 @@ import {
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { phoneNumber, OTP } from '@app/views/validator';
+import { NextPageWithLayout } from 'next';
+import { BaseLayout } from '@app/layout';
 
 type Phone = Yup.InferType<typeof phoneNumber>;
 type Otp = Yup.InferType<typeof OTP>;
 
-const Home = () => {
+const Home: NextPageWithLayout = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isLoading: isOtpSending },
   } = useForm<Phone>({
     mode: 'onSubmit',
     resolver: yupResolver(phoneNumber),
@@ -46,7 +48,7 @@ const Home = () => {
   const {
     register: registerOTP,
     handleSubmit: handleOtpSubmit,
-    formState: { errors: otpErrors },
+    formState: { errors: otpErrors, isLoading },
   } = useForm<Otp>({
     mode: 'onSubmit',
     resolver: yupResolver(OTP),
@@ -216,7 +218,7 @@ const Home = () => {
   };
 
   return (
-    <Flex h="100vh" justifyContent="stretch">
+    <Flex h="80vh" justifyContent="stretch">
       <Image src="/auth.jpg" />
       <Center flexDir="column" w="900px">
         <Flex h="250" alignItems="center" justifyContent="center" mt={10}>
@@ -251,6 +253,7 @@ const Home = () => {
                     width="100%"
                     border="2px"
                     colorScheme="teal"
+                    isLoading={isOtpSending}
                   >
                     GET OTP
                   </Button>
@@ -284,8 +287,19 @@ const Home = () => {
                   border="2px"
                   colorScheme="teal"
                   w="100%"
+                  isLoading={isLoading}
                 >
                   verify
+                </Button>
+                <Button
+                  mt="10px"
+                  type="button"
+                  variant="outline"
+                  colorScheme="teal"
+                  onClick={() => setOTPscreenisVisible(false)}
+                  w="100%"
+                >
+                  Change Number
                 </Button>
               </FormControl>
             </form>
@@ -295,5 +309,7 @@ const Home = () => {
     </Flex>
   );
 };
+
+Home.Layout = BaseLayout;
 
 export default Home;
