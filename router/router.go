@@ -5,7 +5,11 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/sreehari2003/kseb/controller"
+	"github.com/sreehari2003/kseb/docs"
 	"github.com/sreehari2003/kseb/middlewares"
+
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func CreateRoute(h controller.Handler) *gin.Engine {
@@ -24,9 +28,21 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 		}
 		c.JSON(http.StatusOK, res)
 	})
-
+	docs.SwaggerInfo.BasePath = "/api/v1"
 	v1 := router.Group("/api/v1")
 	// accesing controller by method
+
+	// @BasePath /api/v1
+
+	// PingExample godoc
+	// @Summary ping example
+	// @Schemes
+	// @Description do ping
+	// @Tags example
+	// @Accept json
+	// @Produce json
+	// @Success 200 {string} Helloworld
+	// @Router /example/helloworld [get]
 	v1.POST("/issue", h.CreateIssue)
 	v1.GET("/issue", h.GetAllIssues)
 	v1.GET("/issue/delete", h.DeleteAllIssue)
@@ -43,6 +59,8 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 	v1.POST("/form", h.CreateForm)
 	v1.GET("/form", h.GetAllForm)
 	v1.GET("/form/:id", h.GetFormByID)
+
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
 	return router
 }
