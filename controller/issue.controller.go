@@ -19,6 +19,11 @@ func New(db *gorm.DB) Handler {
 	return Handler{db}
 }
 
+// Create Issue
+// @Summary Create Issue in DB
+// @Accept  json
+// @Produce  json
+// @Router /issue [post]
 func (h Handler) CreateIssue(c *gin.Context) {
 	//clear previous error if any
 	errList := map[string]string{}

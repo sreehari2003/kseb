@@ -11,6 +11,22 @@ import (
 	"github.com/sreehari2003/kseb/router"
 )
 
+// @title KSEB Web Server
+// @version 1.0
+// @description Provide Info About KSEB Web Server].
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name API Support
+// @contact.url http://www.swagger.io/support
+// @contact.email support@swagger.io
+
+// @license.name MIT
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host localhost:8000
+// @BasePath /api/v1
+// @schemes http
+
 func main() {
 
 	err := godotenv.Load()

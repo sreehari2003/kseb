@@ -6,6 +6,7 @@ import (
 	"gorm.io/gorm"
 )
 
+// swagger:model Form
 type Form struct {
 	gorm.Model
 	Id             uint   `gorm:"primary_key;auto_increment" json:"id"`

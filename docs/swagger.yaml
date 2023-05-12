@@ -1,0 +1,26 @@
+basePath: /api/v1
+host: localhost:8000
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: Provide Info About KSEB Web Server].
+  license:
+    name: MIT
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: KSEB Web Server
+  version: "1.0"
+paths:
+  /issue:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses: {}
+      summary: Create Issue in DB
+schemes:
+- http
+swagger: "2.0"

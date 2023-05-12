@@ -17,6 +17,7 @@ const (
 	OV ROLE = "OV"
 )
 
+// swagger:model Officials
 type Officials struct {
 	gorm.Model
 	Id    uint   `gorm:"primary_key;auto_increment" json:"id"`
