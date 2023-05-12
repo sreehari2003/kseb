@@ -20,7 +20,8 @@ func New(db *gorm.DB) Handler {
 }
 
 // Create Issue
-// @Summary Create Issue in DB
+// @Summary Create Electricty Issue
+// @Param reqBody body models.Issue true "Example Request Body"
 // @Accept  json
 // @Produce  json
 // @Router /issue [post]
