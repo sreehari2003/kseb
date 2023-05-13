@@ -45,7 +45,7 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 	// @Router /example/helloworld [get]
 	v1.POST("/issue", h.CreateIssue)
 	v1.GET("/issue", h.GetAllIssues)
-	v1.GET("/issue/delete", h.DeleteAllIssue)
+	v1.DELETE("/issue", h.DeleteAllIssue)
 	v1.GET("/issue/:id", h.GetIssueByID)
 	v1.GET("/issue/search", h.SearchIssueByPostNumber)
 	// v1.g
