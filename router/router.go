@@ -34,15 +34,6 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 
 	// @BasePath /api/v1
 
-	// PingExample godoc
-	// @Summary ping example
-	// @Schemes
-	// @Description do ping
-	// @Tags example
-	// @Accept json
-	// @Produce json
-	// @Success 200 {string} Helloworld
-	// @Router /example/helloworld [get]
 	v1.POST("/issue", h.CreateIssue)
 	v1.GET("/issue", h.GetAllIssues)
 	v1.DELETE("/issue", h.DeleteAllIssue)
