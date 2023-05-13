@@ -74,6 +74,10 @@ func (h Handler) CreateIssue(c *gin.Context) {
 
 }
 
+// Get all Issues
+// @Summary Returns all the existin issues
+// @Produce  json
+// @Router /issue [get]
 func (h Handler) GetAllIssues(c *gin.Context) {
 	// results will be stored in this variable
 	// if request is successful
@@ -93,6 +97,10 @@ func (h Handler) GetAllIssues(c *gin.Context) {
 	})
 }
 
+// Get Single Issue
+// @Summary Returns A Single Issue With id
+// @Produce  json
+// @Router /issue/:id [get]
 func (h Handler) GetIssueByID(c *gin.Context) {
 	var issues []models.Issue
 	id := c.Param("id")
@@ -112,38 +120,11 @@ func (h Handler) GetIssueByID(c *gin.Context) {
 	})
 }
 
-// search the issue by its title
-func (h Handler) SearchIssueByTitle(c *gin.Context) {
-	var issues []models.Issue
-	title := c.Query("title")
-
-	if title == "" {
-		c.JSON(http.StatusBadRequest, gin.H{
-			"status": http.StatusBadRequest,
-			"error":  "title parameter is required",
-			"ok":     false,
-		})
-		return
-	}
-
-	if result := h.DB.Where("title = ?", "%"+title+"%").Find(&issues); result.Error != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{
-			"status": http.StatusInternalServerError,
-			"error":  "couldn't find the issues",
-			"ok":     false,
-		})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"status":   http.StatusOK,
-		"response": "Issue search successful",
-		"ok":       true,
-		"data":     issues,
-	})
-}
-
-// search the issue by its post number
+// Get Single Issue
+// @Summary Returns A Single Issue With Post_id
+// @Query post_id
+// @Produce  json
+// @Router /issue [get]
 func (h Handler) SearchIssueByPostNumber(c *gin.Context) {
 	var issues []models.Issue
 	post_id := c.Query("post_id")

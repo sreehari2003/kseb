@@ -26,6 +26,13 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/issue": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Returns A Single Issue With Post_id",
+                "responses": {}
+            },
             "post": {
                 "consumes": [
                     "application/json"
@@ -45,6 +52,15 @@ const docTemplate = `{
                         }
                     }
                 ],
+                "responses": {}
+            }
+        },
+        "/issue/:id": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Returns A Single Issue With id",
                 "responses": {}
             }
         }

@@ -77,6 +77,11 @@ info:
   version: "1.0"
 paths:
   /issue:
+    get:
+      produces:
+      - application/json
+      responses: {}
+      summary: Returns A Single Issue With Post_id
     post:
       consumes:
       - application/json
@@ -91,6 +96,12 @@ paths:
       - application/json
       responses: {}
       summary: Create Electricty Issue
+  /issue/:id:
+    get:
+      produces:
+      - application/json
+      responses: {}
+      summary: Returns A Single Issue With id
 schemes:
 - http
 swagger: "2.0"
