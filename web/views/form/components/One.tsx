@@ -49,13 +49,23 @@ export const One = () => {
         name="voltage"
         render={({ field, fieldState: { error: proError } }) => (
           <FormControl mb="3" isInvalid={!!proError}>
+            <FormLabel>Volatge Limit</FormLabel>
+            <Select options={typeOfVoltage} {...field} />
+            <FormErrorMessage>Please pick an option</FormErrorMessage>
+          </FormControl>
+        )}
+      />
+      <Controller
+        control={control}
+        name="typeofjob"
+        render={({ field, fieldState: { error: proError } }) => (
+          <FormControl mb="3" isInvalid={!!proError}>
             <FormLabel>Nature of work</FormLabel>
             <Select options={typeOfWork} {...field} />
             <FormErrorMessage>Please pick an option</FormErrorMessage>
           </FormControl>
         )}
       />
-
       <FormControl isInvalid={!!errors.complaintNumber}>
         <FormLabel>Job work reg.no./Complaint no.</FormLabel>
         <Input {...register('complaintNumber')} />
@@ -72,7 +82,6 @@ export const One = () => {
           </FormControl>
         )}
       />
-
       <FormControl isInvalid={!!errors.location} mb="12px">
         <FormLabel>place of work</FormLabel>
         <Input {...register('location')} />
