@@ -22,7 +22,7 @@ type Form struct {
 	JobDescription string `gorm:"not null" json:"jobdescription"`
 	Nooflabours    int    `gorm:"not null" json:"nooflabours"`
 	IssueID        uint   `gorm:"uniqueIndex"`
-	OfficialID     uint   `gorm:"uniqueIndex"`
+	OfficialID     uint   `gorm:"not null" json:"official_id"`
 }
 
 // custom vaidation for body data from backend
