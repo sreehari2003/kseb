@@ -8,7 +8,7 @@ const PickAnOptionValidator = Yup.object({
 
 export const formOne = Yup.object({
   section: Yup.string().required(),
-  typeofjob: Yup.string().required(),
+  typeofjob: PickAnOptionValidator.required(),
   complaintNumber: Yup.string(),
   voltage: PickAnOptionValidator.required(),
   location: Yup.string().required(),

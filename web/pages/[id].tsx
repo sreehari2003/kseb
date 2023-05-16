@@ -19,6 +19,9 @@ const Home = () => {
     mode: 'all',
     resolver: yupResolver(StepByStepForm[currentStep]),
   });
+
+  console.log(methods.formState.errors);
+
   const nextStep = () => {
     setCurrentStep((el) => el + 1);
   };
