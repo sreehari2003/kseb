@@ -9,19 +9,21 @@ import (
 // swagger:model Form
 type Form struct {
 	gorm.Model
-	Id             uint   `gorm:"primary_key;auto_increment" json:"id"`
-	Section        string `gorm:"size:255;not null" json:"section"`
-	Typeofjob      string `gorm:"size:255;not null" json:"typeofjob"`
-	Voltage        int    `gorm:"not null" json:"voltage"`
-	Location       string `gorm:"not null" json:"location"`
-	Feeder         string `gorm:"not null" json:"feeder"`
-	Substation     string `gorm:"not null" json:"substation"`
-	Transformer    string `gorm:"not null" json:"transformer"`
-	PostNO         string `gorm:"not null" json:"postno"`
-	ConsumerNO     int    `gorm:"not null" json:"consumerno"`
-	JobDescription string `gorm:"not null" json:"jobdescription"`
-	Nooflabours    int    `gorm:"not null" json:"nooflabours"`
-	IssueID        uint   `gorm:"uniqueIndex"`
+	Id             uint      `gorm:"primary_key;auto_increment" json:"id"`
+	Section        string    `gorm:"size:255;not null" json:"section"`
+	Typeofjob      string    `gorm:"size:255;not null" json:"typeofjob"`
+	Voltage        int       `gorm:"not null" json:"voltage"`
+	Location       string    `gorm:"not null" json:"location"`
+	Feeder         string    `gorm:"not null" json:"feeder"`
+	Substation     string    `gorm:"not null" json:"substation"`
+	Transformer    string    `gorm:"not null" json:"transformer"`
+	PostNO         string    `gorm:"not null" json:"postno"`
+	ConsumerNO     int       `gorm:"not null" json:"consumerno"`
+	JobDescription string    `gorm:"not null" json:"jobdescription"`
+	Nooflabours    int       `gorm:"not null" json:"nooflabours"`
+	IssueID        uint      `gorm:"uniqueIndex"`
+	OfficialID     uint      `gorm:"not null"`
+	Official       Officials `gorm:"foreignkey:OfficialID"`
 }
 
 // custom vaidation for body data from backend
