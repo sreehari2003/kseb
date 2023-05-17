@@ -1,4 +1,5 @@
-import { Flex, Heading, Grid, GridItem, Box, Link } from '@chakra-ui/react';
+import { Flex, Heading, Grid, GridItem, Box } from '@chakra-ui/react';
+import Link from 'next/link';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { BsGraphUp } from 'react-icons/bs';
 import { HiUserCircle } from 'react-icons/hi';
@@ -47,19 +48,21 @@ export const SideBar = () => (
     {Data.map((el) => (
       <Flex width="293px" h="58px" mt="10px" flexDirection="column">
         <Flex h="58px" flexDirection="row" justifyContent="center" alignItems="center" pl="34px">
-          <Link href={el.route} alignItems="center" display="flex" _hover={{ textDecor: 'none' }}>
-            <el.logo width="60px" height="30px" fontWeight="bold" />
-            <Heading
-              ml="27.49px"
-              mt="0px"
-              size="30.82px"
-              lineHeight="46.24px"
-              width="187.46px"
-              height="45.13px"
-              fontWeight="bold"
-            >
-              {el.name}
-            </Heading>
+          <Link href={el.route}>
+            <Box alignItems="center" display="flex" _hover={{ textDecor: 'none' }}>
+              <el.logo width="60px" height="30px" fontWeight="bold" />
+              <Heading
+                ml="27.49px"
+                mt="0px"
+                size="30.82px"
+                lineHeight="46.24px"
+                width="187.46px"
+                height="45.13px"
+                fontWeight="bold"
+              >
+                {el.name}
+              </Heading>
+            </Box>
           </Link>
         </Flex>
         <Grid alignItems="center" justifyContent="center">
