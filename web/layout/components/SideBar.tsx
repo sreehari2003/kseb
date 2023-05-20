@@ -44,6 +44,8 @@ export const SideBar = () => (
     backgroundColor="#D9D9D9;"
     flexDirection="column"
     borderRadius="20px"
+    position="sticky"
+    top="10"
   >
     {Data.map((el) => (
       <Flex width="293px" h="58px" mt="10px" flexDirection="column">
