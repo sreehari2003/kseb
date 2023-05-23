@@ -105,3 +105,25 @@ func (h Handler) GetOfficialsByID(c *gin.Context) {
 		"data":     Officials,
 	})
 }
+
+// Fetch the forms associated with an particular Employee
+func (h Handler) GetFormsByOfficialID(c *gin.Context) {
+	officialID := c.Param("id")
+
+	var forms []models.Form
+	if result := h.DB.Where("official_id = ?", officialID).Find(&forms); result.Error != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "couldn't find the data",
+			"ok":     false,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": "Forms fetched successfully",
+		"ok":       true,
+		"data":     forms,
+	})
+}
