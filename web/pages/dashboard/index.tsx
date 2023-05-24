@@ -81,6 +81,7 @@ const Dashboard: NextPageWithLayout = () => (
             width="250px"
             height="150px"
             ml="20px"
+            shadow={"top"}
           />
         </Flex>
         <Box width="25px" height="25px" ml="5px">
@@ -109,7 +110,7 @@ const Dashboard: NextPageWithLayout = () => (
           flexDirection="column"
           ml="-20px"
         >
-          <Heading size="xs" lineHeight="20px" fontWeight="light">
+          <Heading size="xs" lineHeight="20px" fontWeight="bold">
             Recent Issues
           </Heading>
           <Grid alignItems="center" justifyContent="center">

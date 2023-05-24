@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import { profileValidator } from '@app/views/validator/profile';
 import {
   FormLabel,
@@ -29,7 +28,6 @@ type FormValues = {
   designation: string;
 };
 export const Profile = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [Formdata, setFormData] = useState<FormValues | null>(null);
   const {
     register,
@@ -41,6 +39,7 @@ export const Profile = () => {
 
   const onSubmit = (data: FormValues) => {
     setFormData(data);
+    console.log(data);
   };
 
   return (
@@ -56,7 +55,7 @@ export const Profile = () => {
                     <Box as="span" ml="2" display="inline-block">
                       <InputGroup>
                         <InputLeftElement pointerEvents="none">
-                          <IconButton as={MdOutlineAddAPhoto} color="gray.600" aria-label="" />
+                          <IconButton as={MdOutlineAddAPhoto} color="gray.600" aria-label={''} />
                         </InputLeftElement>
                         <Input type="file" display="none" />
                       </InputGroup>
@@ -66,17 +65,17 @@ export const Profile = () => {
               </Box>
             </Box>
             <FormControl>
-              <FormLabel />
+              <FormLabel></FormLabel>
             </FormControl>
             <FormControl id="name" isInvalid={!!errors.name}>
               <FormLabel>Name</FormLabel>
               <Input {...register('name')} type="text" />
-              <FormErrorMessage>name should not be empty</FormErrorMessage>
+              <FormErrorMessage>*this feild should not be empty</FormErrorMessage>
             </FormControl>
             <FormControl id="id" isInvalid={!!errors.id}>
               <FormLabel mt="5">ID</FormLabel>
               <Input {...register('id')} type="text" />
-              <FormErrorMessage>id should not be empty</FormErrorMessage>
+              <FormErrorMessage>*this feild should not be empty</FormErrorMessage>
             </FormControl>
           </GridItem>
           <GridItem colSpan={1}>
@@ -84,22 +83,22 @@ export const Profile = () => {
               <FormLabel>Phone Number</FormLabel>
 
               <Input {...register('phoneNumber')} type="number" />
-              <FormErrorMessage>number should not be empty</FormErrorMessage>
+              <FormErrorMessage>*this feild should not be empty</FormErrorMessage>
             </FormControl>
             <FormControl id="location" mt="10" isInvalid={!!errors.name}>
               <FormLabel>Location</FormLabel>
               <Input {...register('location')} type="text" />
-              <FormErrorMessage>location should not be empty</FormErrorMessage>
+              <FormErrorMessage>*this feild should not be empty</FormErrorMessage>
             </FormControl>
             <FormControl id="designation" mt="10" isInvalid={!!errors.name}>
               <FormLabel>Designation</FormLabel>
               <Input {...register('designation')} type="text" />
-              <FormErrorMessage>designation should not be empty</FormErrorMessage>
+              <FormErrorMessage>*this feild should not be empty</FormErrorMessage>
             </FormControl>
           </GridItem>
         </Grid>
         <Flex align="center" justify="center" mt="50">
-          <Button w="70%" type="submit" colorScheme="teal">
+          <Button variant="outline" w="70%" type="submit">
             Submit
           </Button>
         </Flex>
@@ -107,3 +106,16 @@ export const Profile = () => {
     </Box>
   );
 };
+import { FormLabel, Box, FormControl, Input } from '@chakra-ui/react';
+import React from 'react';
+
+export const Profile = () => (
+  <Box p="6">
+    <form>
+      <FormControl id="name">
+        <FormLabel>Name</FormLabel>
+        <Input type="text" />
+      </FormControl>
+    </form>
+  </Box>
+);

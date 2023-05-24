@@ -67,7 +67,7 @@ export const SideBar = () => (
         </Grid>
       </Flex>
     ))}
-    <Flex width="293px" h="60px" mt="195px" flexDirection="column">
+    <Flex width="293px" h="60px" mt="180px" flexDirection="column">
       <Grid alignItems="center" justifyContent="center">
         <GridItem w="264px" h="1px" bg="white " />
       </Grid>
@@ -80,7 +80,7 @@ export const SideBar = () => (
           mt="0px"
           size="30.82px"
           lineHeight="46.24px"
-          fontWeight="light"
+          fontWeight="bold"
           width="187.46px"
           height="45.13px"
         >
