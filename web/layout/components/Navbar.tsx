@@ -13,13 +13,26 @@ import {
   Button,
 } from '@chakra-ui/react';
 import { BsSearch } from 'react-icons/bs';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { surakshaAPI } from '@app/config';
 
 export const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
+  const [input, setUserInput] = useState<string>('');
 
+  const getPostData = async () => {
+    const { data, status } = await surakshaAPI.get(`/issue/search?post_id=${input}`);
+    console.log(data, status);
+  };
+
+  useEffect(() => {
+    (async () => {
+      await getPostData();
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [input]);
   return (
     <Flex
       p="7px"
@@ -50,7 +63,12 @@ export const Navbar = () => {
         <ModalOverlay />
         <ModalContent>
           <ModalBody>
-            <Input type="string" placeholder="search post number" bg="white" />
+            <Input
+              type="string"
+              placeholder="search post number"
+              bg="white"
+              onChange={(e) => setUserInput(e.target.value)}
+            />
           </ModalBody>
         </ModalContent>
       </Modal>
