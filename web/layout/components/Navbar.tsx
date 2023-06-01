@@ -20,11 +20,15 @@ import { surakshaAPI } from '@app/config';
 export const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
-  const [input, setUserInput] = useState<string>('');
+  const [input, setUserInput] = useState<string>('1');
 
   const getPostData = async () => {
-    const { data, status } = await surakshaAPI.get(`/issue/search?post_id=${input}`);
-    console.log(data, status);
+    try {
+      const { data, status } = await surakshaAPI.get(`/issue/search?post_id=${input}`);
+      console.log(data, status);
+    } catch {
+      console.log('Error');
+    }
   };
 
   useEffect(() => {

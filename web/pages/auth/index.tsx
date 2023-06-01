@@ -218,8 +218,8 @@ const Home: NextPageWithLayout = () => {
   };
 
   return (
-    <Flex h="80vh" justifyContent="stretch">
-      <Image src="/auth.jpg" />
+    <Flex h="80vh" justifyContent="space-between">
+      <Image src="/auth.jpg" display={{ base: 'none', md: 'block' }} h="full" />
       <Center flexDir="column" w="900px">
         <Flex h="250" alignItems="center" justifyContent="center" mt={10}>
           <Icon as={MdOutlineMessage} w={20} h={20} />
