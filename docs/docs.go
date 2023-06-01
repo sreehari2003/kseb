@@ -65,6 +65,16 @@ const docTemplate = `{
             }
         },
         "/officials": {
+            "get": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Check whether user exist in database or not by supertokens primary key",
+                "responses": {}
+            },
             "post": {
                 "consumes": [
                     "application/json"
