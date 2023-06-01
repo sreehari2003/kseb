@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -95,13 +94,17 @@ func (h Handler) GetAllOfficials(c *gin.Context) {
 	})
 }
 
+// Find User
+// @Summary Check whether user exist in database or not by supertokens primary key
+// @Accept  json
+// @Produce  json
+// @Router /officials [get]
 func (h Handler) GetOfficial(c *gin.Context) {
 	var Officials []models.Officials
 	// Fetching the session object and reading the userID
 	sessionContainer := session.GetSessionFromRequestContext(c.Request.Context())
 	userId := sessionContainer.GetUserID()
-	// TODO: API logic..
-	fmt.Println(userId)
+
 	if result := h.DB.Where("auth_id = ?", userId).First(&Officials); result.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{
 			"status": http.StatusNotFound,
