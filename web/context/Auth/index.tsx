@@ -47,7 +47,7 @@ export const AuthCtxWrapper = ({ children }: Child) => {
         router.push('/profile');
       }
     } catch {
-      router.push('/');
+      // router.push('/');
     } finally {
       setUserLoading(false);
     }

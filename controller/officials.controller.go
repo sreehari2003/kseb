@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -21,6 +22,7 @@ func (h Handler) CreateOffical(c *gin.Context) {
 	errList := map[string]string{}
 	var officials = models.Officials{}
 	body, err := io.ReadAll(c.Request.Body)
+
 	// if error in marsheling body
 	if err != nil {
 		errList["Invalid_body"] = "invalid data provided"
@@ -43,6 +45,7 @@ func (h Handler) CreateOffical(c *gin.Context) {
 	}
 	// validating the user data based on our schema
 	errorMessages := officials.Validate()
+
 	if len(errorMessages) > 0 {
 		errList = errorMessages
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
@@ -53,6 +56,11 @@ func (h Handler) CreateOffical(c *gin.Context) {
 		return
 	}
 
+	// Fetching the session object and reading the userID
+	sessionContainer := session.GetSessionFromRequestContext(c.Request.Context())
+	userId := sessionContainer.GetUserID()
+
+	fmt.Print(userId)
 	// creating data in db
 	// if error send error to client
 	err = h.DB.Create(&officials).Error
