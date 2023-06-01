@@ -44,10 +44,10 @@ export const AuthCtxWrapper = ({ children }: Child) => {
         // setting the info about the wizard in localstorage so that we can access it in supertokens redirection
         setUserData(response.data);
         localStorage.setItem('isWizardCompleted', 'YES');
-        router.push('/profile');
+        router.push('/dashboard');
       }
     } catch {
-      // router.push('/');
+      router.push('/auth');
     } finally {
       setUserLoading(false);
     }
