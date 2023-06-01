@@ -31,7 +31,7 @@ export const AuthCtxWrapper = ({ children }: Child) => {
   const getData = async () => {
     try {
       setUserLoading(true);
-      const { data: response } = await surakshaAPI.get('/users/profile');
+      const { data: response } = await surakshaAPI.get('/officials');
       if (!response.success) {
         throw new Error();
       }
