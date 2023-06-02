@@ -8,6 +8,7 @@ interface IAuth {
   isUserLoading: boolean;
   data: Record<string, any> | null;
   setUserData: React.Dispatch<Record<string, any> | null>;
+  isAuth: boolean;
 }
 
 export const AuthCtx = createContext({} as IAuth);
@@ -18,6 +19,9 @@ export const AuthCtxWrapper = ({ children }: Child) => {
   const session = useSessionContext();
   const router = useRouter();
   const { doesSessionExist } = session as any;
+
+  // derived type
+  const isAuth = !!data;
 
   // listening for route change events
   Router.events.on('routeChangeStart', () => {
@@ -47,7 +51,7 @@ export const AuthCtxWrapper = ({ children }: Child) => {
         router.push('/dashboard');
       }
     } catch {
-      router.push('/auth');
+      // router.push('/auth');
     } finally {
       setUserLoading(false);
     }
@@ -63,7 +67,7 @@ export const AuthCtxWrapper = ({ children }: Child) => {
   }, [doesSessionExist]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const values = useMemo(() => ({ isUserLoading, data, setUserData }), [isUserLoading]);
+  const values = useMemo(() => ({ isUserLoading, data, setUserData, isAuth }), [isUserLoading]);
 
   return <AuthCtx.Provider value={values}>{children}</AuthCtx.Provider>;
 };
