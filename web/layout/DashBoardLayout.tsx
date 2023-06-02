@@ -13,7 +13,9 @@ export const DashBoardLayout = ({ children }: Child) => {
       <PageLoader isOpen={isUserLoading} />
       <Navbar isDashBoard />
       <Flex>
-        <SideBar />
+        <Box display={{ base: 'none', md: 'block' }}>
+          <SideBar />
+        </Box>
         {children}
       </Flex>
     </Box>

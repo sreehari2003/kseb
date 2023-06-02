@@ -1,7 +1,6 @@
 import { Flex, Heading, Grid, GridItem, Box } from '@chakra-ui/react';
 import Link from 'next/link';
 import { AiOutlineLogout } from 'react-icons/ai';
-import { BsGraphUp } from 'react-icons/bs';
 import { HiUserCircle } from 'react-icons/hi';
 import { MdDashboard, MdPeople } from 'react-icons/md';
 import { RiTodoFill } from 'react-icons/ri';
@@ -22,11 +21,11 @@ const Data = [
     route: '/dashboard/users',
     logo: MdPeople,
   },
-  {
-    name: 'OverView',
-    route: '/dashboard/overview',
-    logo: BsGraphUp,
-  },
+  // {
+  //   name: 'OverView',
+  //   route: '/dashboard/overview',
+  //   logo: BsGraphUp,
+  // },
   {
     name: 'Todo',
     route: '/dashboard/todo',

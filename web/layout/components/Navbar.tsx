@@ -17,8 +17,10 @@ import {
   MenuList,
 } from '@chakra-ui/react';
 import { BsSearch } from 'react-icons/bs';
-import { useAuthCtx } from '@app/hooks';
+import { useRouter } from 'next/router';
 import { GiHamburgerMenu } from 'react-icons/gi';
+import { useAuthCtx } from '@app/hooks';
+import { useSessionContext } from 'supertokens-auth-react/recipe/session';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { surakshaAPI } from '@app/config';
@@ -33,14 +35,22 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
   const [input, setUserInput] = useState<string>('1');
-  const { isAuth } = useAuthCtx();
-
+  const { data: userData } = useAuthCtx();
+  const { doesSessionExist } = useSessionContext() as any;
   const getPostData = async () => {
     try {
       const { data, status } = await surakshaAPI.get(`/issue/search?post_id=${input}`);
       console.log(data, status);
     } catch {
       console.log('Error');
+    }
+  };
+  const router = useRouter();
+  const goToDashboard = () => {
+    if (!userData || !userData.is_verified) {
+      router.push('/dashboard/profile');
+    } else {
+      router.push('/dashboard');
     }
   };
 
@@ -63,7 +73,7 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
       <Link href="/">
         <Image src="/logo.png" w="200px" />
       </Link>
-      <Box>
+      <Box display={{ sm: 'none', md: 'block' }}>
         <InputGroup w="100%">
           <InputLeftElement pointerEvents="none">
             <BsSearch />
@@ -72,13 +82,24 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
         </InputGroup>
       </Box>
       <Box>
-        <Button colorScheme="teal">
-          <Link href="/auth">Login</Link>
-        </Button>
+        {doesSessionExist ? (
+          <Button
+            colorScheme="teal"
+            display={{ base: 'none', md: 'block' }}
+            onClick={goToDashboard}
+          >
+            dashboard
+          </Button>
+        ) : (
+          <Button colorScheme="teal">
+            <Link href="/auth">Login</Link>
+          </Button>
+        )}
       </Box>
-      {isDashBoard && isAuth && (
+      {isDashBoard && doesSessionExist && (
         <Menu>
           <MenuButton
+            display={{ base: 'block', md: 'none' }}
             as={IconButton}
             aria-label="Options"
             icon={<GiHamburgerMenu />}
@@ -90,6 +111,7 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
           </MenuList>
         </Menu>
       )}
+
       <Modal isOpen={isOpen} onClose={onClose} finalFocusRef={finalRef}>
         <ModalOverlay />
         <ModalContent>
