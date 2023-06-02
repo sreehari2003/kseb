@@ -2,12 +2,12 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sreehari2003/kseb/models"
+	"github.com/supertokens/supertokens-golang/recipe/passwordless"
 	"github.com/supertokens/supertokens-golang/recipe/session"
 )
 
@@ -59,8 +59,10 @@ func (h Handler) CreateOffical(c *gin.Context) {
 	// Fetching the session object and reading the userID
 	sessionContainer := session.GetSessionFromRequestContext(c.Request.Context())
 	userId := sessionContainer.GetUserID()
+	userInfo, err := passwordless.GetUserByID(userId)
+	officials.AuthId = userId
+	officials.Phone = *userInfo.PhoneNumber
 
-	fmt.Print(userId)
 	// creating data in db
 	// if error send error to client
 	err = h.DB.Create(&officials).Error
@@ -75,7 +77,7 @@ func (h Handler) CreateOffical(c *gin.Context) {
 	// sending succes message with data to client
 	c.JSON(http.StatusCreated, gin.H{
 		"status":   http.StatusCreated,
-		"response": "Issue created successfully",
+		"response": "User created successfully",
 		"ok":       true,
 		"data":     officials,
 	})

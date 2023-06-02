@@ -11,16 +11,29 @@ import {
   useDisclosure,
   Image,
   Button,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuList,
 } from '@chakra-ui/react';
 import { BsSearch } from 'react-icons/bs';
+import { useAuthCtx } from '@app/hooks';
+import { GiHamburgerMenu } from 'react-icons/gi';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { surakshaAPI } from '@app/config';
+import { SideBar } from './SideBar';
 
-export const Navbar = () => {
+interface INav {
+  // eslint-disable-next-line react/require-default-props
+  isDashBoard?: boolean;
+}
+
+export const Navbar = ({ isDashBoard = false }: INav) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
   const [input, setUserInput] = useState<string>('1');
+  const { isAuth } = useAuthCtx();
 
   const getPostData = async () => {
     try {
@@ -63,6 +76,20 @@ export const Navbar = () => {
           <Link href="/auth">Login</Link>
         </Button>
       </Box>
+      {isDashBoard && isAuth && (
+        <Menu>
+          <MenuButton
+            as={IconButton}
+            aria-label="Options"
+            icon={<GiHamburgerMenu />}
+            variant="outline"
+            colorScheme="whiteAlpha"
+          />
+          <MenuList background="transparent" border="none">
+            <SideBar />
+          </MenuList>
+        </Menu>
+      )}
       <Modal isOpen={isOpen} onClose={onClose} finalFocusRef={finalRef}>
         <ModalOverlay />
         <ModalContent>
