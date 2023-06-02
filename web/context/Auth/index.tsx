@@ -13,6 +13,9 @@ interface IAuth {
 
 export const AuthCtx = createContext({} as IAuth);
 
+
+const PROTECTEDPATH  = ["/todo","/dashboard","/users"]
+
 export const AuthCtxWrapper = ({ children }: Child) => {
   const [isUserLoading, setUserLoading] = useState<boolean>(false);
   const [data, setUserData] = useState<Record<string, any> | null>(null);
@@ -42,7 +45,7 @@ export const AuthCtxWrapper = ({ children }: Child) => {
 
       if (response.success && response.data === null) {
         localStorage.removeItem('isWizardCompleted');
-        router.push('/wizard');
+        router.push('/dashboard/profile');
       }
       if (response.success && response.data) {
         // setting the info about the wizard in localstorage so that we can access it in supertokens redirection
@@ -51,7 +54,7 @@ export const AuthCtxWrapper = ({ children }: Child) => {
         router.push('/dashboard');
       }
     } catch {
-      // router.push('/auth');
+      router.push('/auth');
     } finally {
       setUserLoading(false);
     }

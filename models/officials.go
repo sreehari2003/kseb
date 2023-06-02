@@ -27,6 +27,7 @@ type Officials struct {
 	Phone      string `gorm:"not null" json:"phone"`
 	Forms      []Form `gorm:"foreignkey:OfficialID"`
 	IsVerified bool   `gorm:"default:false" json:"is_Verifed"`
+	Location   string `gorm:"not null" json:"location"`
 }
 
 // custom vaidation for body data from backend
