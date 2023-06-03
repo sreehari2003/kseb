@@ -106,6 +106,29 @@ func (h Handler) GetOfficialsByID(c *gin.Context) {
 	})
 }
 
+// Get the name of an user by the name
+func (h Handler) SearchOfficialByName(c *gin.Context) {
+	// Get the search query parameter from the request
+	name := c.Query("name")
+
+	var officials []models.Officials
+	if result := h.DB.Where("name LIKE ?", "%"+name+"%").Find(&officials); result.Error != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "couldn't search for users",
+			"ok":     false,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": "Users searched successfully",
+		"ok":       true,
+		"data":     officials,
+	})
+}
+
 // Fetch the forms associated with an particular Employee
 func (h Handler) GetFormsByOfficialID(c *gin.Context) {
 	officialID := c.Param("id")
