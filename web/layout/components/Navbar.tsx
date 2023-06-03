@@ -21,8 +21,9 @@ import { useRouter } from 'next/router';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { useAuthCtx } from '@app/hooks';
 import { useSessionContext } from 'supertokens-auth-react/recipe/session';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
+import { Issue } from '@app/types';
 import { surakshaAPI } from '@app/config';
 import { SideBar } from './SideBar';
 
@@ -34,15 +35,18 @@ interface INav {
 export const Navbar = ({ isDashBoard = false }: INav) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
-  const [input, setUserInput] = useState<string>('1');
+  const [result, setResult] = useState<Issue[] | null>(null);
   const { data: userData } = useAuthCtx();
   const { doesSessionExist } = useSessionContext() as any;
-  const getPostData = async () => {
+
+  const getPostData = async (str: string): Promise<void> => {
     try {
-      const { data, status } = await surakshaAPI.get(`/issue/search?post_id=${input}`);
-      console.log(data, status);
+      const { data, status } = await surakshaAPI.get(`/issue/search?post_id=${str}`);
+      if (status === 200) {
+        setResult(data.data);
+      }
     } catch {
-      console.log('Error');
+      console.error('Network error cant search for user');
     }
   };
   const router = useRouter();
@@ -54,12 +58,6 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
     }
   };
 
-  useEffect(() => {
-    (async () => {
-      await getPostData();
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [input]);
   return (
     <Flex
       p="7px"
@@ -120,8 +118,13 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
               type="string"
               placeholder="search post number"
               bg="white"
-              onChange={(e) => setUserInput(e.target.value)}
+              onChange={(e) => getPostData(e.target.value)}
             />
+            <Box>
+              {result?.map((el) => (
+                <h4>{el.title}</h4>
+              ))}
+            </Box>
           </ModalBody>
         </ModalContent>
       </Modal>

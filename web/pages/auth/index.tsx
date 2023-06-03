@@ -25,9 +25,11 @@ import {
   getLoginAttemptInfo,
 } from 'supertokens-auth-react/recipe/passwordless';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { useSessionContext } from 'supertokens-auth-react/recipe/session';
 import { useState, useEffect } from 'react';
 import { phoneNumber, OTP } from '@app/views/validator';
 import { NextPageWithLayout } from 'next';
+import { useRouter } from 'next/router';
 import { BaseLayout } from '@app/layout';
 
 type Phone = Yup.InferType<typeof phoneNumber>;
@@ -43,7 +45,7 @@ const Home: NextPageWithLayout = () => {
     resolver: yupResolver(phoneNumber),
   });
   const toast = useToast();
-
+  const { doesSessionExist } = useSessionContext() as any;
   const hasInitialOTPBeenSent = async () => (await getLoginAttemptInfo()) !== undefined;
   const {
     register: registerOTP,
@@ -53,16 +55,22 @@ const Home: NextPageWithLayout = () => {
     mode: 'onSubmit',
     resolver: yupResolver(OTP),
   });
-
   // this state is used to determine if the user has recieved the otp and is ready to enter the otp
   const [isOTPscreenisVisible, setOTPscreenisVisible] = useState<boolean>(false);
-
+  const router = useRouter();
   useEffect(() => {
     (async () => {
       const loginAttemptInfo = await hasInitialOTPBeenSent();
       setOTPscreenisVisible(loginAttemptInfo);
     })();
   }, [handleSubmit]);
+
+  useEffect(() => {
+    if (doesSessionExist) {
+      router.push('/');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [doesSessionExist]);
 
   const sendOTP = async (phone: string): Promise<void> => {
     try {
