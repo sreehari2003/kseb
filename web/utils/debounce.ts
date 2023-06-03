@@ -1,9 +1,11 @@
-export const debounce = <T extends (...args: any) => any>(func: T, delay = 1000) => {
+export const debounce = <F extends (...args: any) => any>(func: F, waitFor = 1000) => {
   let timeout: NodeJS.Timeout;
-  return (...args: Parameters<T>) => {
+  // let data;
+  return (...args: Parameters<F>) => {
     clearTimeout(timeout);
+
     timeout = setTimeout(() => {
       func(...args);
-    }, delay);
+    }, waitFor);
   };
 };

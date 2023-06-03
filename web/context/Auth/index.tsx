@@ -13,8 +13,7 @@ interface IAuth {
 
 export const AuthCtx = createContext({} as IAuth);
 
-
-const PROTECTEDPATH  = ["/todo","/dashboard","/users"]
+const PROTECTED_PATHS = ['/dashboard/todo', '/dashboard', '/dashboard/users'];
 
 export const AuthCtxWrapper = ({ children }: Child) => {
   const [isUserLoading, setUserLoading] = useState<boolean>(false);
@@ -68,6 +67,14 @@ export const AuthCtxWrapper = ({ children }: Child) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [doesSessionExist]);
+
+  useEffect(() => {
+    const path = router.pathname;
+    if (!isAuth && PROTECTED_PATHS.includes(path)) {
+      router.push('/dashboard/profile');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuth, router.pathname]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const values = useMemo(() => ({ isUserLoading, data, setUserData, isAuth }), [isUserLoading]);

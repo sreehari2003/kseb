@@ -10,6 +10,7 @@ import {
   Icon,
   FormErrorMessage,
   Alert,
+  useToast,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import React, { useCallback } from 'react';
@@ -40,7 +41,7 @@ export const Profile = () => {
   });
 
   const { setUserData, data: userData } = useAuthCtx();
-
+  const toast = useToast();
   const onSubmit = async (value: ProfileType) => {
     try {
       const { data, status } = await surakshaAPI.post('/official', {
@@ -52,7 +53,12 @@ export const Profile = () => {
       }
       setUserData(data.data);
     } catch {
-      console.error('Try again');
+      // render a toast
+      toast({
+        status: 'error',
+        title: 'Error submitting data',
+        description: 'Please try again later',
+      });
     }
   };
 
