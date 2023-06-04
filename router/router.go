@@ -46,6 +46,7 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 	v1.GET("/officials", h.GetAllOfficials)
 	v1.GET("/officials/:id", h.GetOfficialsByID)
 	v1.GET("/officials/:id/forms", h.GetFormsByOfficialID)
+	v1.GET("/officials/search", h.SearchOfficialByName)
 	// accesing controller by method
 	v1.POST("/form", h.CreateForm)
 	v1.GET("/form", h.GetAllForm)
