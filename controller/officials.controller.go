@@ -2,13 +2,21 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sreehari2003/kseb/models"
+	"github.com/supertokens/supertokens-golang/recipe/session"
 )
 
+// Create User
+// @Summary Create KSEB Employee
+// @Param reqBody body models.Officials true "Example Request Body"
+// @Accept  json
+// @Produce  json
+// @Router /officials [post]
 func (h Handler) CreateOffical(c *gin.Context) {
 	//clear previous error if any
 	errList := map[string]string{}
@@ -87,19 +95,24 @@ func (h Handler) GetAllOfficials(c *gin.Context) {
 	})
 }
 
-func (h Handler) GetOfficialsByID(c *gin.Context) {
+func (h Handler) GetOfficial(c *gin.Context) {
 	var Officials []models.Officials
-	id := c.Param("id")
-	if result := h.DB.Find(&Officials, id); result.Error != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{
-			"status": http.StatusInternalServerError,
-			"error":  "couldn't find the data",
+	// Fetching the session object and reading the userID
+	sessionContainer := session.GetSessionFromRequestContext(c.Request.Context())
+	userId := sessionContainer.GetUserID()
+	// TODO: API logic..
+	fmt.Println(userId)
+	if result := h.DB.Where("auth_id = ?", userId).First(&Officials); result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"status": http.StatusNotFound,
+			"error":  "couldn't find the user",
 			"ok":     false,
 		})
+		return
 	}
 
-	c.JSON(http.StatusCreated, gin.H{
-		"status":   http.StatusCreated,
+	c.JSON(http.StatusAccepted, gin.H{
+		"status":   http.StatusAccepted,
 		"response": "Data read successfully",
 		"ok":       true,
 		"data":     Officials,

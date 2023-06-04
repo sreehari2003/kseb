@@ -63,102 +63,37 @@ const docTemplate = `{
                 "summary": "Returns A Single Issue With id",
                 "responses": {}
             }
+        },
+        "/officials": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Create KSEB Employee",
+                "parameters": [
+                    {
+                        "description": "Example Request Body",
+                        "name": "reqBody",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.Officials"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
         }
     },
     "definitions": {
-        "gorm.DeletedAt": {
-            "type": "object",
-            "properties": {
-                "time": {
-                    "type": "string"
-                },
-                "valid": {
-                    "description": "Valid is true if Time is not NULL",
-                    "type": "boolean"
-                }
-            }
-        },
-        "models.Form": {
-            "type": "object",
-            "properties": {
-                "consumerno": {
-                    "type": "integer"
-                },
-                "createdAt": {
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "$ref": "#/definitions/gorm.DeletedAt"
-                },
-                "feeder": {
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "issueID": {
-                    "type": "integer"
-                },
-                "jobdescription": {
-                    "type": "string"
-                },
-                "location": {
-                    "type": "string"
-                },
-                "nooflabours": {
-                    "type": "integer"
-                },
-                "postno": {
-                    "type": "string"
-                },
-                "section": {
-                    "type": "string"
-                },
-                "substation": {
-                    "type": "string"
-                },
-                "transformer": {
-                    "type": "string"
-                },
-                "typeofjob": {
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "type": "string"
-                },
-                "voltage": {
-                    "type": "integer"
-                }
-            }
-        },
         "models.Issue": {
-            "type": "object",
-            "properties": {
-                "createdAt": {
-                    "type": "string"
-                },
-                "deletedAt": {
-                    "$ref": "#/definitions/gorm.DeletedAt"
-                },
-                "desc": {
-                    "type": "string"
-                },
-                "form": {
-                    "$ref": "#/definitions/models.Form"
-                },
-                "id": {
-                    "type": "integer"
-                },
-                "post_id": {
-                    "type": "string"
-                },
-                "title": {
-                    "type": "string"
-                },
-                "updatedAt": {
-                    "type": "string"
-                }
-            }
+            "type": "object"
+        },
+        "models.Officials": {
+            "type": "object"
         }
     }
 }`
