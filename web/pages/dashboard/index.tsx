@@ -1,11 +1,77 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NextPageWithLayout } from 'next';
-import { AiOutlineBell, AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
-import { Box, Flex, Grid, GridItem, Heading } from '@chakra-ui/react';
-import { DashBoardLayout } from '@app/layout';
+import { AiFillExclamationCircle } from 'react-icons/ai';
 
-const Dashboard: NextPageWithLayout = () => (
-  <Flex>
+import {
+  Box,
+  Center,
+  Flex,
+  Heading,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalHeader,
+  ModalOverlay,
+  Step,
+  StepIndicator,
+  StepSeparator,
+  StepStatus,
+  StepTitle,
+  Stepper,
+  useDisclosure,
+  useSteps,
+  useToast,
+} from '@chakra-ui/react';
+
+import { DashBoardLayout } from '@app/layout';
+import { BsFillCheckCircleFill, BsRecordCircle } from 'react-icons/bs';
+import { Issue } from '@app/types';
+import { surakshaAPI } from '@app/config';
+import { IssueModal, Loader, Card } from '@app/views/home';
+
+const Dashboard: NextPageWithLayout = () => {
+  const toast = useToast();
+  const { isOpen, onClose } = useDisclosure();
+  const { isOpen: isStatusOpen, onOpen: onStatusOpen, onClose: onStatusClose } = useDisclosure();
+  const [data, setData] = useState<Issue[] | null>(null);
+  const [isLoading, setLoading] = useState<boolean>(true);
+  const steps = [
+    { title: 'Approved By Engineer' },
+    { title: 'On Working' },
+    { title: 'Completed' },
+  ];
+  const { activeStep } = useSteps({
+    index: 1,
+    count: steps.length,
+  });
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data: dats } = await surakshaAPI.get('/issue');
+        if (!dats.ok) {
+          throw new Error();
+        }
+        setData(dats.data);
+      } catch {
+        toast({
+          title: 'Failed to get all issues',
+          description: 'Request to get issues returned error',
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        });
+      } finally {
+        setLoading(false);
+      }
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+  return (
     <Flex
       width="900px"
       height=""
@@ -35,123 +101,68 @@ const Dashboard: NextPageWithLayout = () => (
             Good morning, james!
           </Heading>
         </Box>
-        <Box ml="400px" height="40px" width="40px" mt="10px">
-          <AiOutlineBell width="40px" height="40px" size="25px" />
-        </Box>
       </Flex>
-      <Flex
-        width="900px"
-        height="180px"
-        mt="23px"
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="row"
-      >
-        <Box width="25px" height="25px" mr="5px">
-          <AiOutlineLeft size="25px" color="#D9D9D9" />{' '}
-        </Box>
+      <IssueModal isOpen={isOpen} onClose={onClose} setData={setData} />
+      <Box minH="100vh">
         <Flex
-          width="790px"
-          height="150px"
-          justifyContent="center"
-          alignItems="center"
-          flexDirection="row"
+          flexWrap="wrap"
+          position="relative"
+          flexDir={{ base: 'column', md: 'row' }}
+          columnGap="50px"
+          rowGap="50px"
+          p="6"
         >
-          <Box
-            border="1px"
-            borderColor="#0000001f"
-            borderRadius="20px"
-            width="250px"
-            height="150px"
-          />
-          <Box
-            border="1px"
-            borderColor="#0000001f"
-            borderRadius="20px"
-            width="250px"
-            height="150px"
-            ml="20px"
-          />
-          <Box
-            border="1px"
-            borderColor="#0000001f"
-            borderRadius="20px"
-            width="250px"
-            height="150px"
-            ml="20px"
-          />
-        </Flex>
-        <Box width="25px" height="25px" ml="5px">
-          {' '}
-          <AiOutlineRight values="" size="25px" color="#D9D9D9" />
-        </Box>
-      </Flex>
+          <Modal isOpen={isStatusOpen} onClose={onStatusClose}>
+            <ModalOverlay />
+            <ModalContent>
+              <ModalHeader>View Status</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <Stepper index={activeStep} orientation="vertical" height="400px" gap="0">
+                  {steps.map((step, index) => (
+                    // eslint-disable-next-line react/no-array-index-key
+                    <Step key={index}>
+                      <StepIndicator>
+                        <StepStatus
+                          complete={<BsRecordCircle />}
+                          incomplete={<BsFillCheckCircleFill />}
+                          active={<AiFillExclamationCircle />}
+                        />
+                      </StepIndicator>
 
-      <Flex
-        bgColor="white"
-        width="900px"
-        height="280px"
-        mt="23px"
-        justifyContent="center"
-        alignItems="center"
-        flexDirection="row"
-        border="1px"
-        borderColor="#0000001f"
-        borderRadius="20px"
-      >
-        <Flex
-          width="850px"
-          height="250px"
-          justifyContent="flex-start"
-          alignItems="flex-start"
-          flexDirection="column"
-          ml="-20px"
-        >
-          <Heading size="xs" lineHeight="20px" fontWeight="light">
-            Recent Issues
-          </Heading>
-          <Grid alignItems="center" justifyContent="center">
-            <GridItem w="850px" h="1px" bg="#0000003f" />
-          </Grid>
-          <Box
-            width="850px"
-            height="70px"
-            bg="red"
-            mt="10px"
-            borderRadius="10px"
-            bgColor="#418E9E"
-          />
-          <Box
-            width="850px"
-            height="70px"
-            bg="red"
-            mt="5px"
-            borderRadius="10px"
-            bgColor="#DCDCDC"
-          />
-          <Box
-            width="850px"
-            height="70px"
-            bg="red"
-            mt="5px"
-            borderRadius="10px"
-            bgColor="#DCDCDC"
-          />
+                      <Box flexShrink="0">
+                        <StepTitle>{step.title}</StepTitle>
+                      </Box>
+
+                      <StepSeparator />
+                    </Step>
+                  ))}
+                </Stepper>
+              </ModalBody>
+            </ModalContent>
+          </Modal>
+          {data &&
+            data.map((el) => (
+              <Card
+                desc={el.title}
+                title={el.title}
+                CreatedAt={el.CreatedAt}
+                DeletedAt={el.DeletedAt}
+                post_id={el.post_id}
+                id={el.id}
+                UpdatedAt={el.UpdatedAt}
+                onClick={onStatusOpen}
+              />
+            ))}
+          {data?.length === 0 && (
+            <Center h="70vh">
+              <Heading>Nothing To See Here</Heading>
+            </Center>
+          )}
         </Flex>
-      </Flex>
-      <Grid alignItems="center" justifyContent="center">
-        <GridItem
-          w="870px"
-          h="1px"
-          bg="#0000003f"
-          border="1px"
-          borderColor="#0000001f"
-          borderRadius="20px"
-          mt="-2px"
-        />
-      </Grid>
+      </Box>
     </Flex>
-  </Flex>
-);
+  );
+};
 Dashboard.Layout = DashBoardLayout;
 export default Dashboard;
