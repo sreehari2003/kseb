@@ -1,9 +1,7 @@
 import React from 'react';
 import { NextPageWithLayout } from 'next';
 import { AiOutlineBell, AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
-
 import { Box, Flex, Grid, GridItem, Heading } from '@chakra-ui/react';
-
 import { DashBoardLayout } from '@app/layout';
 
 const Dashboard: NextPageWithLayout = () => (

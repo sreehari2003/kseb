@@ -55,6 +55,6 @@ const Users: NextPageWithLayout = () => (
   </Box>
 );
 
-Users.layout = DashBoardLayout;
+Users.Layout = DashBoardLayout;
 
 export default Users;

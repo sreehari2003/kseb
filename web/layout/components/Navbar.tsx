@@ -21,9 +21,10 @@ import { useRouter } from 'next/router';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { useAuthCtx } from '@app/hooks';
 import { useSessionContext } from 'supertokens-auth-react/recipe/session';
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { Issue } from '@app/types';
+import { debounce } from '@app/utils/debounce';
 import { surakshaAPI } from '@app/config';
 import { SideBar } from './SideBar';
 
@@ -57,6 +58,14 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
       router.push('/dashboard');
     }
   };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const loadPost = useCallback(
+    debounce((inputValue: string) => {
+      getPostData(inputValue);
+    }),
+    []
+  );
 
   return (
     <Flex
@@ -118,7 +127,8 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
               type="string"
               placeholder="search post number"
               bg="white"
-              onChange={(e) => getPostData(e.target.value)}
+              // debouncing user search
+              onChange={(e) => loadPost(e.target.value, getPostData)}
             />
             <Box>
               {result?.map((el) => (
