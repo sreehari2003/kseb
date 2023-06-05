@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -105,35 +104,16 @@ func (h Handler) GetAllOfficials(c *gin.Context) {
 	})
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> fba64ba99eb7d279f138ce8cca6a67086b9b066b
 // Find User
 // @Summary Check whether user exist in database or not by supertokens primary key
 // @Accept  json
 // @Produce  json
 // @Router /officials [get]
-<<<<<<< HEAD
-=======
->>>>>>> ceb9870 (feat: fixed supertokens auth midlewares)
-=======
->>>>>>> fba64ba99eb7d279f138ce8cca6a67086b9b066b
 func (h Handler) GetOfficial(c *gin.Context) {
 	var Officials []models.Officials
 	// Fetching the session object and reading the userID
 	sessionContainer := session.GetSessionFromRequestContext(c.Request.Context())
 	userId := sessionContainer.GetUserID()
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-	// TODO: API logic..
-	fmt.Println(userId)
->>>>>>> ceb9870 (feat: fixed supertokens auth midlewares)
-=======
-
->>>>>>> fba64ba99eb7d279f138ce8cca6a67086b9b066b
 	if result := h.DB.Where("auth_id = ?", userId).First(&Officials); result.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{
 			"status": http.StatusNotFound,
@@ -158,9 +138,9 @@ func (h Handler) SearchOfficialByName(c *gin.Context) {
 
 	var officials []models.Officials
 	if result := h.DB.Where("name LIKE ?", "%"+name+"%").Find(&officials); result.Error != nil {
-		c.JSON(http.StatusUnprocessableEntity, gin.H{
-			"status": http.StatusInternalServerError,
-			"error":  "couldn't search for users",
+		c.JSON(http.StatusNotFound, gin.H{
+			"status": http.StatusNotFound,
+			"error":  "couldn't find the user",
 			"ok":     false,
 		})
 		return
@@ -168,7 +148,7 @@ func (h Handler) SearchOfficialByName(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"status":   http.StatusOK,
-		"response": "Users searched successfully",
+		"response": "Users found successfully",
 		"ok":       true,
 		"data":     officials,
 	})
