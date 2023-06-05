@@ -20,12 +20,14 @@ const (
 // swagger:model Officials
 type Officials struct {
 	gorm.Model
-	Id     uint   `gorm:"primary_key;auto_increment" json:"id"`
-	AuthId string `gorm:"unique" json:"auth_id"`
-	Name   string `gorm:"size:255;not null" json:"name"`
-	Role   ROLE   `sql:"type:ENUM('SE', 'AE', 'OV')" gorm:"column:role"`
-	Phone  int    `gorm:"not null" json:"phone"`
-	Forms  []Form `gorm:"foreignkey:OfficialID"`
+	Id         uint   `gorm:"primary_key;auto_increment" json:"id"`
+	AuthId     string `gorm:"unique" json:"auth_id"`
+	Name       string `gorm:"size:255;not null" json:"name"`
+	Role       ROLE   `sql:"type:ENUM('SE', 'AE', 'OV')" gorm:"column:role"`
+	Phone      string `gorm:"not null" json:"phone"`
+	Forms      []Form `gorm:"foreignkey:OfficialID"`
+	IsVerified bool   `gorm:"default:false" json:"is_Verifed"`
+	Location   string `gorm:"not null" json:"location"`
 }
 
 // custom vaidation for body data from backend

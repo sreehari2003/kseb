@@ -69,10 +69,20 @@ export const Profile = () => {
 
   return (
     <Box px="250px" w="100%">
+<<<<<<< HEAD
       <Alert status="error" alignItems="center" justifyContent="center" mt="20px">
         <Icon as={FiAlertCircle} mr="10px" />
         You wont be able to access the dashboard until someone verifies you
       </Alert>
+=======
+      {!userData ||
+        (!userData.is_verified && (
+          <Alert status="error" alignItems="center" justifyContent="center" mt="20px">
+            <Icon as={FiAlertCircle} mr="10px" />
+            You wont be able to access the dashboard until someone verifies you
+          </Alert>
+        ))}
+>>>>>>> fba64ba99eb7d279f138ce8cca6a67086b9b066b
       <form onSubmit={handleSubmit(onSubmit)}>
         <Flex flexDir="column">
           <Box as="span" ml="2" alignSelf="center">
