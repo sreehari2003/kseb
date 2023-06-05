@@ -2,12 +2,12 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/sreehari2003/kseb/models"
-	"github.com/supertokens/supertokens-golang/recipe/passwordless"
 	"github.com/supertokens/supertokens-golang/recipe/session"
 )
 
@@ -104,17 +104,25 @@ func (h Handler) GetAllOfficials(c *gin.Context) {
 	})
 }
 
+<<<<<<< HEAD
 // Find User
 // @Summary Check whether user exist in database or not by supertokens primary key
 // @Accept  json
 // @Produce  json
 // @Router /officials [get]
+=======
+>>>>>>> ceb9870 (feat: fixed supertokens auth midlewares)
 func (h Handler) GetOfficial(c *gin.Context) {
 	var Officials []models.Officials
 	// Fetching the session object and reading the userID
 	sessionContainer := session.GetSessionFromRequestContext(c.Request.Context())
 	userId := sessionContainer.GetUserID()
+<<<<<<< HEAD
 
+=======
+	// TODO: API logic..
+	fmt.Println(userId)
+>>>>>>> ceb9870 (feat: fixed supertokens auth midlewares)
 	if result := h.DB.Where("auth_id = ?", userId).First(&Officials); result.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{
 			"status": http.StatusNotFound,
@@ -129,6 +137,29 @@ func (h Handler) GetOfficial(c *gin.Context) {
 		"response": "Data read successfully",
 		"ok":       true,
 		"data":     Officials,
+	})
+}
+
+// Get the name of an user by the name
+func (h Handler) SearchOfficialByName(c *gin.Context) {
+	// Get the search query parameter from the request
+	name := c.Query("name")
+
+	var officials []models.Officials
+	if result := h.DB.Where("name LIKE ?", "%"+name+"%").Find(&officials); result.Error != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "couldn't search for users",
+			"ok":     false,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": "Users searched successfully",
+		"ok":       true,
+		"data":     officials,
 	})
 }
 

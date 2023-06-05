@@ -1,105 +1,81 @@
 {
-    "schemes": [
-        "http"
-    ],
-    "swagger": "2.0",
-    "info": {
-        "description": "Provide Info About KSEB Web Server].",
-        "title": "KSEB Web Server",
-        "termsOfService": "http://swagger.io/terms/",
-        "contact": {
-            "name": "API Support",
-            "url": "http://www.swagger.io/support",
-            "email": "support@swagger.io"
-        },
-        "license": {
-            "name": "MIT",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-        },
-        "version": "1.0"
+  "schemes": ["http"],
+  "swagger": "2.0",
+  "info": {
+    "description": "Provide Info About KSEB Web Server].",
+    "title": "KSEB Web Server",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "name": "API Support",
+      "url": "http://www.swagger.io/support",
+      "email": "support@swagger.io"
     },
-    "host": "localhost:8000",
-    "basePath": "/api/v1",
-    "paths": {
-        "/issue": {
-            "get": {
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Returns A Single Issue With Post_id",
-                "responses": {}
-            },
-            "post": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Create Electricty Issue",
-                "parameters": [
-                    {
-                        "description": "Example Request Body",
-                        "name": "reqBody",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.Issue"
-                        }
-                    }
-                ],
-                "responses": {}
-            }
-        },
-        "/issue/:id": {
-            "get": {
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Returns A Single Issue With id",
-                "responses": {}
-            }
-        },
-        "/officials": {
-            "get": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Check whether user exist in database or not by supertokens primary key",
-                "responses": {}
-            },
-            "post": {
-                "consumes": [
-                    "application/json"
-                ],
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Create KSEB Employee",
-                "parameters": [
-                    {
-                        "description": "Example Request Body",
-                        "name": "reqBody",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/models.Officials"
-                        }
-                    }
-                ],
-                "responses": {}
-            }
-        }
+    "license": {
+      "name": "MIT",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "definitions": {
-        "models.Issue": {
-            "type": "object"
-        },
-        "models.Officials": {
-            "type": "object"
-        }
+    "version": "1.0"
+  },
+  "host": "localhost:8000",
+  "basePath": "/api/v1",
+  "paths": {
+    "/issue": {
+      "get": {
+        "produces": ["application/json"],
+        "summary": "Returns A Single Issue With Post_id",
+        "responses": {}
+      },
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "summary": "Create Electricty Issue",
+        "parameters": [
+          {
+            "description": "Example Request Body",
+            "name": "reqBody",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.Issue"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/issue/:id": {
+      "get": {
+        "produces": ["application/json"],
+        "summary": "Returns A Single Issue With id",
+        "responses": {}
+      }
+    },
+    "/officials": {
+      "post": {
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "summary": "Create KSEB Employee",
+        "parameters": [
+          {
+            "description": "Example Request Body",
+            "name": "reqBody",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/models.Officials"
+            }
+          }
+        ],
+        "responses": {}
+      }
     }
+  },
+  "definitions": {
+    "models.Issue": {
+      "type": "object"
+    },
+    "models.Officials": {
+      "type": "object"
+    }
+  }
 }
