@@ -128,7 +128,7 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
               placeholder="search post number"
               bg="white"
               // debouncing user search
-              onChange={(e) => loadPost(e.target.value, getPostData)}
+              /*onChange={(e) => loadPost(e.target.value, getPostData)}*/
             />
             <Box>
               {result?.map((el) => (
