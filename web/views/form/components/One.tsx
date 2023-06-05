@@ -46,7 +46,7 @@ export const One = () => {
       </FormControl>
       <Controller
         control={control}
-        name="voltage"
+        name="typeofjob"
         render={({ field, fieldState: { error: proError } }) => (
           <FormControl mb="3" isInvalid={!!proError}>
             <FormLabel>Nature of work</FormLabel>

@@ -11,14 +11,61 @@ import {
   useDisclosure,
   Image,
   Button,
+  IconButton,
+  Menu,
+  MenuButton,
+  MenuList,
 } from '@chakra-ui/react';
 import { BsSearch } from 'react-icons/bs';
-import React from 'react';
+import { useRouter } from 'next/router';
+import { GiHamburgerMenu } from 'react-icons/gi';
+import { useAuthCtx } from '@app/hooks';
+import { useSessionContext } from 'supertokens-auth-react/recipe/session';
+import React, { useState, useCallback } from 'react';
 import Link from 'next/link';
+import { Issue } from '@app/types';
+import { debounce } from '@app/utils/debounce';
+import { surakshaAPI } from '@app/config';
+import { SideBar } from './SideBar';
 
-export const Navbar = () => {
+interface INav {
+  // eslint-disable-next-line react/require-default-props
+  isDashBoard?: boolean;
+}
+
+export const Navbar = ({ isDashBoard = false }: INav) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const finalRef = React.useRef(null);
+  const [result, setResult] = useState<Issue[] | null>(null);
+  const { data: userData } = useAuthCtx();
+  const { doesSessionExist } = useSessionContext() as any;
+
+  const getPostData = async (str: string): Promise<void> => {
+    try {
+      const { data, status } = await surakshaAPI.get(`/issue/search?post_id=${str}`);
+      if (status === 200) {
+        setResult(data.data);
+      }
+    } catch {
+      console.error('Network error cant search for user');
+    }
+  };
+  const router = useRouter();
+  const goToDashboard = () => {
+    if (!userData || !userData.is_verified) {
+      router.push('/dashboard/profile');
+    } else {
+      router.push('/dashboard');
+    }
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const loadPost = useCallback(
+    debounce((inputValue: string) => {
+      getPostData(inputValue);
+    }),
+    []
+  );
 
   return (
     <Flex
@@ -33,7 +80,7 @@ export const Navbar = () => {
       <Link href="/">
         <Image src="/logo.png" w="200px" />
       </Link>
-      <Box>
+      <Box display={{ sm: 'none', md: 'block' }}>
         <InputGroup w="100%">
           <InputLeftElement pointerEvents="none">
             <BsSearch />
@@ -42,15 +89,52 @@ export const Navbar = () => {
         </InputGroup>
       </Box>
       <Box>
-        <Button colorScheme="teal">
-          <Link href="/auth">Login</Link>
-        </Button>
+        {doesSessionExist ? (
+          <Button
+            colorScheme="teal"
+            display={{ base: 'none', md: 'block' }}
+            onClick={goToDashboard}
+          >
+            dashboard
+          </Button>
+        ) : (
+          <Button colorScheme="teal">
+            <Link href="/auth">Login</Link>
+          </Button>
+        )}
       </Box>
+      {isDashBoard && doesSessionExist && (
+        <Menu>
+          <MenuButton
+            display={{ base: 'block', md: 'none' }}
+            as={IconButton}
+            aria-label="Options"
+            icon={<GiHamburgerMenu />}
+            variant="outline"
+            colorScheme="whiteAlpha"
+          />
+          <MenuList background="transparent" border="none">
+            <SideBar />
+          </MenuList>
+        </Menu>
+      )}
+
       <Modal isOpen={isOpen} onClose={onClose} finalFocusRef={finalRef}>
         <ModalOverlay />
         <ModalContent>
           <ModalBody>
-            <Input type="string" placeholder="search post number" bg="white" />
+            <Input
+              type="string"
+              placeholder="search post number"
+              bg="white"
+              // debouncing user search
+              /*onChange={(e) => loadPost(e.target.value, getPostData)}*/
+            />
+            <Box>
+              {result?.map((el) => (
+                <h4>{el.title}</h4>
+              ))}
+            </Box>
           </ModalBody>
         </ModalContent>
       </Modal>

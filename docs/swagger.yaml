@@ -1,66 +1,8 @@
 basePath: /api/v1
 definitions:
-  gorm.DeletedAt:
-    properties:
-      time:
-        type: string
-      valid:
-        description: Valid is true if Time is not NULL
-        type: boolean
-    type: object
-  models.Form:
-    properties:
-      consumerno:
-        type: integer
-      createdAt:
-        type: string
-      deletedAt:
-        $ref: '#/definitions/gorm.DeletedAt'
-      feeder:
-        type: string
-      id:
-        type: integer
-      issueID:
-        type: integer
-      jobdescription:
-        type: string
-      location:
-        type: string
-      nooflabours:
-        type: integer
-      postno:
-        type: string
-      section:
-        type: string
-      substation:
-        type: string
-      transformer:
-        type: string
-      typeofjob:
-        type: string
-      updatedAt:
-        type: string
-      voltage:
-        type: integer
-    type: object
   models.Issue:
-    properties:
-      createdAt:
-        type: string
-      deletedAt:
-        $ref: '#/definitions/gorm.DeletedAt'
-      desc:
-        type: string
-      form:
-        $ref: '#/definitions/models.Form'
-      id:
-        type: integer
-      post_id:
-        type: string
-      title:
-        type: string
-      updatedAt:
-        type: string
+    type: object
+  models.Officials:
     type: object
 host: localhost:8000
 info:
@@ -102,6 +44,29 @@ paths:
       - application/json
       responses: {}
       summary: Returns A Single Issue With id
+  /officials:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses: {}
+      summary: Check whether user exist in database or not by supertokens primary
+        key
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Example Request Body
+        in: body
+        name: reqBody
+        required: true
+        schema:
+          $ref: '#/definitions/models.Officials'
+      produces:
+      - application/json
+      responses: {}
+      summary: Create KSEB Employee
 schemes:
 - http
 swagger: "2.0"
