@@ -34,7 +34,9 @@ export const formThree = Yup.object({
   jobdescription: Yup.string().required(),
   nooflabours: Yup.string().required(),
   officerDesignation: Yup.string().required(),
-  employeeName: Yup.string().required(),
+  employee1: Yup.string().required(),
+  employee2: Yup.string().required(),
+  employee3: Yup.string(),
   timeOfWork: Yup.date().required(),
   usedItems: Yup.string(),
 });
@@ -60,6 +62,12 @@ export const FinalForm = Yup.object({
   consumernumber: Yup.string(),
   jobdescription: Yup.string().required(),
   nooflabours: Yup.string().required(),
+  officerDesignation: Yup.string().required(),
+  employee1: Yup.string().required(),
+  employee2: Yup.string().required(),
+  employee3: Yup.string(),
+  timeOfWork: Yup.date().required(),
+  usedItems: Yup.string(),
 });
 
 export const StepByStepForm: Record<number, OptionalObjectSchema<any>> = {

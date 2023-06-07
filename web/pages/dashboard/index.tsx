@@ -29,10 +29,12 @@ import { BsFillCheckCircleFill, BsRecordCircle } from 'react-icons/bs';
 import { Issue } from '@app/types';
 import { surakshaAPI } from '@app/config';
 import { IssueModal, Loader, Card } from '@app/views/home';
+import { useAuthCtx } from '@app/hooks';
 
 const Dashboard: NextPageWithLayout = () => {
   const toast = useToast();
   const { isOpen, onClose } = useDisclosure();
+  const { data: userData } = useAuthCtx();
   const { isOpen: isStatusOpen, onOpen: onStatusOpen, onClose: onStatusClose } = useDisclosure();
   const [data, setData] = useState<Issue[] | null>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
@@ -98,7 +100,7 @@ const Dashboard: NextPageWithLayout = () => {
             width="438px"
             height="71.13px"
           >
-            Good morning, james!
+            Hello, {`${userData && userData.name}!`}
           </Heading>
         </Box>
       </Flex>
@@ -152,6 +154,7 @@ const Dashboard: NextPageWithLayout = () => {
                 id={el.id}
                 UpdatedAt={el.UpdatedAt}
                 onClick={onStatusOpen}
+                isAdmin
               />
             ))}
           {data?.length === 0 && (

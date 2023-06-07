@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { InferType } from 'yup';
 import { One, Two, NavigationButtons, Three } from '@app/views/form';
 import { FinalForm, StepByStepForm } from '@app/views/validator';
-import { BaseLayout } from '@app/layout';
+import { DashBoardLayout } from '@app/layout';
 import { surakshaAPI } from '@app/config';
 
 type FormType = InferType<typeof FinalForm>;
@@ -61,7 +61,7 @@ const Home = () => {
     console.log(datas);
   };
   return (
-    <Center>
+    <Center w="full">
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           {currentStep === 1 && <One />}
@@ -74,6 +74,6 @@ const Home = () => {
   );
 };
 
-Home.Layout = BaseLayout;
+Home.Layout = DashBoardLayout;
 
 export default Home;
