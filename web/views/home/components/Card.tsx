@@ -4,18 +4,25 @@ import dayjs from 'dayjs';
 import React from 'react';
 import { useRouter } from 'next/router';
 
-export const Card = ({ id, title, desc, post_id, CreatedAt, UpdatedAt, onClick }: Issue) => {
+interface Icard extends Issue {
+  // eslint-disable-next-line react/require-default-props
+  isAdmin?: boolean;
+}
+
+export const Card = ({
+  id,
+  title,
+  desc,
+  post_id,
+  CreatedAt,
+  UpdatedAt,
+  onClick,
+  isAdmin = false,
+}: Icard) => {
   const router = useRouter();
 
   return (
-    <Box
-      borderWidth="1px"
-      borderRadius="13.42px"
-      color="#FFFFFF"
-      minHeight="306px"
-      width="300px"
-      p="4"
-    >
+    <Box borderWidth="1px" borderRadius="13.42px" color="#FFFFFF" width="300px" p="4">
       <Flex justifyContent="space-between" mb="15px">
         <Text color="grey">{dayjs(CreatedAt).format('DD/MM/YYYY')}</Text>
         <Text color="grey">Updated:{dayjs(UpdatedAt).format('DD/MM/YYYY')}</Text>
@@ -29,13 +36,15 @@ export const Card = ({ id, title, desc, post_id, CreatedAt, UpdatedAt, onClick }
       <Text color="black" mt="20px">
         {desc}
       </Text>
-      <Flex justifyContent="space-between" mt="20px">
-        <Button colorScheme="teal" variant="outline" onClick={onClick}>
+      <Flex justifyContent="space-between" mt="20px" gap="20px">
+        <Button colorScheme="teal" variant="outline" onClick={onClick} w="100%">
           View Status
         </Button>
-        <Button colorScheme="teal" onClick={() => router.push(`/${id}`)}>
-          More Info
-        </Button>
+        {isAdmin && (
+          <Button colorScheme="teal" onClick={() => router.push(`/dashboard/${id}`)} w="100%">
+            More Info
+          </Button>
+        )}
       </Flex>
     </Box>
   );

@@ -13,7 +13,7 @@ interface IAuth {
 
 export const AuthCtx = createContext({} as IAuth);
 
-const PROTECTED_PATHS = ['/dashboard/todo', '/dashboard', '/dashboard/users'];
+const UN_PROTECTED_PATH = '/dashboard/profile';
 
 export const AuthCtxWrapper = ({ children }: Child) => {
   const [isUserLoading, setUserLoading] = useState<boolean>(false);
@@ -38,15 +38,15 @@ export const AuthCtxWrapper = ({ children }: Child) => {
     try {
       setUserLoading(true);
       const { data: response } = await surakshaAPI.get('/officials');
-      if (!response.success) {
+      if (!response.ok) {
         throw new Error();
       }
 
-      if (response.success && response.data === null) {
+      if (response.ok && response.data.length === 0) {
         localStorage.removeItem('isWizardCompleted');
         router.push('/dashboard/profile');
       }
-      if (response.success && response.data) {
+      if (response.ok && response.data) {
         // setting the info about the wizard in localstorage so that we can access it in supertokens redirection
         setUserData(response.data);
         localStorage.setItem('isWizardCompleted', 'YES');
@@ -63,6 +63,7 @@ export const AuthCtxWrapper = ({ children }: Child) => {
     if (doesSessionExist) {
       getData();
     } else {
+      router.push('/');
       setUserLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,7 +71,7 @@ export const AuthCtxWrapper = ({ children }: Child) => {
 
   useEffect(() => {
     const path = router.pathname;
-    if (!isAuth && PROTECTED_PATHS.includes(path)) {
+    if (doesSessionExist && !isAuth && path !== UN_PROTECTED_PATH) {
       router.push('/dashboard/profile');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

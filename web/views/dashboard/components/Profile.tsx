@@ -13,7 +13,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import { yupResolver } from '@hookform/resolvers/yup';
-import React, { useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { FaUserCircle } from 'react-icons/fa';
 import { FiAlertCircle } from 'react-icons/fi';
@@ -26,6 +26,7 @@ const typeOfRoles = [
   { label: 'Assistent Engineer', value: 'AE' },
   { label: 'Sub Engineer', value: 'SE' },
   { label: 'Line Man', value: 'LM' },
+  { label: 'Overseer', value: 'OV' },
 ];
 
 export const Profile = () => {
@@ -35,16 +36,16 @@ export const Profile = () => {
     handleSubmit,
     control,
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ProfileType>({
     resolver: yupResolver(profileValidator),
   });
 
-  const { setUserData, data: userData } = useAuthCtx();
+  const { setUserData, data: userData, isAuth } = useAuthCtx();
   const toast = useToast();
   const onSubmit = async (value: ProfileType) => {
     try {
-      const { data, status } = await surakshaAPI.post('/official', {
+      const { data, status } = await surakshaAPI.post('/officials', {
         ...value,
         role: value.role.value,
       });
@@ -62,8 +63,10 @@ export const Profile = () => {
     }
   };
 
-  useCallback(() => {
+  useEffect(() => {
     setValue('name', userData?.name);
+    setValue('location', userData?.location);
+    setValue('role', userData?.role);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
 
@@ -73,7 +76,7 @@ export const Profile = () => {
         (!userData.is_verified && (
           <Alert status="error" alignItems="center" justifyContent="center" mt="20px">
             <Icon as={FiAlertCircle} mr="10px" />
-            You wont be able to access the dashboard until someone verifies you
+            Pending Verification
           </Alert>
         ))}
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -90,17 +93,12 @@ export const Profile = () => {
           </FormControl>
           <FormControl id="name" isInvalid={!!errors.name}>
             <FormLabel>Name</FormLabel>
-            <Input {...register('name')} type="text" />
+            <Input {...register('name')} type="text" isDisabled={isAuth} />
             <FormErrorMessage>name should not be empty</FormErrorMessage>
-          </FormControl>
-          <FormControl id="phone number" mt="3">
-            <FormLabel>Phone Number</FormLabel>
-            <Input type="number" disabled />
-            <FormErrorMessage>number should not be empty</FormErrorMessage>
           </FormControl>
           <FormControl id="location" mt="3" isInvalid={!!errors.location}>
             <FormLabel>Location</FormLabel>
-            <Input {...register('location')} type="text" />
+            <Input {...register('location')} type="text" isDisabled={isAuth} />
             <FormErrorMessage>location should not be empty</FormErrorMessage>
           </FormControl>
           <Controller
@@ -110,16 +108,18 @@ export const Profile = () => {
               <FormControl mb="3" mt="5" isInvalid={!!proError}>
                 <FormLabel>Your Position in KSEB</FormLabel>
                 {/* @ts-ignore */}
-                <Select options={typeOfRoles} {...field} />
+                <Select options={typeOfRoles} {...field} isDisabled={isAuth} />
                 <FormErrorMessage>Please pick an option</FormErrorMessage>
               </FormControl>
             )}
           />
         </Flex>
         <Flex align="center" justify="center" mt="30" mb="40px">
-          <Button w="full" type="submit" colorScheme="teal">
-            Submit
-          </Button>
+          {!isAuth && (
+            <Button w="full" type="submit" colorScheme="teal" isLoading={isSubmitting}>
+              Submit
+            </Button>
+          )}
         </Flex>
       </form>
     </Box>

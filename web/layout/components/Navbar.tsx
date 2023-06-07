@@ -47,7 +47,7 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
         setResult(data.data);
       }
     } catch {
-      console.error('Network error cant search for user');
+      // console.error('Network error cant search for user');
     }
   };
   const router = useRouter();
@@ -128,11 +128,17 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
               placeholder="search post number"
               bg="white"
               // debouncing user search
-              /*onChange={(e) => loadPost(e.target.value, getPostData)}*/
+              onChange={(e) => loadPost(e.target.value, getPostData)}
             />
-            <Box>
+            <Box mt="10px" gap="10px">
               {result?.map((el) => (
-                <h4>{el.title}</h4>
+                <Button
+                  colorScheme="teal"
+                  w="full"
+                  onClick={() => router.push(`/dashboard/${el.id}`)}
+                >
+                  {el.title}
+                </Button>
               ))}
             </Box>
           </ModalBody>

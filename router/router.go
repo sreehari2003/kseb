@@ -56,10 +56,11 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 
 	// accesing controller by method
 
-	v1.POST("/officials", h.CreateOffical)
-	v1.GET("/officials", h.GetAllOfficials)
-	v1.GET("/officials/:id/forms", h.GetFormsByOfficialID)
-	v1.GET("/officials/search", h.SearchOfficialByName)
+	v1.POST("/officials", verifySession(nil), h.CreateOffical)
+	v1.GET("/officials", verifySession(nil), h.GetOfficial)
+	v1.GET("/officials/:id/forms", verifySession(nil), h.GetFormsByOfficialID)
+	v1.GET("/officials/search", verifySession(nil), h.SearchOfficialByName)
+	v1.GET("/officials/all", verifySession(nil), h.GetAllOfficials)
 
 	// accesing controller by method
 	v1.POST("/form", verifySession(nil), h.CreateForm)

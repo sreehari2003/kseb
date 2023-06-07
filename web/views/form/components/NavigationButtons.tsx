@@ -14,7 +14,12 @@ export const NavigationButtons = ({ currentStep, prevStep }: NextState) => {
         </Button>
       )}
       {currentStep === 1 && (
-        <Button colorScheme="teal" variant="outline" w="100%" onClick={() => router.push('/')}>
+        <Button
+          colorScheme="teal"
+          variant="outline"
+          w="100%"
+          onClick={() => router.push('/dashboard')}
+        >
           Close
         </Button>
       )}

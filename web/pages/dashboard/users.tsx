@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { DashBoardLayout } from '@app/layout';
 import { NextPageWithLayout } from 'next';
 import {
@@ -9,100 +9,143 @@ import {
   Th,
   Tbody,
   Td,
-  Tfoot,
   Box,
   Heading,
-  Button,
+  useToast,
+  Skeleton,
 } from '@chakra-ui/react';
-import { FaEye } from 'react-icons/fa';
+import { surakshaAPI } from '@app/config';
 
-const Users: NextPageWithLayout = () => (
-  <Box>
-    <Heading mt="20px" mb="20px" ml="30">
-      Team members
-    </Heading>
-    <Box width="100%" p={4} borderWidth={1} borderRadius="md" boxShadow="md" ml="30">
-      <TableContainer>
-        <Table variant="simple" size="lg">
-          <Thead>
-            <Tr bg="gray.200">
-              <Th>Name</Th>
-              <Th>id</Th>
-              <Th>phone number</Th>
-              <Th>location </Th>
-              <Th>designation</Th>
-              <Th>option</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>Thomas K P</Td>
-              <Td>123 </Td>
-              <Td>944654</Td>
-              <Td>Ulliyeri</Td>
-              <Td>foreman grade 1</Td>
-              <Td>
-                <Button leftIcon={<FaEye />}>View</Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>Lakshmi</Td>
-              <Td>456</Td>
-              <Td>96678</Td>
-              <Td>Naduvanur</Td>
-              <Td>Asst. engineer</Td>
-              <Td>
-                <Button leftIcon={<FaEye />}>View</Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>Mahadevan</Td>
-              <Td>789</Td>
-              <Td>91444</Td>
-              <Td>Balussery</Td>
-              <Td>Asst. engineer</Td>
-              <Td>
-                <Button leftIcon={<FaEye />}>View</Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>Midhun P</Td>
-              <Td>11239</Td>
-              <Td>944</Td>
-              <Td>Perambra</Td>
-              <Td>Electricity worker</Td>
-              <Td>
-                <Button leftIcon={<FaEye />}>View</Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>Freddy Honnai</Td>
-              <Td>343</Td>
-              <Td>81444</Td>
-              <Td>kuttiadi</Td>
-              <Td>Electricity worker</Td>
-              <Td>
-                <Button leftIcon={<FaEye />}>View</Button>
-              </Td>
-            </Tr>
-            <Tr>
-              <Td>Rajan.k</Td>
-              <Td>994</Td>
-              <Td>94544</Td>
-              <Td>kozhikode</Td>
-              <Td>Electricity worker</Td>
-              <Td>
-                <Button leftIcon={<FaEye />}>View</Button>
-              </Td>
-            </Tr>
-          </Tbody>
-          <Tfoot></Tfoot>
-        </Table>
-      </TableContainer>
+const ROLES: Record<string, string> = {
+  AE: 'Assistent Engineer',
+  SE: 'Sub Engineer',
+  LM: 'Line Man',
+  OV: 'Overseer',
+};
+
+const Users: NextPageWithLayout = () => {
+  const [isUserLoading, setUserLoading] = useState<boolean>(false);
+  const [data, setUserData] = useState<Record<string, any> | null>(null);
+  const toast = useToast();
+  const getUsers = async () => {
+    try {
+      setUserLoading(true);
+      const { data: response } = await surakshaAPI.get('/officials/all');
+      if (!response.ok) {
+        throw new Error();
+      }
+      setUserData(response.data);
+    } catch {
+      toast({
+        title: 'Failed to get all issues',
+        description: 'Request to get issues returned error',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
+    } finally {
+      setUserLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    (async () => {
+      await getUsers();
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <Box w="full">
+      <Heading mt="20px" mb="20px" ml="30">
+        All Users
+      </Heading>
+      <Box p={4} borderWidth={1} borderRadius="md" boxShadow="md" ml="30">
+        <TableContainer>
+          <Table variant="simple" size="lg">
+            <Thead>
+              <Tr bg="gray.200">
+                <Th>Name</Th>
+                <Th>id</Th>
+                <Th>phone number</Th>
+                <Th>location </Th>
+                <Th>designation</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {!isUserLoading &&
+                data &&
+                data.map((el: any) => (
+                  <Tr>
+                    <Td>{el.name}</Td>
+                    <Td>{el.id}</Td>
+                    <Td>{el.phone}</Td>
+                    <Td>{el.location}</Td>
+                    <Td>{ROLES[el.Role]}</Td>
+                  </Tr>
+                ))}
+              {isUserLoading && (
+                <>
+                  <Tr>
+                    <Td>
+                      <Skeleton height="20px" />
+                    </Td>
+                    <Td>
+                      <Skeleton height="20px" />
+                    </Td>
+                    <Td>
+                      <Skeleton height="20px" />
+                    </Td>
+                    <Td>
+                      <Skeleton height="20px" />
+                    </Td>
+                    <Td>
+                      <Skeleton height="20px" />
+                    </Td>
+                  </Tr>
+                  <Tr>
+                    <Td>
+                      <Skeleton height="20px" />
+                    </Td>
+                    <Td>
+                      <Skeleton height="20px" />
+                    </Td>
+                    <Td>
+                      <Skeleton height="20px" />
+                    </Td>
+                    <Td>
+                      <Skeleton height="20px" />
+                    </Td>
+                    <Td>
+                      <Skeleton height="20px" />
+                    </Td>
+                  </Tr>
+                  <Tr>
+                    <Td>
+                      <Skeleton height="20px" />
+                    </Td>
+                    <Td>
+                      <Skeleton height="20px" />
+                    </Td>
+                    <Td>
+                      <Skeleton height="20px" />
+                    </Td>
+                    <Td>
+                      <Skeleton height="20px" />
+                    </Td>
+                    <Td>
+                      <Skeleton height="20px" />
+                    </Td>
+                  </Tr>
+                </>
+              )}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </Box>
     </Box>
-  </Box>
-);
-
+  );
+};
 Users.Layout = DashBoardLayout;
 
 export default Users;

@@ -96,8 +96,8 @@ func (h Handler) GetAllOfficials(c *gin.Context) {
 		})
 		return
 	}
-	c.JSON(http.StatusCreated, gin.H{
-		"status":   http.StatusCreated,
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
 		"response": "Data read successfully",
 		"ok":       true,
 		"data":     Official,
@@ -110,7 +110,7 @@ func (h Handler) GetAllOfficials(c *gin.Context) {
 // @Produce  json
 // @Router /officials [get]
 func (h Handler) GetOfficial(c *gin.Context) {
-	var Officials []models.Officials
+	var Officials models.Officials
 	// Fetching the session object and reading the userID
 	sessionContainer := session.GetSessionFromRequestContext(c.Request.Context())
 	userId := sessionContainer.GetUserID()
@@ -123,8 +123,8 @@ func (h Handler) GetOfficial(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusAccepted, gin.H{
-		"status":   http.StatusAccepted,
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
 		"response": "Data read successfully",
 		"ok":       true,
 		"data":     Officials,
