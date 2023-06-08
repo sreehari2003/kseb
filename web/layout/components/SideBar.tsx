@@ -35,7 +35,7 @@ const Data = [
 
 export const SideBar = () => (
   <Flex
-    height="88vh"
+    height="84vh"s
     width="293px"
     m="10px"
     backgroundColor="rgba(217, 217, 217, 1)"
