@@ -69,7 +69,6 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
 
   return (
     <Flex
-      width="2xl"
       p="7px"
       height="90px"
       backgroundColor="teal"

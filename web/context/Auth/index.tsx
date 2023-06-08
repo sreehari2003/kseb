@@ -68,14 +68,13 @@ export const AuthCtxWrapper = ({ children }: Child) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [doesSessionExist]);
-
-  // useEffect(() => {
-  //   const path = router.pathname;s
-  //   if (!isAuth && PROTECTED_PATHS.includes(path)) {
-  //     router.push('/dashboard/profile');
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [isAuth, router.pathname]);
+  useEffect(() => {
+    const path = router.pathname;
+    if (doesSessionExist && !isAuth && path !== UN_PROTECTED_PATH) {
+      router.push('/dashboard/profile');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuth, router.pathname]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const values = useMemo(() => ({ isUserLoading, data, setUserData, isAuth }), [isUserLoading]);
