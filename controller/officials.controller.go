@@ -177,13 +177,13 @@ func (h Handler) GetFormsByOfficialID(c *gin.Context) {
 }
 
 func (h Handler) VerifyUser(c *gin.Context) {
-	// Fetch the session object and reading the userID
+	// Fetch the session object and read the userID
 	sessionContainer := session.GetSessionFromRequestContext(c.Request.Context())
 	userId := sessionContainer.GetUserID()
 
 	// Find the user by auth_id
-	var official models.Officials
-	if result := h.DB.Where("auth_id = ?", userId).First(&official); result.Error != nil {
+	var Official models.Officials
+	if result := h.DB.Where("auth_id = ?", userId).First(&Official); result.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{
 			"status": http.StatusNotFound,
 			"error":  "User not found",
@@ -193,10 +193,24 @@ func (h Handler) VerifyUser(c *gin.Context) {
 	}
 
 	// Check if the user has any role in the database
-	if official.Role == "" {
+	if Official.Role == "" {
 		c.JSON(http.StatusForbidden, gin.H{
 			"status": http.StatusForbidden,
 			"error":  "User does not have any role",
+			"ok":     false,
+		})
+		return
+	}
+
+	// Get the role of the user
+	role := Official.Role
+
+	// Check if the user's role matches the required role
+	requiredRole := "AE" // Replace with the actual required role
+	if role != requiredRole {
+		c.JSON(http.StatusForbidden, gin.H{
+			"status": http.StatusForbidden,
+			"error":  "Unauthorized access",
 			"ok":     false,
 		})
 		return
@@ -206,7 +220,7 @@ func (h Handler) VerifyUser(c *gin.Context) {
 	id := c.Param("id")
 
 	// Find the user by ID
-	if result := h.DB.Find(&official, id); result.Error != nil {
+	if result := h.DB.Find(&Official, id); result.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{
 			"status": http.StatusNotFound,
 			"error":  "User not found",
@@ -215,7 +229,7 @@ func (h Handler) VerifyUser(c *gin.Context) {
 		return
 	}
 	// Update the is_validated field to true
-	if result := h.DB.Model(&official).Update("is_Verifed", true); result.Error != nil {
+	if result := h.DB.Model(&Official).Update("is_Verifed", true); result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "Failed to verify user",
@@ -223,4 +237,10 @@ func (h Handler) VerifyUser(c *gin.Context) {
 		})
 		return
 	}
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": "User verified successfully",
+		"ok":       true,
+		"data":     Official,
+	})
 }
