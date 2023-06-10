@@ -175,3 +175,44 @@ func (h Handler) GetFormsByOfficialID(c *gin.Context) {
 		"data":     forms,
 	})
 }
+
+func (h Handler) VerifyUser(c *gin.Context) {
+	// Check the role of the user who sent the request
+	role := c.GetHeader("Role")
+
+	// Verify if the user has the specific role required
+	requiredRole := models.AE // Replace with the actual required role
+	if role != string(requiredRole) {
+		c.JSON(http.StatusUnauthorized, gin.H{
+			"status": http.StatusUnauthorized,
+			"error":  "Unauthorized access",
+			"ok":     false,
+		})
+		return
+	}
+
+	// Get the user ID from the request parameters
+	id := c.Param("id")
+
+	var official []models.Officials
+
+	// Find the user by ID
+	if result := h.DB.Find(&official, id); result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"status": http.StatusNotFound,
+			"error":  "User not found",
+			"ok":     false,
+		})
+		return
+	}
+
+	// Update the is_validated field to true
+	if result := h.DB.Model(&official).Update("is_Verifed", true); result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "Failed to verify user",
+			"ok":     false,
+		})
+		return
+	}
+}
