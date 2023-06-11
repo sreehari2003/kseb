@@ -7,7 +7,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/sreehari2003/kseb/models"
-	"gorm.io/gorm"
 )
 
 func (h Handler) CreateForm(c *gin.Context) {
@@ -117,59 +116,30 @@ func (h Handler) GetFormByID(c *gin.Context) {
 	})
 }
 
-func (h Handler) ChangeStatusHandler(c *gin.Context) {
+func (h Handler) CompleteIssue(c *gin.Context) {
 	// Get the issue ID from the request URL
-	issueID := c.Param("id")
-
-	// Check if the issue entry exists in the database
-	var issue models.Issue
-	if err := h.DB.First(&issue, issueID).Error; err != nil {
-		if err == gorm.ErrRecordNotFound {
-			c.JSON(http.StatusNotFound, gin.H{"error": "Issue entry not found"})
-			return
-		}
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to fetch Issue entry"})
+	id := c.Param("id")
+	var Form = models.Form{}
+	if result := h.DB.Find(&Form, id); result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"status": http.StatusNotFound,
+			"error":  "User not found",
+			"ok":     false,
+		})
 		return
 	}
+	if result := h.DB.Model(&Form).Update("status", "COMPLETED"); result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "Failed to update form",
+			"ok":     false,
+		})
 
-	// Get the authenticated official (LineMan)
-	official, exists := c.Get("official")
-	if !exists {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to get authenticated official"})
-		return
 	}
 
-	// Check if the official is authorized to change the status
-	lineman, ok := official.(*models.Officials)
-	if !ok || lineman.Role != models.LM {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized"})
-		return
-	}
-
-	// Update the status fields based on the request body
-	var updateData struct {
-		Working   bool `json:"working"`
-		Completed bool `json:"completed"`
-	}
-	if err := c.ShouldBindJSON(&updateData); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "Invalid request payload"})
-		return
-	}
-
-	// Update the status fields in the form entry
-	var form models.Form
-	if err := h.DB.FirstOrCreate(&form, models.Form{IssueID: issue.ID}).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update Form entry"})
-		return
-	}
-	form.Working = updateData.Working
-	form.Completed = updateData.Completed
-
-	// Save the updated form entry to the database
-	if err := h.DB.Save(&form).Error; err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update Form entry"})
-		return
-	}
-
-	c.JSON(http.StatusOK, gin.H{"message": "Status updated successfully"})
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Status updated successfully",
+		"ok":      true,
+		"data":    Form,
+	})
 }
