@@ -6,6 +6,8 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/sreehari2003/kseb/controller"
+	"github.com/sreehari2003/kseb/models"
 	"github.com/supertokens/supertokens-golang/supertokens"
 )
 
@@ -29,4 +31,35 @@ func Cors() gin.HandlerFunc {
 		MaxAge:           1 * time.Minute,
 		AllowCredentials: true,
 	})
+}
+
+func VerifyUser(h controller.Handler) gin.HandlerFunc {
+	var official models.Officials
+	return func(c *gin.Context) {
+		// Get the user ID from the query parameter
+		id := c.Query("id")
+		// Retrieve the user by ID from the database
+		if result := h.DB.Find(&official, id); result.Error != nil {
+			c.JSON(http.StatusNotFound, gin.H{
+				"status": http.StatusNotFound,
+				"error":  "User not found",
+				"ok":     false,
+			})
+			c.Abort()
+			return
+		}
+		// Check if the user is verified
+		if official.IsVerified == false {
+			c.JSON(http.StatusUnauthorized, gin.H{
+				"status": http.StatusUnauthorized,
+				"error":  "Unauthoried Person",
+				"ok":     false,
+			})
+			c.Abort()
+			return
+		}
+		// Pass the user object to the next handler
+		c.Set("user", official)
+		c.Next()
+	}
 }
