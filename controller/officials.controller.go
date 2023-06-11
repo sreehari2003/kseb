@@ -203,18 +203,18 @@ func (h Handler) VerifyUser(c *gin.Context) {
 	}
 
 	// Get the role of the user
-	role := Official.Role
+	//role := Official.Role
 
 	// Check if the user's role matches the required role
-	requiredRole := "AE" // Replace with the actual required role
-	if role != requiredRole {
-		c.JSON(http.StatusForbidden, gin.H{
-			"status": http.StatusForbidden,
-			"error":  "Unauthorized access",
-			"ok":     false,
-		})
-		return
-	}
+	//requiredRole := "AE" // Replace with the actual required role
+	//if role != requiredRole {
+	//	c.JSON(http.StatusForbidden, gin.H{
+	//		"status": http.StatusForbidden,
+	//		"error":  "Unauthorized access",
+	//		"ok":     false,
+	//	})
+	//	return
+	//}
 
 	// Get the user ID from the request parameters
 	id := c.Param("id")

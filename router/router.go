@@ -33,6 +33,8 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 
 	router.Use(middlewares.Supertokens())
 
+	router.Use(middlewares.VerifyUser())
+
 	// use ginSwagger middleware to serve the API docs
 	router.GET("/", func(c *gin.Context) {
 		res := map[string]interface{}{
