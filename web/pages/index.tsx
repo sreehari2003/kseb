@@ -53,7 +53,8 @@ const App: NextPageWithLayout = () => {
         setError(false);
         const { data: dats } = await surakshaAPI.get('/issue');
         if (!dats.ok) {
-          throw new Error('Error');
+          // @ts-ignore
+          throw new Error();
         }
         setData(dats.data);
       } catch {
