@@ -6,6 +6,13 @@ import (
 	"gorm.io/gorm"
 )
 
+const (
+	Waiting   ROLE = "WAITING"
+	Approved  ROLE = "APPROVED"
+	Working   ROLE = "WORKING"
+	Completed ROLE = "COMPLETED"
+)
+
 // swagger:model Form
 type Form struct {
 	gorm.Model
@@ -21,8 +28,10 @@ type Form struct {
 	ConsumerNO     int    `gorm:"not null" json:"consumerno"`
 	JobDescription string `gorm:"not null" json:"jobdescription"`
 	Nooflabours    int    `gorm:"not null" json:"nooflabours"`
-	IssueID        uint   `gorm:"uniqueIndex"`
+	IssueID        uint   `gorm:"not null" json:"issue_id"`
+	Issue          Issue  `gorm:"foreignKey:IssueID"`
 	OfficialID     uint   `gorm:"not null" json:"official_id"`
+	Status         ROLE   `sql:"type:ENUM('WAITING', 'APPROVED', 'WORKING', 'COMPLETED')" gorm:"column:status"`
 }
 
 // custom vaidation for body data from backend

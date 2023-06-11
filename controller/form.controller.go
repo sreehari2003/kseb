@@ -12,13 +12,12 @@ import (
 func (h Handler) CreateForm(c *gin.Context) {
 	var issues []models.Issue
 
-	//clear previous error if any
+	// Clear previous errors if any
 	errList := map[string]string{}
 	var form = models.Form{}
-	// accessing the issue id from request params
+	// Accessing the issue ID from request params
 	id := c.Query("id")
-	// next need to verify that whether the issue with\
-	// this ID exist or not ?
+	// Next, need to verify whether the issue with this ID exists or not
 	if result := h.DB.Find(&issues, id); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
@@ -27,7 +26,7 @@ func (h Handler) CreateForm(c *gin.Context) {
 		})
 	}
 	body, err := io.ReadAll(c.Request.Body)
-	// if error in marsheling body
+	// If there's an error in marshaling the body
 	if err != nil {
 		errList["Invalid_body"] = "invalid data provided"
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
@@ -47,7 +46,7 @@ func (h Handler) CreateForm(c *gin.Context) {
 		})
 		return
 	}
-	// validating the user data based on our schema
+	// Validating the user data based on our schema
 	errorMessages := form.Validate()
 	if len(errorMessages) > 0 {
 		errList = errorMessages
@@ -59,12 +58,9 @@ func (h Handler) CreateForm(c *gin.Context) {
 		return
 	}
 
-	// child := models.Form{body, issueID: id}
-
-	// creating data in db
-	// if error send error to client
-	// err := h.DB.Create(child).Error
-	if err != nil {
+	// Creating data in the database
+	// If there's an error, send the error to the client
+	if err := h.DB.Create(&form).Error; err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't save your data",
@@ -72,21 +68,19 @@ func (h Handler) CreateForm(c *gin.Context) {
 		})
 		return
 	}
-	// sending succes message with data to client
+	// Sending success message with data to the client
 	c.JSON(http.StatusCreated, gin.H{
 		"status":   http.StatusCreated,
 		"response": "Form created successfully",
 		"ok":       true,
 		"data":     form,
 	})
-
 }
 
 func (h Handler) GetAllForm(c *gin.Context) {
-	// results will be stored in this variable
-	// if request is successful
-	var Form []models.Form
-	if result := h.DB.Find(&Form); result.Error != nil {
+	// Results will be stored in this variable if the request is successful
+	var forms []models.Form
+	if result := h.DB.Find(&forms); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't find your data",
@@ -94,29 +88,58 @@ func (h Handler) GetAllForm(c *gin.Context) {
 		})
 		return
 	}
-	c.JSON(http.StatusCreated, gin.H{
-		"status":   http.StatusCreated,
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
 		"response": "Data read successfully",
 		"ok":       true,
-		"data":     Form,
+		"data":     forms,
 	})
 }
 
 func (h Handler) GetFormByID(c *gin.Context) {
-	var Form []models.Form
+	var form models.Form
 	id := c.Param("id")
-	if result := h.DB.Find(&Form, id); result.Error != nil {
+	if result := h.DB.Find(&form, id); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't find the data",
 			"ok":     false,
 		})
+		return
 	}
 
-	c.JSON(http.StatusCreated, gin.H{
-		"status":   http.StatusCreated,
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
 		"response": "Data read successfully",
 		"ok":       true,
-		"data":     Form,
+		"data":     form,
+	})
+}
+
+func (h Handler) CompleteIssue(c *gin.Context) {
+	// Get the issue ID from the request URL
+	id := c.Param("id")
+	var Form = models.Form{}
+	if result := h.DB.Find(&Form, id); result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"status": http.StatusNotFound,
+			"error":  "User not found",
+			"ok":     false,
+		})
+		return
+	}
+	if result := h.DB.Model(&Form).Update("status", "COMPLETED"); result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "Failed to update form",
+			"ok":     false,
+		})
+
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Status updated successfully",
+		"ok":      true,
+		"data":    Form,
 	})
 }
