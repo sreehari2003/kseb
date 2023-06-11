@@ -44,8 +44,8 @@ const Users: NextPageWithLayout = () => {
       setUserData(response.data);
     } catch {
       toast({
-        title: 'Failed to get all issues',
-        description: 'Request to get issues returned error',
+        title: 'Failed to get all users',
+        description: 'Request to get users returned error',
         status: 'error',
         duration: 9000,
         isClosable: true,
@@ -66,8 +66,8 @@ const Users: NextPageWithLayout = () => {
       setPendingUsers(response.data);
     } catch {
       toast({
-        title: 'Failed to get all issues',
-        description: 'Request to get issues returned error',
+        title: 'Failed to get all users',
+        description: 'Request to get users returned error',
         status: 'error',
         duration: 9000,
         isClosable: true,
