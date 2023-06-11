@@ -8,7 +8,6 @@ import (
 
 const (
 	Waiting   ROLE = "WAITING"
-	Approved  ROLE = "APPROVED"
 	Working   ROLE = "WORKING"
 	Completed ROLE = "COMPLETED"
 )
@@ -16,22 +15,23 @@ const (
 // swagger:model Form
 type Form struct {
 	gorm.Model
-	Id             uint   `gorm:"primary_key;auto_increment" json:"id"`
-	Section        string `gorm:"size:255;not null" json:"section"`
-	Typeofjob      string `gorm:"size:255;not null" json:"typeofjob"`
-	Voltage        int    `gorm:"not null" json:"voltage"`
-	Location       string `gorm:"not null" json:"location"`
-	Feeder         string `gorm:"not null" json:"feeder"`
-	Substation     string `gorm:"not null" json:"substation"`
-	Transformer    string `gorm:"not null" json:"transformer"`
-	PostNO         string `gorm:"not null" json:"postno"`
-	ConsumerNO     int    `gorm:"not null" json:"consumerno"`
-	JobDescription string `gorm:"not null" json:"jobdescription"`
-	Nooflabours    int    `gorm:"not null" json:"nooflabours"`
-	IssueID        uint   `gorm:"not null" json:"issue_id"`
-	Issue          Issue  `gorm:"foreignKey:IssueID"`
-	OfficialID     uint   `gorm:"not null" json:"official_id"`
-	Status         ROLE   `sql:"type:ENUM('WAITING', 'APPROVED', 'WORKING', 'COMPLETED')" gorm:"column:status"`
+	Id             uint      `gorm:"primary_key;auto_increment" json:"id"`
+	Section        string    `gorm:"size:255;not null" json:"section"`
+	Typeofjob      string    `gorm:"size:255;not null" json:"typeofjob"`
+	Voltage        int       `gorm:"not null" json:"voltage"`
+	Location       string    `gorm:"not null" json:"location"`
+	Feeder         string    `gorm:"not null" json:"feeder"`
+	Substation     string    `gorm:"not null" json:"substation"`
+	Transformer    string    `gorm:"not null" json:"transformer"`
+	PostNO         string    `gorm:"not null" json:"postno"`
+	ConsumerNO     int       `gorm:"not null" json:"consumerno"`
+	JobDescription string    `gorm:"not null" json:"jobdescription"`
+	Nooflabours    int       `gorm:"not null" json:"nooflabours"`
+	IssueID        uint      `gorm:"not null" json:"issue_id"`
+	Issue          Issue     `gorm:"foreignKey:IssueID"`
+	OfficialID     uint      `gorm:"not null" json:"official_id"`
+	Officials      Officials `gorm:"foreignKey:officialID"`
+	Status         ROLE      `sql:"type:ENUM('WAITING', 'WORKING', 'COMPLETED')" gorm:"column:status"`
 }
 
 // custom vaidation for body data from backend

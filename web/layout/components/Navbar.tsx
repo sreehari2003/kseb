@@ -113,6 +113,7 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
             icon={<GiHamburgerMenu />}
             variant="outline"
             colorScheme="whiteAlpha"
+            p="0"
           />
           <MenuList background="transparent" border="none">
             <SideBar />

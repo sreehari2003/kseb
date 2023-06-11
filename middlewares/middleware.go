@@ -26,7 +26,7 @@ func Supertokens() gin.HandlerFunc {
 func Cors() gin.HandlerFunc {
 	return cors.New(cors.Config{
 		AllowOrigins:     []string{"http://localhost:3000"},
-		AllowMethods:     []string{"GET", "POST", "DELETE", "PUT", "OPTIONS"},
+		AllowMethods:     []string{"GET", "POST", "DELETE", "PUT", "OPTIONS", "PATCH"},
 		AllowHeaders:     append([]string{"content-type"}, supertokens.GetAllCORSHeaders()...),
 		MaxAge:           1 * time.Minute,
 		AllowCredentials: true,
@@ -50,8 +50,8 @@ func VerifyUser(h controller.Handler) gin.HandlerFunc {
 		}
 		// Check if the user is verified
 		if official.IsVerified == false {
-			c.JSON(http.StatusUnauthorized, gin.H{
-				"status": http.StatusUnauthorized,
+			c.JSON(http.StatusForbidden, gin.H{
+				"status": http.StatusForbidden,
 				"error":  "Unauthoried Person",
 				"ok":     false,
 			})

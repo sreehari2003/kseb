@@ -17,6 +17,7 @@ import {
   TabPanel,
   TabPanels,
   Tabs,
+  Button,
 } from '@chakra-ui/react';
 import { surakshaAPI } from '@app/config';
 import { Skelton } from '@app/views/dashboard';
@@ -34,6 +35,7 @@ const Users: NextPageWithLayout = () => {
   const [pendingUsers, setPendingUsers] = useState<Record<string, any> | null>(null);
 
   const toast = useToast();
+
   const getUsers = async () => {
     try {
       setUserLoading(true);
@@ -74,6 +76,25 @@ const Users: NextPageWithLayout = () => {
       });
     } finally {
       setUserLoading(false);
+    }
+  };
+
+  const verifyUser = async (id: string) => {
+    try {
+      const { data: response } = await surakshaAPI.patch(`/officials/verify?id=${id}`);
+      if (!response.ok) {
+        throw new Error();
+      }
+      setPendingUsers(null);
+      getPendingUsers();
+    } catch {
+      toast({
+        title: 'Failed to verify the user',
+        description: 'Request to verify returned error',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
 
@@ -147,6 +168,15 @@ const Users: NextPageWithLayout = () => {
                           <Td>{el.phone}</Td>
                           <Td>{el.location}</Td>
                           <Td>{ROLES[el.Role]}</Td>
+                          <Td>
+                            <Button
+                              colorScheme="teal"
+                              variant="outline"
+                              onClick={() => verifyUser(el.id)}
+                            >
+                              Verify
+                            </Button>
+                          </Td>
                         </Tr>
                       ))}
                     {isUserLoading && <Skelton />}

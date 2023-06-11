@@ -38,11 +38,7 @@ const App: NextPageWithLayout = () => {
   const [data, setData] = useState<Issue[] | null>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
   const [isError, setError] = useState<boolean>(false);
-  const steps = [
-    { title: 'Approved By Engineer' },
-    { title: 'On Working' },
-    { title: 'Completed' },
-  ];
+  const steps = [{ title: 'Waiting' }, { title: 'On Working' }, { title: 'Completed' }];
   const { activeStep } = useSteps({
     index: 1,
     count: steps.length,
