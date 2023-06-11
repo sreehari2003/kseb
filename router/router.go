@@ -61,6 +61,8 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 	v1.GET("/officials/:id/forms", verifySession(nil), h.GetFormsByOfficialID)
 	v1.GET("/officials/search", verifySession(nil), h.SearchOfficialByName)
 	v1.GET("/officials/all", verifySession(nil), h.GetAllOfficials)
+	// middleware make sure that only a verfied user can veryfy another user
+	v1.PATCH("/officials/verify", verifySession(nil), middlewares.VerifyUser(h), h.VerifyUser)
 
 	// accesing controller by method
 	v1.POST("/form", verifySession(nil), h.CreateForm)

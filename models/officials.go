@@ -26,7 +26,7 @@ type Officials struct {
 	Role       ROLE   `sql:"type:ENUM('SE', 'AE', 'OV')" gorm:"column:role"`
 	Phone      string `gorm:"not null" json:"phone"`
 	Forms      []Form `gorm:"foreignkey:OfficialID"`
-	IsVerified bool   `gorm:"default:false" json:"is_Verifed"`
+	IsVerified bool   `gorm:"default:false" json:"is_verified"`
 	Location   string `gorm:"not null" json:"location"`
 }
 

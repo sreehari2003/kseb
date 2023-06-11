@@ -84,14 +84,19 @@ func (h Handler) CreateOffical(c *gin.Context) {
 
 }
 
+// Get Users
+// @Summary return all verified users
+// @Accept  json
+// @Produce  json
+// @Router /officials/all [get]
 func (h Handler) GetAllOfficials(c *gin.Context) {
 	// results will be stored in this variable
 	// if request is successful
 	var Official []models.Officials
-	if result := h.DB.Find(&Official); result.Error != nil {
+	if result := h.DB.Where("is_verified", true).Find(&Official); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
-			"error":  "couldn't save your data",
+			"error":  "couldn't get data",
 			"ok":     false,
 		})
 		return
@@ -173,5 +178,63 @@ func (h Handler) GetFormsByOfficialID(c *gin.Context) {
 		"response": "Forms fetched successfully",
 		"ok":       true,
 		"data":     forms,
+	})
+}
+
+func (h Handler) VerifyUser(c *gin.Context) {
+	// Fetch the session object and read the userID
+	sessionContainer := session.GetSessionFromRequestContext(c.Request.Context())
+	userId := sessionContainer.GetUserID()
+
+	// Find the user by auth_id
+	var Official models.Officials
+	var User models.Officials
+	if result := h.DB.Where("auth_id = ?", userId).First(&Official); result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"status": http.StatusNotFound,
+			"error":  "User not found",
+			"ok":     false,
+		})
+		return
+	}
+
+	// Get the role of the user
+
+	// Check if the user's role matches the required role
+	if Official.Role != "AE" {
+		c.JSON(http.StatusForbidden, gin.H{
+			"status": http.StatusForbidden,
+			"error":  "Unauthorized access",
+			"ok":     false,
+		})
+		return
+	}
+
+	// Get the user ID from the request parameters
+	id := c.Param("id")
+
+	// Find the user by ID
+	if result := h.DB.Find(&User, id); result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"status": http.StatusNotFound,
+			"error":  "User not found",
+			"ok":     false,
+		})
+		return
+	}
+	// Update the is_validated field to true
+	if result := h.DB.Model(&User).Update("is_verified", true); result.Error != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "Failed to verify user",
+			"ok":     false,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": "User verified successfully",
+		"ok":       true,
+		"data":     Official,
 	})
 }
