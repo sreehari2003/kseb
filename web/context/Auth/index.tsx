@@ -68,7 +68,6 @@ export const AuthCtxWrapper = ({ children }: Child) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [doesSessionExist]);
-
   useEffect(() => {
     const path = router.pathname;
     if (doesSessionExist && !isAuth && path !== UN_PROTECTED_PATH) {
