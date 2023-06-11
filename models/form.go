@@ -21,8 +21,14 @@ type Form struct {
 	ConsumerNO     int    `gorm:"not null" json:"consumerno"`
 	JobDescription string `gorm:"not null" json:"jobdescription"`
 	Nooflabours    int    `gorm:"not null" json:"nooflabours"`
-	IssueID        uint   `gorm:"uniqueIndex"`
-	OfficialID     uint   `gorm:"not null" json:"official_id"`
+	// issue id is the foreign key
+	IssueID uint  `gorm:"not null" json:"issue_id"`
+	Issue   Issue `gorm:"foreignKey:IssueID"`
+
+	OfficialID uint `gorm:"not null" json:"official_id"`
+	Approved   bool `gorm:"default:false" json:"approved"`
+	Working    bool `gorm:"default:false" json:"working"`
+	Completed  bool `gorm:"default:false" json:"completed"`
 }
 
 // custom vaidation for body data from backend
