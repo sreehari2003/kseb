@@ -13,6 +13,11 @@ import {
   Heading,
   useToast,
   Skeleton,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
 } from '@chakra-ui/react';
 import { surakshaAPI } from '@app/config';
 
@@ -61,87 +66,97 @@ const Users: NextPageWithLayout = () => {
         All Users
       </Heading>
       <Box p={4} borderWidth={1} borderRadius="md" boxShadow="md" ml="30">
-        <TableContainer>
-          <Table variant="simple" size="lg">
-            <Thead>
-              <Tr bg="gray.200">
-                <Th>Name</Th>
-                <Th>id</Th>
-                <Th>phone number</Th>
-                <Th>location </Th>
-                <Th>designation</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {!isUserLoading &&
-                data &&
-                data.map((el: any) => (
-                  <Tr>
-                    <Td>{el.name}</Td>
-                    <Td>{el.id}</Td>
-                    <Td>{el.phone}</Td>
-                    <Td>{el.location}</Td>
-                    <Td>{ROLES[el.Role]}</Td>
-                  </Tr>
-                ))}
-              {isUserLoading && (
-                <>
-                  <Tr>
-                    <Td>
-                      <Skeleton height="20px" />
-                    </Td>
-                    <Td>
-                      <Skeleton height="20px" />
-                    </Td>
-                    <Td>
-                      <Skeleton height="20px" />
-                    </Td>
-                    <Td>
-                      <Skeleton height="20px" />
-                    </Td>
-                    <Td>
-                      <Skeleton height="20px" />
-                    </Td>
-                  </Tr>
-                  <Tr>
-                    <Td>
-                      <Skeleton height="20px" />
-                    </Td>
-                    <Td>
-                      <Skeleton height="20px" />
-                    </Td>
-                    <Td>
-                      <Skeleton height="20px" />
-                    </Td>
-                    <Td>
-                      <Skeleton height="20px" />
-                    </Td>
-                    <Td>
-                      <Skeleton height="20px" />
-                    </Td>
-                  </Tr>
-                  <Tr>
-                    <Td>
-                      <Skeleton height="20px" />
-                    </Td>
-                    <Td>
-                      <Skeleton height="20px" />
-                    </Td>
-                    <Td>
-                      <Skeleton height="20px" />
-                    </Td>
-                    <Td>
-                      <Skeleton height="20px" />
-                    </Td>
-                    <Td>
-                      <Skeleton height="20px" />
-                    </Td>
-                  </Tr>
-                </>
-              )}
-            </Tbody>
-          </Table>
-        </TableContainer>
+        <Tabs isFitted variant="enclosed">
+          <TabList mb="1em">
+            <Tab>Verified Users</Tab>
+            <Tab>Verification Requests</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <TableContainer>
+                <Table variant="simple" size="lg">
+                  <Thead>
+                    <Tr bg="gray.200">
+                      <Th>Name</Th>
+                      <Th>id</Th>
+                      <Th>phone number</Th>
+                      <Th>location </Th>
+                      <Th>designation</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {!isUserLoading &&
+                      data &&
+                      data.map((el: any) => (
+                        <Tr>
+                          <Td>{el.name}</Td>
+                          <Td>{el.id}</Td>
+                          <Td>{el.phone}</Td>
+                          <Td>{el.location}</Td>
+                          <Td>{ROLES[el.Role]}</Td>
+                        </Tr>
+                      ))}
+                    {isUserLoading && (
+                      <>
+                        <Tr>
+                          <Td>
+                            <Skeleton height="20px" />
+                          </Td>
+                          <Td>
+                            <Skeleton height="20px" />
+                          </Td>
+                          <Td>
+                            <Skeleton height="20px" />
+                          </Td>
+                          <Td>
+                            <Skeleton height="20px" />
+                          </Td>
+                          <Td>
+                            <Skeleton height="20px" />
+                          </Td>
+                        </Tr>
+                        <Tr>
+                          <Td>
+                            <Skeleton height="20px" />
+                          </Td>
+                          <Td>
+                            <Skeleton height="20px" />
+                          </Td>
+                          <Td>
+                            <Skeleton height="20px" />
+                          </Td>
+                          <Td>
+                            <Skeleton height="20px" />
+                          </Td>
+                          <Td>
+                            <Skeleton height="20px" />
+                          </Td>
+                        </Tr>
+                        <Tr>
+                          <Td>
+                            <Skeleton height="20px" />
+                          </Td>
+                          <Td>
+                            <Skeleton height="20px" />
+                          </Td>
+                          <Td>
+                            <Skeleton height="20px" />
+                          </Td>
+                          <Td>
+                            <Skeleton height="20px" />
+                          </Td>
+                          <Td>
+                            <Skeleton height="20px" />
+                          </Td>
+                        </Tr>
+                      </>
+                    )}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
       </Box>
     </Box>
   );
