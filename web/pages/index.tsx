@@ -23,7 +23,7 @@ import {
 } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { GrAdd } from 'react-icons/gr';
-import { Card, IssueModal, Loader } from '@app/views/home';
+import { Card, IssueModal, Loader, Error } from '@app/views/home';
 import { Issue } from '@app/types';
 import { BsRecordCircle, BsFillCheckCircleFill } from 'react-icons/bs';
 import { AiFillExclamationCircle } from 'react-icons/ai';
@@ -37,6 +37,7 @@ const App: NextPageWithLayout = () => {
   const { isOpen: isStatusOpen, onOpen: onStatusOpen, onClose: onStatusClose } = useDisclosure();
   const [data, setData] = useState<Issue[] | null>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
+  const [isError, setError] = useState<boolean>(false);
   const steps = [
     { title: 'Approved By Engineer' },
     { title: 'On Working' },
@@ -49,8 +50,10 @@ const App: NextPageWithLayout = () => {
   useEffect(() => {
     (async () => {
       try {
+        setError(false);
         const { data: dats } = await surakshaAPI.get('/issue');
         if (!dats.ok) {
+          // @ts-ignore
           throw new Error();
         }
         setData(dats.data);
@@ -62,6 +65,7 @@ const App: NextPageWithLayout = () => {
           duration: 9000,
           isClosable: true,
         });
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -127,11 +131,13 @@ const App: NextPageWithLayout = () => {
                 onClick={onStatusOpen}
               />
             ))}
+          {isError && <Error />}
           {data?.length === 0 && (
-            <Center h="70vh">
+            <Center h="70vh" w="full">
               <Heading>Nothing To See Here</Heading>
             </Center>
           )}
+
           <Button
             colorScheme="teal"
             shadow="lg"
