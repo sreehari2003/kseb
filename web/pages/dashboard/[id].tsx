@@ -4,6 +4,7 @@ import { Center, useToast } from '@chakra-ui/react';
 import { useForm, FormProvider, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { InferType } from 'yup';
+import { useRouter } from 'next/router';
 import { One, Two, NavigationButtons, Three } from '@app/views/form';
 import { FinalForm, StepByStepForm } from '@app/views/validator';
 import { DashBoardLayout } from '@app/layout';
@@ -13,14 +14,13 @@ type FormType = InferType<typeof FinalForm>;
 
 const Home = () => {
   const toast = useToast();
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState<number>(1);
   const isReadyForSubmission = currentStep === 3;
   const methods = useForm<FormType>({
     mode: 'all',
     resolver: yupResolver(StepByStepForm[currentStep]),
   });
-
-  console.log(methods.formState.errors);
 
   const nextStep = () => {
     setCurrentStep((el) => el + 1);
@@ -34,7 +34,14 @@ const Home = () => {
     if (isReadyForSubmission) {
       // send post request
       try {
-        const { data } = await surakshaAPI.post('/form', datas);
+        const { id } = router.query;
+        // creating new form
+        const { data } = await surakshaAPI.post(`/form?id=${id}`, {
+          ...datas,
+          typeofjob: datas.typeofjob.value,
+          voltage: datas.voltage.value,
+          status: 'WORKING',
+        });
         if (!data.ok) {
           throw new Error();
         } else {
@@ -58,7 +65,6 @@ const Home = () => {
     } else {
       nextStep();
     }
-    console.log(datas);
   };
   return (
     <Center w="full">

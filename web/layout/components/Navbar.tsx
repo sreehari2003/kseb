@@ -75,12 +75,13 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
       justifyContent="space-between"
       boxShadow="md"
       alignItems="center"
+      w="full"
       ref={finalRef}
     >
       <Link href="/">
         <Image src="/logo.png" w="200px" />
       </Link>
-      <Box display={{ sm: 'none', md: 'block' }}>
+      <Box display={{ base: 'none', md: 'block' }}>
         <InputGroup w="100%">
           <InputLeftElement pointerEvents="none">
             <BsSearch />
@@ -112,6 +113,7 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
             icon={<GiHamburgerMenu />}
             variant="outline"
             colorScheme="whiteAlpha"
+            p="0"
           />
           <MenuList background="transparent" border="none">
             <SideBar />

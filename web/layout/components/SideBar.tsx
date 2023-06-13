@@ -1,4 +1,4 @@
-import { Flex, Heading, Grid, GridItem, Button,Box} from '@chakra-ui/react';
+import { Flex, Heading, Grid, GridItem, Button, Box } from '@chakra-ui/react';
 import Link from 'next/link';
 import { AiOutlineLogout } from 'react-icons/ai';
 import { HiUserCircle } from 'react-icons/hi';
@@ -24,11 +24,6 @@ const Data = [
     route: '/dashboard/users',
     logo: MdPeople,
   },
-  // {
-  //   name: 'OverView',
-  //   route: '/dashboard/overview',
-  //   logo: BsGraphUp,
-  // },
   {
     name: 'Todo',
     route: '/dashboard/todo',
@@ -91,26 +86,26 @@ export const SideBar = () => {
           <Grid alignItems="center" justifyContent="center">
             <GridItem w="264px" h="1px" bg="white " />
           </Grid>
-            <Button
-              ml="27.49px"
-              mt="0px"
-              size="30.82px"
-              lineHeight="46.24px"
-              width="187.46px"
-              height="45.13px"
-              fontWeight="400"
-              fontSize="30px"
-              onClick={logOut}
-              background="transparent"
-              _hover={{background:"transparent"}}
-            >
-                <Box>
+          <Button
+            ml="27.49px"
+            mt="0px"
+            size="30.82px"
+            lineHeight="46.24px"
+            width="187.46px"
+            height="45.13px"
+            fontWeight="400"
+            fontSize="30px"
+            onClick={logOut}
+            background="transparent"
+            _hover={{ background: 'transparent' }}
+          >
+            <Box>
               <AiOutlineLogout width="30px" height="30px" fontWeight="400" fontSize="30px" />
             </Box>
-              Log out
-            </Button>
-          </Flex>
+            Log out
+          </Button>
         </Flex>
+      </Flex>
     </SessionAuth>
   );
 };

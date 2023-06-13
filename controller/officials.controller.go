@@ -89,11 +89,36 @@ func (h Handler) CreateOffical(c *gin.Context) {
 // @Accept  json
 // @Produce  json
 // @Router /officials/all [get]
-func (h Handler) GetAllOfficials(c *gin.Context) {
+func (h Handler) GetAllVerifiedOfficials(c *gin.Context) {
 	// results will be stored in this variable
 	// if request is successful
 	var Official []models.Officials
 	if result := h.DB.Where("is_verified", true).Find(&Official); result.Error != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "couldn't get data",
+			"ok":     false,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": "Data read successfully",
+		"ok":       true,
+		"data":     Official,
+	})
+}
+
+// Get Users
+// @Summary return all verify pending users
+// @Accept  json
+// @Produce  json
+// @Router /officials/pending [get]
+func (h Handler) GetAllPendingOfficials(c *gin.Context) {
+	// results will be stored in this variable
+	// if request is successful
+	var Official []models.Officials
+	if result := h.DB.Where("is_verified", false).Find(&Official); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't get data",
@@ -136,16 +161,16 @@ func (h Handler) GetOfficial(c *gin.Context) {
 	})
 }
 
-// Get the name of an user by the name
-func (h Handler) SearchOfficialByName(c *gin.Context) {
+// Get the name of Line man
+func (h Handler) SearchLinemanByName(c *gin.Context) {
 	// Get the search query parameter from the request
 	name := c.Query("name")
 
-	var officials []models.Officials
-	if result := h.DB.Where("name LIKE ?", "%"+name+"%").Find(&officials); result.Error != nil {
+	var linemen []models.Officials
+	if result := h.DB.Where("name LIKE ? AND role = ?", "%"+name+"%", models.LM).Find(&linemen); result.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{
 			"status": http.StatusNotFound,
-			"error":  "couldn't find the user",
+			"error":  "couldn't find the lineman",
 			"ok":     false,
 		})
 		return
@@ -153,9 +178,9 @@ func (h Handler) SearchOfficialByName(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"status":   http.StatusOK,
-		"response": "Users found successfully",
+		"response": "Linemen found successfully",
 		"ok":       true,
-		"data":     officials,
+		"data":     linemen,
 	})
 }
 

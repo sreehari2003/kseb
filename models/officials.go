@@ -15,6 +15,8 @@ const (
 	SE ROLE = "SE"
 	//OV - overseer
 	OV ROLE = "OV"
+	// LM - lineman
+	LM ROLE = "LM"
 )
 
 // swagger:model Officials
@@ -23,7 +25,7 @@ type Officials struct {
 	Id         uint   `gorm:"primary_key;auto_increment" json:"id"`
 	AuthId     string `gorm:"unique" json:"auth_id"`
 	Name       string `gorm:"size:255;not null" json:"name"`
-	Role       ROLE   `sql:"type:ENUM('SE', 'AE', 'OV')" gorm:"column:role"`
+	Role       ROLE   `sql:"type:ENUM('SE', 'AE', 'OV', 'LM')" gorm:"column:role"`
 	Phone      string `gorm:"not null" json:"phone"`
 	Forms      []Form `gorm:"foreignkey:OfficialID"`
 	IsVerified bool   `gorm:"default:false" json:"is_verified"`

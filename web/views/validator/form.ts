@@ -34,18 +34,16 @@ export const formThree = Yup.object({
   jobdescription: Yup.string().required(),
   nooflabours: Yup.string().required(),
   officerDesignation: Yup.string().required(),
-  employee1: Yup.string().required(),
-  employee2: Yup.string().required(),
-  employee3: Yup.string(),
-  timeOfWork: Yup.date().required(),
-  usedItems: Yup.string(),
+  employee1: PickAnOptionValidator.required(),
+  employee2: PickAnOptionValidator.required(),
+  employee3: PickAnOptionValidator.nullable(),
 });
 
 export const FinalForm = Yup.object({
   section: Yup.string().required(),
-  typeofjob: Yup.string().required(),
+  typeofjob: PickAnOptionValidator.required(),
   complaintNumber: Yup.string(),
-  voltage: Yup.number().required(),
+  voltage: PickAnOptionValidator.required(),
   location: Yup.string().required(),
   disconnectionPlace: Yup.string().required(),
   description: Yup.string().required(),
@@ -63,11 +61,9 @@ export const FinalForm = Yup.object({
   jobdescription: Yup.string().required(),
   nooflabours: Yup.string().required(),
   officerDesignation: Yup.string().required(),
-  employee1: Yup.string().required(),
-  employee2: Yup.string().required(),
-  employee3: Yup.string(),
-  timeOfWork: Yup.date().required(),
-  usedItems: Yup.string(),
+  employee1: PickAnOptionValidator.required(),
+  employee2: PickAnOptionValidator.required(),
+  employee3: PickAnOptionValidator.nullable(),
 });
 
 export const StepByStepForm: Record<number, OptionalObjectSchema<any>> = {
