@@ -1,5 +1,6 @@
 import Axios from 'axios';
+import { ENV } from './ENV';
 
 export const surakshaAPI = Axios.create({
-  baseURL: 'http://localhost:8000/api/v1',
+  baseURL: `${ENV.api_base_path}/api/v1`,
 });
