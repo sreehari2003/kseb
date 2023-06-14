@@ -21,7 +21,7 @@ func Init() {
 		},
 		AppInfo: supertokens.AppInfo{
 			AppName:         "kseb",
-			APIDomain:       os.Getenv("API_DOMAIN "),
+			APIDomain:       os.Getenv("API_DOMAIN"),
 			WebsiteDomain:   os.Getenv("WEBSITE_DOMAIN"),
 			APIBasePath:     &apiBasePath,
 			WebsiteBasePath: &websiteBasePath,

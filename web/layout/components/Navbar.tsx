@@ -113,7 +113,7 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
             icon={<GiHamburgerMenu />}
             variant="outline"
             colorScheme="whiteAlpha"
-            p="0"
+            p="none"
           />
           <MenuList background="transparent" border="none">
             <SideBar />
@@ -135,6 +135,7 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
             <Box mt="10px" gap="10px">
               {result?.map((el) => (
                 <Button
+                  mb="10px"
                   colorScheme="teal"
                   w="full"
                   onClick={() => router.push(`/dashboard/${el.id}`)}

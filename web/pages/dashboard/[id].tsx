@@ -83,3 +83,27 @@ const Home = () => {
 Home.Layout = DashBoardLayout;
 
 export default Home;
+
+// This gets called on every request
+export const getServerSideProps = async (ctx: any) => {
+  const id = ctx.query.id;
+  if (!id) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/dashboard',
+      },
+    };
+  }
+  const { data } = await surakshaAPI.get(`/issue/${id}`);
+  if (!data.ok) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/dashboard',
+      },
+    };
+  }
+  // Pass data to the page via props
+  return { props: { data } };
+};
