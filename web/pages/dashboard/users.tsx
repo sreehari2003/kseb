@@ -37,6 +37,7 @@ const Users: NextPageWithLayout = () => {
   const toast = useToast();
 
   const getUsers = async () => {
+    if (data) return;
     try {
       setUserLoading(true);
       const { data: response } = await surakshaAPI.get('/officials/all');
@@ -86,6 +87,7 @@ const Users: NextPageWithLayout = () => {
         throw new Error();
       }
       setPendingUsers(null);
+      setUserData(null);
       getPendingUsers();
     } catch {
       toast({
@@ -113,7 +115,7 @@ const Users: NextPageWithLayout = () => {
       <Box p={4} borderWidth={1} borderRadius="md" boxShadow="md" ml="30">
         <Tabs isFitted variant="enclosed">
           <TabList mb="1em">
-            <Tab>Verified Users</Tab>
+            <Tab onClick={getUsers}>Verified Users</Tab>
             <Tab onClick={getPendingUsers}>Verification Requests</Tab>
           </TabList>
           <TabPanels>
