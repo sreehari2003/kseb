@@ -226,14 +226,14 @@ func (h Handler) VerifyUser(c *gin.Context) {
 	// Get the role of the user
 
 	// Check if the user's role matches the required role
-	// if Official.Role != "AE" {
-	// 	c.JSON(http.StatusForbidden, gin.H{
-	// 		"status": http.StatusForbidden,
-	// 		"error":  "Unauthorized access",
-	// 		"ok":     false,
-	// 	})
-	// 	return
-	// }
+	if Official.Role != "OV" {
+		c.JSON(http.StatusForbidden, gin.H{
+			"status": http.StatusForbidden,
+			"error":  "Unauthorized access",
+			"ok":     false,
+		})
+		return
+	}
 
 	// Get the user ID from the request parameters
 	id := c.Param("id")
@@ -260,6 +260,6 @@ func (h Handler) VerifyUser(c *gin.Context) {
 		"status":   http.StatusOK,
 		"response": "User verified successfully",
 		"ok":       true,
-		"data":     Official,
+		"data":     User,
 	})
 }
