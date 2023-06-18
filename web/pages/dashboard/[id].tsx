@@ -86,7 +86,7 @@ export default Home;
 
 // This gets called on every request
 export const getServerSideProps = async (ctx: any) => {
-  const id = ctx.query.id;
+  const { id } = ctx.query;
   if (!id) {
     return {
       redirect: {
