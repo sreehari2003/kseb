@@ -236,10 +236,10 @@ func (h Handler) VerifyUser(c *gin.Context) {
 	}
 
 	// Get the user ID from the request parameters
-	id := c.Param("id")
+	ID := c.Param("id")
 
 	// Find the user by ID
-	if result := h.DB.Find(&User, id); result.Error != nil {
+	if result := h.DB.Find(&User, ID); result.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{
 			"status": http.StatusNotFound,
 			"error":  "User not found",

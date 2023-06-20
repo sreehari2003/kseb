@@ -137,7 +137,7 @@ const Users: NextPageWithLayout = () => {
                       data.map((el: any) => (
                         <Tr>
                           <Td>{el.name}</Td>
-                          <Td>{el.id}</Td>
+                          <Td>{el.ID}</Td>
                           <Td>{el.phone}</Td>
                           <Td>{el.location}</Td>
                           <Td>{ROLES[el.Role]}</Td>
@@ -166,7 +166,7 @@ const Users: NextPageWithLayout = () => {
                       pendingUsers.map((el: any) => (
                         <Tr>
                           <Td>{el.name}</Td>
-                          <Td>{el.id}</Td>
+                          <Td>{el.ID}</Td>
                           <Td>{el.phone}</Td>
                           <Td>{el.location}</Td>
                           <Td>{ROLES[el.Role]}</Td>

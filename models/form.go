@@ -15,7 +15,6 @@ const (
 // swagger:model Form
 type Form struct {
 	gorm.Model
-	Id             uint        `gorm:"primary_key;auto_increment" json:"id"`
 	Section        string      `gorm:"size:255;not null" json:"section"`
 	Typeofjob      string      `gorm:"size:255;not null" json:"typeofjob"`
 	Voltage        int         `gorm:"not null" json:"voltage"`
@@ -29,18 +28,19 @@ type Form struct {
 	Nooflabours    int         `gorm:"not null" json:"nooflabours"`
 	IssueID        uint        `gorm:"not null" json:"issue_id"`
 	Issue          Issue       `gorm:"foreignKey:IssueID"`
-	OfficialID     uint        `gorm:"not null" json:"official_id"`
-	Officials      Officials   `gorm:"foreignKey:officialID"`
+	OfficialsID    uint        `gorm:"not null" json:"official_id"`
+	Officials      Officials   `gorm:"foreignKey:OfficialsID"`
 	Status         ROLE        `sql:"type:ENUM('WAITING', 'WORKING', 'COMPLETED')" gorm:"column:status"`
 	Assignee       []Officials `gorm:"many2many:assignees;"`
 }
 
 // Assignee represents the assignees table
 type Assignee struct {
-	FormID     uint      `gorm:"primaryKey"`
-	OfficialID uint      `gorm:"primaryKey"`
-	Form       Form      `gorm:"foreignKey:FormID"`
-	Official   Officials `gorm:"foreignKey:OfficialID"`
+	gorm.Model
+	FormID      uint      `gorm:"form_id"`
+	OfficialsID uint      `gorm:"official_id"`
+	Form        Form      `gorm:"foreignKey:FormID"`
+	Official    Officials `gorm:"foreignKey:OfficialsID"`
 	// other assignee-related fields
 }
 

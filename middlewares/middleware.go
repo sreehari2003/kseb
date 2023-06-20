@@ -37,9 +37,9 @@ func VerifyUser(h controller.Handler) gin.HandlerFunc {
 	var official models.Officials
 	return func(c *gin.Context) {
 		// Get the user ID from the query parameter
-		id := c.Query("id")
+		ID := c.Query("id")
 		// Retrieve the user by ID from the database
-		if result := h.DB.Find(&official, id); result.Error != nil {
+		if result := h.DB.Find(&official, ID); result.Error != nil {
 			c.JSON(http.StatusNotFound, gin.H{
 				"status": http.StatusNotFound,
 				"error":  "User not found",

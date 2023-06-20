@@ -6,7 +6,7 @@ export interface Issue {
   CreatedAt: Date;
   UpdatedAt: Date;
   DeletedAt: Date;
-  id: number;
+  ID: number;
   title: string;
   desc: string;
   post_id: string;

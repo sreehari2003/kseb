@@ -23,7 +23,7 @@ func Init() *gorm.DB {
 	}
 	// if db connection fails this wont run
 	fmt.Println("server connected with db successfully")
-	db.AutoMigrate(&models.Issue{}, &models.Officials{}, &models.Form{})
+	db.AutoMigrate(&models.Issue{}, &models.Officials{}, &models.Form{}, &models.Assignee{})
 
 	return db
 }

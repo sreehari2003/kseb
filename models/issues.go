@@ -9,7 +9,6 @@ import (
 // swagger:model Issue
 type Issue struct {
 	gorm.Model
-	Id     uint   `gorm:"primary_key;auto_increment" json:"id"`
 	Title  string `gorm:"size:255;not null" json:"title"`
 	Desc   string `gorm:"size:255;not null" json:"desc"`
 	PostID string `gorm:"not null" json:"post_id"`
