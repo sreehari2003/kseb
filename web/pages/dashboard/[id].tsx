@@ -95,8 +95,20 @@ export const getServerSideProps = async (ctx: any) => {
       },
     };
   }
-  const { data } = await surakshaAPI.get(`/issue/${id}`);
-  if (!data.ok) {
+  let res;
+  try {
+    const { data } = await surakshaAPI.get(`/issue/${id}`);
+    res = data;
+  } catch (e) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: '/dashboard',
+      },
+    };
+  }
+  console.log(res);
+  if (!res.ok) {
     return {
       redirect: {
         permanent: false,
@@ -105,5 +117,5 @@ export const getServerSideProps = async (ctx: any) => {
     };
   }
   // Pass data to the page via props
-  return { props: { data } };
+  return { props: { res } };
 };
