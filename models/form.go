@@ -15,21 +15,25 @@ const (
 // swagger:model Form
 type Form struct {
 	gorm.Model
-	Section        string      `gorm:"size:255;not null" json:"section"`
-	Typeofjob      string      `gorm:"size:255;not null" json:"typeofjob"`
-	Voltage        int         `gorm:"not null" json:"voltage"`
-	Location       string      `gorm:"not null" json:"location"`
-	Feeder         string      `gorm:"not null" json:"feeder"`
-	Substation     string      `gorm:"not null" json:"substation"`
-	Transformer    string      `gorm:"not null" json:"transformer"`
-	JobDescription string      `gorm:"not null" json:"description"`
-	Nooflabours    int         `gorm:"not null" json:"nooflabours"`
-	IssueID        uint        `gorm:"not null" json:"issue_id"`
-	Issue          Issue       `gorm:"foreignKey:IssueID"`
-	OfficialsID    uint        `gorm:"not null" json:"official_id"`
-	Officials      Officials   `gorm:"foreignKey:OfficialsID"`
-	Status         ROLE        `sql:"type:ENUM('WAITING', 'WORKING', 'COMPLETED')" gorm:"column:status"`
-	Assignee       []Officials `gorm:"many2many:assignees;"`
+	ComplaintNumber string      `gorm:"size:255;not null" json:"complaintNumber"`
+	JobDescription  string      `gorm:"not null" json:"description"`
+	Disconnection   string      `gorm:"not null" json:"disconnectionPlace"`
+	EarthedLocation string      `gorm:"not null" json:"earthedLocations"`
+	ShortedLocation string      `gorm:"not null" json:"shortedLocation"`
+	Location        string      `gorm:"not null" json:"location"`
+	Feeder          string      `gorm:"not null" json:"feeder"`
+	Section         string      `gorm:"size:255;not null" json:"section"`
+	Typeofjob       string      `gorm:"size:255;not null" json:"typeofjob"`
+	Voltage         int         `gorm:"not null" json:"voltage"`
+	Ptw             string      `gorm:"not null" json:"ptwAllowed"`
+	Substation      string      `gorm:"not null" json:"substation"`
+	Transformer     string      `gorm:"not null" json:"transformer"`
+	Status          ROLE        `sql:"type:ENUM('WAITING', 'WORKING', 'COMPLETED')" gorm:"column:status"`
+	IssueID         uint        `gorm:"not null" json:"issue_id"`
+	Issue           Issue       `gorm:"foreignKey:IssueID"`
+	OfficialsID     uint        `gorm:"not null" json:"official_id"`
+	Officials       Officials   `gorm:"foreignKey:OfficialsID"`
+	Assignee        []Officials `gorm:"many2many:assignees;"`
 }
 
 // Assignee represents the assignees table
@@ -39,7 +43,6 @@ type Assignee struct {
 	OfficialsID uint      `gorm:"official_id"`
 	Form        Form      `gorm:"foreignKey:FormID"`
 	Official    Officials `gorm:"foreignKey:OfficialsID"`
-	// other assignee-related fields
 }
 
 // custom vaidation for body data from backend
@@ -49,9 +52,6 @@ func (i *Form) Validate() map[string]string {
 
 	var checkVoltage *int
 	checkVoltage = &i.Voltage
-
-	var checkNooflabours *int
-	checkNooflabours = &i.Nooflabours
 
 	var errormessage = make(map[string]string)
 
@@ -86,10 +86,6 @@ func (i *Form) Validate() map[string]string {
 	if i.JobDescription == "" {
 		err = errors.New("Required JobDescription")
 		errormessage["Required_JobDescription"] = err.Error()
-	}
-	if checkNooflabours == nil {
-		err = errors.New("Required No_of_labours")
-		errormessage["Required_No_of_labours"] = err.Error()
 	}
 
 	return errormessage

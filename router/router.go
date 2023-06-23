@@ -66,7 +66,8 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 	v1.PATCH("/officials/verify", verifySession(nil), h.VerifyUser)
 
 	// accesing controller by method
-	v1.POST("/form", verifySession(nil), middlewares.VerifyUser(h), h.CreateForm)
+	// v1.POST("/form", verifySession(nil), middlewares.VerifyUser(h), h.CreateForm)
+	v1.POST("/form", h.CreateForm)
 	v1.GET("/form", verifySession(nil), h.GetAllForm)
 	v1.GET("/form/:id", verifySession(nil), h.GetFormByID)
 	v1.PUT("/forms/status", verifySession(nil), h.CompleteIssue)

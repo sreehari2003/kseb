@@ -56,9 +56,6 @@ export const Three = () => {
   return (
     <Center mb="30px">
       <Flex justifyContent="center" flexDir="column" w="900px" flexDirection="column">
-        <Heading mt="20" fontSize="xl">
-          Safety arrangements are completed and permission to work is granted
-        </Heading>
         <FormControl isInvalid={!!errors.feeder} mb="3">
           <FormLabel>Feeder</FormLabel>
           <Input {...register('feeder')} />

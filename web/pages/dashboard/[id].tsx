@@ -36,8 +36,8 @@ const Home = () => {
       try {
         const { id } = router.query;
         const lineMan = [];
-        lineMan.push(datas.employee1.value);
-        lineMan.push(datas.employee2.value);
+        lineMan.push({ official_id: datas.employee1.value });
+        lineMan.push({ official_id: datas.employee2.value });
 
         // creating new form
         const { data } = await surakshaAPI.post(`/form?id=${id}`, {
@@ -46,6 +46,7 @@ const Home = () => {
           voltage: datas.voltage.value,
           status: 'WORKING',
           assignees: lineMan,
+          issue_id: id,
           employee1: undefined,
           employee2: undefined,
           employee3: undefined,

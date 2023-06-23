@@ -47,16 +47,6 @@ export const Two = () => {
           </InputGroup>
           {errors.ptwAllowed && <FormErrorMessage>PTW number should not be empty</FormErrorMessage>}
         </FormControl>
-        <FormControl id="input3" mb={4} isInvalid={!!errors.officerName}>
-          <FormLabel mb="3">Name of the officer/designation issuing the PTW</FormLabel>
-          <Input mb="3" {...register('officerName')} />
-          {errors.officerName && <FormErrorMessage>Name should not be empty</FormErrorMessage>}
-        </FormControl>
-        <FormControl id="input4" mb={4} isInvalid={!!errors.officerRecieving}>
-          <FormLabel mb="3">Name/designation of officer receiving PTW</FormLabel>
-          <Input mb="3" {...register('officerRecieving')} />
-          {errors.officerRecieving && <FormErrorMessage>Name should not be empty</FormErrorMessage>}
-        </FormControl>
         <FormControl isInvalid={!!errors.powerOutage}>
           <FormLabel>Power outages</FormLabel>
           <Input {...register('powerOutage')} />
