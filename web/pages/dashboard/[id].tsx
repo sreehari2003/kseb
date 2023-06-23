@@ -35,12 +35,20 @@ const Home = () => {
       // send post request
       try {
         const { id } = router.query;
+        const lineMan = [];
+        lineMan.push(datas.employee1.value);
+        lineMan.push(datas.employee2.value);
+
         // creating new form
         const { data } = await surakshaAPI.post(`/form?id=${id}`, {
           ...datas,
           typeofjob: datas.typeofjob.value,
           voltage: datas.voltage.value,
           status: 'WORKING',
+          assignees: lineMan,
+          employee1: undefined,
+          employee2: undefined,
+          employee3: undefined,
         });
         if (!data.ok) {
           throw new Error();

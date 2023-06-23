@@ -59,14 +59,14 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 	v1.POST("/officials", verifySession(nil), h.CreateOffical)
 	v1.GET("/officials", verifySession(nil), h.GetOfficial)
 	v1.GET("/officials/:id/forms", verifySession(nil), h.GetFormsByOfficialID)
-	v1.GET("/officials/search", verifySession(nil), h.SearchLinemanByName)
-	v1.GET("/officials/all", verifySession(nil), h.GetAllVerifiedOfficials)
-	v1.GET("/officials/pending", verifySession(nil), h.GetAllPendingOfficials)
+	v1.GET("/officials/search", verifySession(nil), middlewares.VerifyUser(h), h.SearchLinemanByName)
+	v1.GET("/officials/all", verifySession(nil), middlewares.VerifyUser(h), h.GetAllVerifiedOfficials)
+	v1.GET("/officials/pending", verifySession(nil), middlewares.VerifyUser(h), h.GetAllPendingOfficials)
 	// middleware make sure that only a verfied user can veryfy another user
-	v1.PATCH("/officials/verify", verifySession(nil), middlewares.VerifyUser(h), h.VerifyUser)
+	v1.PATCH("/officials/verify", verifySession(nil), h.VerifyUser)
 
 	// accesing controller by method
-	v1.POST("/form", verifySession(nil), h.CreateForm)
+	v1.POST("/form", verifySession(nil), middlewares.VerifyUser(h), h.CreateForm)
 	v1.GET("/form", verifySession(nil), h.GetAllForm)
 	v1.GET("/form/:id", verifySession(nil), h.GetFormByID)
 	v1.PUT("/forms/status", verifySession(nil), h.CompleteIssue)

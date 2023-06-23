@@ -66,9 +66,9 @@ export const Profile = () => {
   useEffect(() => {
     setValue('name', userData?.name);
     setValue('location', userData?.location);
-    setValue('role',{
-      label:typeOfRoles.find(el=>el.value === userData?.Role)?.label as string,
-      value:userData?.Role
+    setValue('role', {
+      label: typeOfRoles.find((el) => el.value === userData?.Role)?.label as string,
+      value: userData?.Role,
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);

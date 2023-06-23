@@ -22,9 +22,7 @@ type Form struct {
 	Feeder         string      `gorm:"not null" json:"feeder"`
 	Substation     string      `gorm:"not null" json:"substation"`
 	Transformer    string      `gorm:"not null" json:"transformer"`
-	PostNO         string      `gorm:"not null" json:"postno"`
-	ConsumerNO     int         `gorm:"not null" json:"consumerno"`
-	JobDescription string      `gorm:"not null" json:"jobdescription"`
+	JobDescription string      `gorm:"not null" json:"description"`
 	Nooflabours    int         `gorm:"not null" json:"nooflabours"`
 	IssueID        uint        `gorm:"not null" json:"issue_id"`
 	Issue          Issue       `gorm:"foreignKey:IssueID"`
@@ -51,9 +49,6 @@ func (i *Form) Validate() map[string]string {
 
 	var checkVoltage *int
 	checkVoltage = &i.Voltage
-
-	var checkConsumerNO *int
-	checkConsumerNO = &i.ConsumerNO
 
 	var checkNooflabours *int
 	checkNooflabours = &i.Nooflabours
@@ -87,15 +82,6 @@ func (i *Form) Validate() map[string]string {
 	if i.Transformer == "" {
 		err = errors.New("Required Transformer")
 		errormessage["Required_Transformer"] = err.Error()
-	}
-	if i.PostNO == "" {
-		err = errors.New("Required PostNO")
-		errormessage["Required_PostNO"] = err.Error()
-	}
-
-	if checkConsumerNO == nil {
-		err = errors.New("Required ConsumerNO")
-		errormessage["Required_ConsumerNO"] = err.Error()
 	}
 	if i.JobDescription == "" {
 		err = errors.New("Required JobDescription")

@@ -226,7 +226,7 @@ func (h Handler) VerifyUser(c *gin.Context) {
 	// Get the role of the user
 
 	// Check if the user's role matches the required role
-	if Official.Role != "OV" {
+	if Official.Role != "OV" || !Official.IsVerified {
 		c.JSON(http.StatusForbidden, gin.H{
 			"status": http.StatusForbidden,
 			"error":  "Unauthorized access",

@@ -174,7 +174,7 @@ const Users: NextPageWithLayout = () => {
                             <Button
                               colorScheme="teal"
                               variant="outline"
-                              onClick={() => verifyUser(el.id)}
+                              onClick={() => verifyUser(el.ID)}
                             >
                               Verify
                             </Button>
