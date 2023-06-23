@@ -140,7 +140,7 @@ const Dashboard: NextPageWithLayout = () => {
             </ModalContent>
           </Modal>
           {data &&
-            data.map((el) => (
+            data.map((el: Issue) => (
               <Card
                 desc={el.title}
                 title={el.title}
