@@ -9,12 +9,14 @@ import { One, Two, NavigationButtons, Three } from '@app/views/form';
 import { FinalForm, StepByStepForm } from '@app/views/validator';
 import { DashBoardLayout } from '@app/layout';
 import { surakshaAPI } from '@app/config';
+import { useAuthCtx } from '@app/hooks';
 
 type FormType = InferType<typeof FinalForm>;
 
 const Home = () => {
   const toast = useToast();
   const router = useRouter();
+  const { data: user } = useAuthCtx();
   const [currentStep, setCurrentStep] = useState<number>(1);
   const isReadyForSubmission = currentStep === 3;
   const methods = useForm<FormType>({
@@ -43,10 +45,11 @@ const Home = () => {
         const { data } = await surakshaAPI.post(`/form?id=${id}`, {
           ...datas,
           typeofjob: datas.typeofjob.value,
-          voltage: datas.voltage.value,
+          voltage: Number(datas.voltage.value),
           status: 'WORKING',
-          assignees: lineMan,
-          issue_id: id,
+          // assignees: lineMan,
+          official_id: user?.ID,
+          issue_id: Number(id),
           employee1: undefined,
           employee2: undefined,
           employee3: undefined,

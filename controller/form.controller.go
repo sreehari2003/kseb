@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -10,11 +11,11 @@ import (
 )
 
 func (h Handler) CreateForm(c *gin.Context) {
-	var issues []models.Issue
+	var form models.Form
+	var issues models.Issue
 
 	// Clear previous errors if any
 	errList := map[string]string{}
-	var form = models.Form{}
 	// Accessing the issue ID from request params
 	ID := c.Query("id")
 	// Next, need to verify whether the issue with this ID exists or not
@@ -36,7 +37,6 @@ func (h Handler) CreateForm(c *gin.Context) {
 		})
 		return
 	}
-
 	err = json.Unmarshal(body, &form)
 	if err != nil {
 		errList["Invalid_body"] = "Invalid data provided"
@@ -57,6 +57,7 @@ func (h Handler) CreateForm(c *gin.Context) {
 		})
 		return
 	}
+	fmt.Println(form)
 
 	// Creating data in the database
 	// If there's an error, send the error to the client
