@@ -54,7 +54,7 @@ export const Three = () => {
   );
 
   return (
-    <Center mb="30px">
+    <Center mb="30px" w={{ base: '400px', md: '800px' }} mt="40px">
       <Flex justifyContent="center" flexDir="column" w="900px" flexDirection="column">
         <FormControl isInvalid={!!errors.feeder} mb="3">
           <FormLabel>Feeder</FormLabel>
@@ -71,7 +71,7 @@ export const Three = () => {
           <Input {...register('transformer')} />
           {errors.substation && <FormErrorMessage>this is a required field</FormErrorMessage>}
         </FormControl>
-        <FormLabel mt="50px"> Name of employees </FormLabel>
+        <FormLabel mt="10px"> Name of employees </FormLabel>
         <Flex justifyContent="space-between" mt="4" flexDir="column" gap="10px">
           <Controller
             control={control}

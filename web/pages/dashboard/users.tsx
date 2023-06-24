@@ -108,7 +108,7 @@ const Users: NextPageWithLayout = () => {
   }, []);
 
   return (
-    <Box w="full">
+    <Box w={{base:"400px",lg:"full"}}>
       <Heading mt="20px" mb="20px" ml="30">
         All Users
       </Heading>
@@ -135,7 +135,7 @@ const Users: NextPageWithLayout = () => {
                     {!isUserLoading &&
                       data &&
                       data.map((el: any) => (
-                        <Tr>
+                        <Tr id={el.ID}>
                           <Td>{el.name}</Td>
                           <Td>{el.ID}</Td>
                           <Td>{el.phone}</Td>
@@ -164,7 +164,7 @@ const Users: NextPageWithLayout = () => {
                     {!isUserLoading &&
                       pendingUsers &&
                       pendingUsers.map((el: any) => (
-                        <Tr>
+                        <Tr id={el.ID}>
                           <Td>{el.name}</Td>
                           <Td>{el.ID}</Td>
                           <Td>{el.phone}</Td>

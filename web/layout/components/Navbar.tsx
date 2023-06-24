@@ -31,6 +31,7 @@ import { SideBar } from './SideBar';
 interface INav {
   // eslint-disable-next-line react/require-default-props
   isDashBoard?: boolean;
+  ID: string;
 }
 
 export const Navbar = ({ isDashBoard = false }: INav) => {
@@ -135,10 +136,11 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
             <Box mt="10px" gap="10px">
               {result?.map((el) => (
                 <Button
+                  id={el.ID + ""}
                   mb="10px"
                   colorScheme="teal"
                   w="full"
-                  onClick={() => router.push(`/dashboard/${el.id}`)}
+                  onClick={() => router.push(`/dashboard/${el.ID}`)}
                 >
                   {el.title}
                 </Button>

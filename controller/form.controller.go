@@ -59,9 +59,10 @@ func (h Handler) CreateForm(c *gin.Context) {
 
 	// Creating data in the database
 	// If there's an error, send the error to the client
+
 	if err := h.DB.Create(&form).Error; err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
-			"status": http.StatusInternalServerError,
+			"status": http.StatusUnprocessableEntity,
 			"error":  "couldn't save your data",
 			"ok":     false,
 		})

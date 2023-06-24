@@ -15,29 +15,26 @@ const (
 // swagger:model Form
 type Form struct {
 	gorm.Model
-	ComplaintNumber string    `gorm:"size:255;not null" json:"complaintNumber"`
-	JobDescription  string    `gorm:"not null" json:"description"`
-	Disconnection   string    `gorm:"not null" json:"disconnectionPlace"`
-	EarthedLocation string    `gorm:"not null" json:"earthedLocations"`
-	ShortedLocation string    `gorm:"not null" json:"shortedLocation"`
-	Location        string    `gorm:"not null" json:"location"`
-	PowerOutage     string    `gorm:"not null" json:"powerOutage"`
-	Feeder          string    `gorm:"not null" json:"feeder"`
-	Section         string    `gorm:"size:255;not null" json:"section"`
-	Typeofjob       string    `gorm:"size:255;not null" json:"typeofjob"`
-	Voltage         int       `gorm:"not null" json:"voltage"`
-	Ptw             string    `gorm:"not null" json:"ptwAllowed"`
-	Substation      string    `gorm:"not null" json:"substation"`
-	Transformer     string    `gorm:"not null" json:"transformer"`
-	Status          ROLE      `sql:"type:ENUM('WAITING', 'WORKING', 'COMPLETED')" gorm:"column:status"`
-	IssueID         uint      `gorm:"unique not null" json:"issue_id"`
-	Issue           Issue     `gorm:"foreignKey:IssueID"`
-	OfficialsID     uint      `gorm:"unique not null" json:"official_id"`
-	Officials       Officials `gorm:"foreignKey:OfficialsID"`
-	// Assignee        []Officials `gorm:"many2many:assignees;"`
+	ComplaintNumber string `gorm:"size:255;not null" json:"complaintNumber"`
+	JobDescription  string `gorm:"not null" json:"description"`
+	Disconnection   string `gorm:"not null" json:"disconnectionPlace"`
+	EarthedLocation string `gorm:"not null" json:"earthedLocations"`
+	ShortedLocation string `gorm:"not null" json:"shortedLocation"`
+	Location        string `gorm:"not null" json:"location"`
+	PowerOutage     string `gorm:"not null" json:"powerOutage"`
+	Feeder          string `gorm:"not null" json:"feeder"`
+	Section         string `gorm:"size:255;not null" json:"section"`
+	Typeofjob       string `gorm:"size:255;not null" json:"typeofjob"`
+	Voltage         int    `gorm:"not null" json:"voltage"`
+	Ptw             string `gorm:"not null" json:"ptwAllowed"`
+	Substation      string `gorm:"not null" json:"substation"`
+	Transformer     string `gorm:"not null" json:"transformer"`
+	IssueID         uint
+	Status          ROLE `sql:"type:ENUM('WAITING', 'WORKING', 'COMPLETED')" gorm:"column:status"`
+	OfficialsID     uint
 }
 
-// Assignee represents the assignees table
+// Assignee represents the assignees table``
 type Assignee struct {
 	gorm.Model
 	FormID      uint      `gorm:"form_id"`

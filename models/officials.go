@@ -26,9 +26,9 @@ type Officials struct {
 	Name       string `gorm:"size:255;not null" json:"name"`
 	Role       ROLE   `sql:"type:ENUM('SE', 'AE', 'OV', 'LM')" gorm:"column:role"`
 	Phone      string `gorm:"not null" json:"phone"`
-	Forms      []Form `gorm:"foreignkey:OfficialsID"`
 	IsVerified bool   `gorm:"default:false" json:"is_verified"`
 	Location   string `gorm:"not null" json:"location"`
+	Form       []Form
 }
 
 // custom vaidation for body data from backend

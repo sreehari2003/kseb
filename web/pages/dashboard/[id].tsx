@@ -97,36 +97,36 @@ Home.Layout = DashBoardLayout;
 export default Home;
 
 // This gets called on every request
-export const getServerSideProps = async (ctx: any) => {
-  const { id } = ctx.query;
-  if (!id) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/dashboard',
-      },
-    };
-  }
-  let res;
-  try {
-    const { data } = await surakshaAPI.get(`/issue/${id}`);
-    res = data;
-  } catch (e) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/dashboard',
-      },
-    };
-  }
-  if (!res.ok) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/dashboard',
-      },
-    };
-  }
-  // Pass data to the page via props
-  return { props: { res } };
-};
+// export const getServerSideProps = async (ctx: any) => {
+//   const { id } = ctx.query;
+//   if (!id) {
+//     return {
+//       redirect: {
+//         permanent: false,
+//         destination: '/dashboard',
+//       },
+//     };
+//   }
+//   let res;
+//   try {
+//     const { data } = await surakshaAPI.get(`/issue/${id}`);
+//     res = data;
+//   } catch (e) {
+//     return {
+//       redirect: {
+//         permanent: false,
+//         destination: '/dashboard',
+//       },
+//     };
+//   }
+//   if (!res.ok) {
+//     return {
+//       redirect: {
+//         permanent: false,
+//         destination: '/dashboard',
+//       },
+//     };
+//   }
+//   // Pass data to the page via props
+//   return { props: { res } };
+// };

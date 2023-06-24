@@ -148,6 +148,7 @@ const Dashboard: NextPageWithLayout = () => {
                 DeletedAt={el.DeletedAt}
                 post_id={el.post_id}
                 id={el.ID}
+                ID={el.ID}
                 UpdatedAt={el.UpdatedAt}
                 onClick={onStatusOpen}
                 isAdmin

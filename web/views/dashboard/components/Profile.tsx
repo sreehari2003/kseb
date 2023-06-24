@@ -74,7 +74,7 @@ export const Profile = () => {
   }, [userData]);
 
   return (
-    <Box px="250px" w="100%">
+    <Box px={{base:"40px",lg:"250px"}}w="full">
       {!userData ||
         (!userData.is_verified && (
           <Alert status="error" alignItems="center" justifyContent="center" mt="20px">
