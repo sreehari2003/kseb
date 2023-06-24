@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -61,6 +62,7 @@ func (h Handler) CreateForm(c *gin.Context) {
 	// If there's an error, send the error to the client
 
 	if err := h.DB.Create(&form).Error; err != nil {
+		fmt.Println(err)
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusUnprocessableEntity,
 			"error":  "couldn't save your data",
@@ -99,7 +101,7 @@ func (h Handler) GetAllForm(c *gin.Context) {
 func (h Handler) GetFormByID(c *gin.Context) {
 	var form models.Form
 	ID := c.Param("id")
-	if result := h.DB.Find(&form, ID); result.Error != nil {
+	if result := h.DB.Find(&form, ID).Preload("Asignees"); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't find the data",

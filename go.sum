@@ -90,7 +90,10 @@ github.com/golang/protobuf v1.3.2/go.mod h1:6lQm79b+lXiMfvg/cZm0SGofjICqVBUtrP5y
 github.com/golang/protobuf v1.3.3/go.mod h1:vzj43D7+SQXF/4pzW/hwtAqwc6iTitCiVSaWz5lYuqw=
 github.com/golang/protobuf v1.5.0 h1:LUVKkCeviFUMKqHa4tXIIij/lbhnMbP7Fn5wKdKkRh4=
 github.com/golang/protobuf v1.5.0/go.mod h1:FsONVRAS9T7sI+LIUmWTfcYkHO4aIWwzhcaSAoJOfIk=
+github.com/google/go-cmp v0.5.2/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
 github.com/google/go-cmp v0.5.5/go.mod h1:v8dTdLbMG2kIc/vJvl+f65V22dbkXbowE6jgT/gNBxE=
+github.com/google/go-querystring v1.1.0 h1:AnCroh3fv4ZBgVIf1Iwtovgjaw/GiKJo8M8yD/fhyJ8=
+github.com/google/go-querystring v1.1.0/go.mod h1:Kcdr2DB4koayq7X8pmAG4sNG59So17icRSOU623lUBU=
 github.com/google/gofuzz v1.0.0/go.mod h1:dBl0BpW6vV/+mYPU4Po3pmUjxk6FQPldtuIdl/M65Eg=
 github.com/gopherjs/gopherjs v0.0.0-20181017120253-0766667cb4d1/go.mod h1:wJfORRmW1u3UXTncJ5qlYoELFm8eSnnEO6hX4iZ3EWY=
 github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
@@ -158,6 +161,10 @@ github.com/modern-go/reflect2 v1.0.2/go.mod h1:yWuevngMOJpCy52FWWMvUC8ws7m/LJsjY
 github.com/mvrilo/go-redoc v0.1.2 h1:qQWTa9YPbE3jcq9XwYRVy0rOUSSskO0cteVyN9tIUYA=
 github.com/mvrilo/go-redoc v0.1.2/go.mod h1:GIPJDv4/44PLH8WGb8o5/6xS10hoa4tF6eTUJTd2uTo=
 github.com/nbio/st v0.0.0-20140626010706-e9e8d9816f32/go.mod h1:9wM+0iRr9ahx58uYLpLIr5fm8diHn0JbqRycJi6w0Ms=
+github.com/nedpals/postgrest-go v0.1.3 h1:ZC3aPPx9rDTWQWzvnWI60lJWjAqgCCD/U6hcHp3NL0w=
+github.com/nedpals/postgrest-go v0.1.3/go.mod h1:RGinB2OXsnGLcZMu5avS0U+b9npyZmk+ecK74UDi/xY=
+github.com/nedpals/supabase-go v0.3.0 h1:qeLOiW758NZb/eC1SKxUuVeONTT0FrGDtHGB0U4sfkI=
+github.com/nedpals/supabase-go v0.3.0/go.mod h1:rscvF0tYsD6gJYKMYZy8e6YWspVIaGnBb13PlU6HFcU=
 github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e/go.mod h1:zD1mROLANZcx1PVRCS0qkT7pwLkGfwJo4zjcN/Tysno=
 github.com/nyaruka/phonenumbers v1.0.73 h1:bP2WN8/NUP8tQebR+WCIejFaibwYMHOaB7MQVayclUo=
 github.com/nyaruka/phonenumbers v1.0.73/go.mod h1:3aiS+PS3DuYwkbK3xdcmRwMiPNECZ0oENH8qUT1lY7Q=

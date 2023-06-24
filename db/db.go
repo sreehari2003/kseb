@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/sreehari2003/kseb/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -16,15 +15,16 @@ func Init() *gorm.DB {
 	db_name := os.Getenv("DB_NAME")
 	db_port_host := os.Getenv("DB_PORT_HOST")
 	dbURL := "postgresql://" + db_user + ":" + pass + db_port_host + db_name
-	db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{})
+	fmt.Println(dbURL)
+	db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{
+		DisableForeignKeyConstraintWhenMigrating: true,
+	})
 
 	if err != nil {
 		log.Fatalln(err)
 	}
 	// if db connection fails this wont run
 	fmt.Println("server connected with db successfully")
-	db.AutoMigrate(&models.Issue{}, &models.Officials{}, &models.Form{}, &models.Assignee{})
-	db.Model(&models.Issue{}).Association("Form")
 
 	return db
 }

@@ -28,7 +28,6 @@ type Officials struct {
 	Phone      string `gorm:"not null" json:"phone"`
 	IsVerified bool   `gorm:"default:false" json:"is_verified"`
 	Location   string `gorm:"not null" json:"location"`
-	Form       []Form
 }
 
 // custom vaidation for body data from backend
@@ -39,11 +38,11 @@ func (i *Officials) Validate() map[string]string {
 
 	var errormessage = make(map[string]string)
 	if i.Name == "" {
-		err = errors.New("Required Name")
+		err = errors.New("required Name")
 		errormessage["Required_Name"] = err.Error()
 	}
 	if i.Role == "" {
-		err = errors.New("Required Role")
+		err = errors.New("required Role")
 		errormessage["Required_Role"] = err.Error()
 	}
 	return errormessage

@@ -38,8 +38,8 @@ const Home = () => {
       try {
         const { id } = router.query;
         const lineMan = [];
-        lineMan.push({ official_id: datas.employee1.value });
-        lineMan.push({ official_id: datas.employee2.value });
+        lineMan.push({ official_id: datas.employee1.value,form_id:id });
+        lineMan.push({ official_id: datas.employee2.value,form_id:id });
 
         // creating new form
         const { data } = await surakshaAPI.post(`/form?id=${id}`, {
