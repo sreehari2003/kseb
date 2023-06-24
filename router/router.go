@@ -68,9 +68,9 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 	// accesing controller by method
 	// v1.POST("/form", verifySession(nil), middlewares.VerifyUser(h), h.CreateForm)
 	v1.POST("/form", h.CreateForm)
-	v1.GET("/form", verifySession(nil), h.GetAllForm)
-	v1.GET("/form/:id", verifySession(nil), h.GetFormByID)
-	v1.PUT("/forms/status", verifySession(nil), h.CompleteIssue)
+	v1.GET("/form", h.GetAllForm)
+	v1.GET("/form/:id", h.GetFormByID)
+	v1.PUT("/forms/status", h.CompleteIssue)
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 

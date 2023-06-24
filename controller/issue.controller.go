@@ -104,7 +104,7 @@ func (h Handler) GetAllIssues(c *gin.Context) {
 func (h Handler) GetIssueByID(c *gin.Context) {
 	var issues []models.Issue
 	ID := c.Param("id")
-	if result := h.DB.Find(&issues, ID); result.Error != nil {
+	if result := h.DB.Find(&issues, ID).Preload("form"); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't find the issue",

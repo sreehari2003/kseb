@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -57,12 +56,10 @@ func (h Handler) CreateForm(c *gin.Context) {
 		})
 		return
 	}
-	fmt.Println(form)
 
 	// Creating data in the database
 	// If there's an error, send the error to the client
 	if err := h.DB.Create(&form).Error; err != nil {
-		fmt.Println(err)
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't save your data",
