@@ -47,7 +47,7 @@ const Home = () => {
           typeofjob: datas.typeofjob.value,
           voltage: Number(datas.voltage.value),
           status: 'WORKING',
-          // assignees: lineMan,
+          assignees: lineMan,
           official_id: user?.ID,
           issue_id: Number(id),
           employee1: undefined,

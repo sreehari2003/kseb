@@ -207,36 +207,10 @@ func (h Handler) GetFormsByOfficialID(c *gin.Context) {
 }
 
 func (h Handler) VerifyUser(c *gin.Context) {
-	// Fetch the session object and read the userID
-	sessionContainer := session.GetSessionFromRequestContext(c.Request.Context())
-	userId := sessionContainer.GetUserID()
 
-	// Find the user by auth_id
-	var Official models.Officials
 	var User models.Officials
-	if result := h.DB.Where("auth_id = ?", userId).First(&Official); result.Error != nil {
-		c.JSON(http.StatusNotFound, gin.H{
-			"status": http.StatusNotFound,
-			"error":  "User not found",
-			"ok":     false,
-		})
-		return
-	}
-
-	// Get the role of the user
-
-	// Check if the user's role matches the required role
-	if Official.Role != "OV" || !Official.IsVerified {
-		c.JSON(http.StatusForbidden, gin.H{
-			"status": http.StatusForbidden,
-			"error":  "Unauthorized access",
-			"ok":     false,
-		})
-		return
-	}
-
 	// Get the user ID from the request parameters
-	ID := c.Param("id")
+	ID := c.Query("id")
 
 	// Find the user by ID
 	if result := h.DB.Find(&User, ID); result.Error != nil {

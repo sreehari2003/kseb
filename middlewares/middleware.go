@@ -8,6 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/sreehari2003/kseb/controller"
 	"github.com/sreehari2003/kseb/models"
+	"github.com/supertokens/supertokens-golang/recipe/session"
 	"github.com/supertokens/supertokens-golang/supertokens"
 )
 
@@ -34,18 +35,18 @@ func Cors() gin.HandlerFunc {
 }
 
 func VerifyUser(h controller.Handler) gin.HandlerFunc {
-	var official models.Officials
 	return func(c *gin.Context) {
-		// Get the user ID from the query parameter
-		ID := c.Query("id")
-		// Retrieve the user by ID from the database
-		if result := h.DB.Find(&official, ID); result.Error != nil {
+
+		// Fetching the session object and reading the userID
+		sessionContainer := session.GetSessionFromRequestContext(c.Request.Context())
+		userId := sessionContainer.GetUserID()
+		var official models.Officials
+		if result := h.DB.Where("auth_id = ?", userId).First(&official); result.Error != nil {
 			c.JSON(http.StatusNotFound, gin.H{
 				"status": http.StatusNotFound,
-				"error":  "User not found",
+				"error":  "couldn't find the user",
 				"ok":     false,
 			})
-			c.Abort()
 			return
 		}
 		// Check if the user is verified
