@@ -30,7 +30,7 @@ func (h Handler) CreateIssue(c *gin.Context) {
 	errList := map[string]string{}
 	var issue = models.Issue{}
 	body, err := io.ReadAll(c.Request.Body)
-	// if error in marsheling body
+	// if error in marsheling body``
 	if err != nil {
 		errList["Invalid_body"] = "error in reading user data"
 		c.JSON(http.StatusUnprocessableEntity, gin.H{

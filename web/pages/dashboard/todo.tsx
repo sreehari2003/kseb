@@ -20,6 +20,7 @@ const Todo: NextPageWithLayout = () => {
 
   const finish =async (id:string)=>{
      await supabaseClient.from("form").update({"status":"COMPLETED"}).eq("id",id)
+     setTimeout(()=>{},2000)
     const data = await getMyStatus(user?.id)
     setTask(data as any[])
   }
