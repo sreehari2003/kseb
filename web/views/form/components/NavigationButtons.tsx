@@ -24,7 +24,7 @@ export const NavigationButtons = ({ currentStep, prevStep }: NextState) => {
         </Button>
       )}
       <Button colorScheme="teal" variant="solid" w="100%" type="submit">
-        Next
+        {currentStep === 3 ? 'Submit' : 'Next'}
       </Button>
     </Center>
   );

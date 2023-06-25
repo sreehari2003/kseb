@@ -28,7 +28,6 @@ export const One = () => {
     control,
     formState: { errors },
   } = useFormContext<FormType>();
-  console.log(errors);
 
   useEffect(() => {
     setFocus('section');

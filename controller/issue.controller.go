@@ -30,7 +30,7 @@ func (h Handler) CreateIssue(c *gin.Context) {
 	errList := map[string]string{}
 	var issue = models.Issue{}
 	body, err := io.ReadAll(c.Request.Body)
-	// if error in marsheling body
+	// if error in marsheling body``
 	if err != nil {
 		errList["Invalid_body"] = "error in reading user data"
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
@@ -103,8 +103,8 @@ func (h Handler) GetAllIssues(c *gin.Context) {
 // @Router /issue/:id [get]
 func (h Handler) GetIssueByID(c *gin.Context) {
 	var issues []models.Issue
-	id := c.Param("id")
-	if result := h.DB.Find(&issues, id); result.Error != nil {
+	ID := c.Param("id")
+	if result := h.DB.Find(&issues, ID).Preload("form"); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't find the issue",
@@ -156,9 +156,9 @@ func (h Handler) SearchIssueByPostNumber(c *gin.Context) {
 }
 
 func (h Handler) GetIssueWithFormHandler(c *gin.Context) {
-	id := c.Param("id")
+	ID := c.Param("id")
 	var issue models.Issue
-	if result := h.DB.Preload("Form").First(&issue, id); result.Error != nil {
+	if result := h.DB.Preload("Form").First(&issue, ID); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't find the issue",

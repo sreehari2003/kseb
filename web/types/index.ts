@@ -6,11 +6,11 @@ export interface Issue {
   CreatedAt: Date;
   UpdatedAt: Date;
   DeletedAt: Date;
-  id: number;
+  ID: number;
   title: string;
   desc: string;
   post_id: string;
-  onClick: () => void;
+  onClick: () => Promise<void>;
 }
 export interface Data {
   data: Issue;

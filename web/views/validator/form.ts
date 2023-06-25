@@ -18,8 +18,6 @@ export const formOne = Yup.object({
 export const formTwo = Yup.object({
   description: Yup.string().required(),
   ptwAllowed: Yup.string().required(),
-  officerName: Yup.string().required(),
-  officerRecieving: Yup.string().required(),
   shortedLocation: Yup.string().required(),
   earthedLocations: Yup.string().required(),
   powerOutage: Yup.string().required(),
@@ -27,16 +25,10 @@ export const formTwo = Yup.object({
 
 export const formThree = Yup.object({
   feeder: Yup.string().required(),
-  substatiom: Yup.string().required(),
-  tranformer: Yup.string().required(),
-  postno: Yup.string().required(),
-  consumernumber: Yup.string(),
-  jobdescription: Yup.string().required(),
-  nooflabours: Yup.string().required(),
-  officerDesignation: Yup.string().required(),
+  substation: Yup.string().required(),
+  transformer: Yup.string().required(),
   employee1: PickAnOptionValidator.required(),
   employee2: PickAnOptionValidator.required(),
-  employee3: PickAnOptionValidator.nullable(),
 });
 
 export const FinalForm = Yup.object({
@@ -48,22 +40,14 @@ export const FinalForm = Yup.object({
   disconnectionPlace: Yup.string().required(),
   description: Yup.string().required(),
   ptwAllowed: Yup.string().required(),
-  officerName: Yup.string().required(),
-  officerRecieving: Yup.string().required(),
   shortedLocation: Yup.string().required(),
   earthedLocations: Yup.string().required(),
   powerOutage: Yup.string().required(),
   feeder: Yup.string().required(),
-  substatiom: Yup.string().required(),
-  tranformer: Yup.string().required(),
-  postno: Yup.string().required(),
-  consumernumber: Yup.string(),
-  jobdescription: Yup.string().required(),
-  nooflabours: Yup.string().required(),
-  officerDesignation: Yup.string().required(),
+  substation: Yup.string().required(),
+  transformer: Yup.string().required(),
   employee1: PickAnOptionValidator.required(),
   employee2: PickAnOptionValidator.required(),
-  employee3: PickAnOptionValidator.nullable(),
 });
 
 export const StepByStepForm: Record<number, OptionalObjectSchema<any>> = {

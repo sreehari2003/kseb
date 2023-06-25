@@ -39,7 +39,7 @@ const Home: NextPageWithLayout = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isLoading: isOtpSending },
+    formState: { errors, isSubmitting: isOtpSending },
   } = useForm<Phone>({
     mode: 'onSubmit',
     resolver: yupResolver(phoneNumber),
@@ -50,7 +50,7 @@ const Home: NextPageWithLayout = () => {
   const {
     register: registerOTP,
     handleSubmit: handleOtpSubmit,
-    formState: { errors: otpErrors, isLoading },
+    formState: { errors: otpErrors, isSubmitting: isLoading },
   } = useForm<Otp>({
     mode: 'onSubmit',
     resolver: yupResolver(OTP),

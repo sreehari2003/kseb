@@ -42,7 +42,6 @@ export const IssueModal = ({ isOpen, onClose, setData }: Prop) => {
     mode: 'onSubmit',
     resolver: yupResolver(issueValidator),
   });
-
   const handleFormData: SubmitHandler<Event> = async (datas) => {
     try {
       const { data } = await surakshaAPI.post('/issue', datas);

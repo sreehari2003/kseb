@@ -19,6 +19,7 @@
     "@fontsource/inter": "^4.5.15",
     "@hookform/resolvers": "^2.9.11",
     "@next/font": "13.1.6",
+    "@supabase/supabase-js": "^2.26.0",
     "axios": "^1.3.4",
     "chakra-react-select": "^4.6.0",
     "dayjs": "^1.11.7",

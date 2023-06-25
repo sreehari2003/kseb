@@ -135,10 +135,12 @@ export const Navbar = ({ isDashBoard = false }: INav) => {
             <Box mt="10px" gap="10px">
               {result?.map((el) => (
                 <Button
+                  key={el.ID}
+                  id={`${el.ID}`}
                   mb="10px"
                   colorScheme="teal"
                   w="full"
-                  onClick={() => router.push(`/dashboard/${el.id}`)}
+                  onClick={() => router.push(`/dashboard/${el.ID}`)}
                 >
                   {el.title}
                 </Button>

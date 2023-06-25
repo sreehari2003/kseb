@@ -34,30 +34,30 @@ func Cors() gin.HandlerFunc {
 }
 
 func VerifyUser(h controller.Handler) gin.HandlerFunc {
-	var official models.Officials
 	return func(c *gin.Context) {
-		// Get the user ID from the query parameter
-		id := c.Query("id")
-		// Retrieve the user by ID from the database
-		if result := h.DB.Find(&official, id); result.Error != nil {
-			c.JSON(http.StatusNotFound, gin.H{
-				"status": http.StatusNotFound,
-				"error":  "User not found",
-				"ok":     false,
-			})
-			c.Abort()
-			return
-		}
+
+		// Fetching the session object and reading the userID
+		// sessionContainer := session.GetSessionFromRequestContext(c.Request.Context())
+		// userId := sessionContainer.GetUserID()
+		var official models.Officials
+		// if result := h.DB.Where("auth_id = ?", userId).First(&official); result.Error != nil {
+		// 	c.JSON(http.StatusNotFound, gin.H{
+		// 		"status": http.StatusNotFound,
+		// 		"error":  "couldn't find the user",
+		// 		"ok":     false,
+		// 	})
+		// 	return
+		// }
 		// Check if the user is verified
-		if official.IsVerified == false {
-			c.JSON(http.StatusForbidden, gin.H{
-				"status": http.StatusForbidden,
-				"error":  "Unauthoried Person",
-				"ok":     false,
-			})
-			c.Abort()
-			return
-		}
+		// if official.IsVerified == false {
+		// 	c.JSON(http.StatusForbidden, gin.H{
+		// 		"status": http.StatusForbidden,
+		// 		"error":  "Unauthoried Person",
+		// 		"ok":     false,
+		// 	})
+		// 	c.Abort()
+		// 	return
+		// }
 		// Pass the user object to the next handler
 		c.Set("user", official)
 		c.Next()

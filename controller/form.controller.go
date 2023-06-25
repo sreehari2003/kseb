@@ -2,6 +2,7 @@ package controller
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -10,15 +11,15 @@ import (
 )
 
 func (h Handler) CreateForm(c *gin.Context) {
-	var issues []models.Issue
+	var form models.Form
+	var issues models.Issue
 
 	// Clear previous errors if any
 	errList := map[string]string{}
-	var form = models.Form{}
 	// Accessing the issue ID from request params
-	id := c.Query("id")
+	ID := c.Query("id")
 	// Next, need to verify whether the issue with this ID exists or not
-	if result := h.DB.Find(&issues, id); result.Error != nil {
+	if result := h.DB.Find(&issues, ID); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't find the issue",
@@ -36,7 +37,6 @@ func (h Handler) CreateForm(c *gin.Context) {
 		})
 		return
 	}
-
 	err = json.Unmarshal(body, &form)
 	if err != nil {
 		errList["Invalid_body"] = "Invalid data provided"
@@ -60,9 +60,11 @@ func (h Handler) CreateForm(c *gin.Context) {
 
 	// Creating data in the database
 	// If there's an error, send the error to the client
+
 	if err := h.DB.Create(&form).Error; err != nil {
+		fmt.Println(err)
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
-			"status": http.StatusInternalServerError,
+			"status": http.StatusUnprocessableEntity,
 			"error":  "couldn't save your data",
 			"ok":     false,
 		})
@@ -98,8 +100,8 @@ func (h Handler) GetAllForm(c *gin.Context) {
 
 func (h Handler) GetFormByID(c *gin.Context) {
 	var form models.Form
-	id := c.Param("id")
-	if result := h.DB.Find(&form, id); result.Error != nil {
+	ID := c.Param("id")
+	if result := h.DB.Find(&form, ID).Preload("Asignees"); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't find the data",
@@ -118,9 +120,9 @@ func (h Handler) GetFormByID(c *gin.Context) {
 
 func (h Handler) CompleteIssue(c *gin.Context) {
 	// Get the issue ID from the request URL
-	id := c.Param("id")
+	ID := c.Param("id")
 	var Form = models.Form{}
-	if result := h.DB.Find(&Form, id); result.Error != nil {
+	if result := h.DB.Find(&Form, ID); result.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{
 			"status": http.StatusNotFound,
 			"error":  "User not found",
