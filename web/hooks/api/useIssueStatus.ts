@@ -14,13 +14,13 @@ export const useIssueStatus = () => {
             }
             return data[0].status
         }catch{
-            toast({
-                title: 'failed to get data.',
-                description: 'Something went wrong while getting form data',
-                status: 'error',
-                duration: 9000,
-                isClosable: true,
-              });
+            // toast({
+            //     title: 'failed to get data.',
+            //     description: 'Something went wrong while getting form data',
+            //     status: 'error',
+            //     duration: 9000,
+            //     isClosable: true,
+            //   });
 
         }
       }

@@ -49,6 +49,7 @@ const Home = () => {
           issue_id: Number(id),
           employee1: datas.employee1.value,
           employee2: datas.employee2.value,
+          workers:3
         };
         const res = await supabaseClient.from("form").insert(info)
 
