@@ -23,7 +23,7 @@ export const Card = ({
   const router = useRouter();
 
   return (
-    <Box borderWidth="1px" borderRadius="13.42px" color="#FFFFFF" width="300px" p="4" id={id + ""}>
+    <Box borderWidth="1px" borderRadius="13.42px" color="#FFFFFF" width="300px" p="4" key={id}>
       <Flex justifyContent="space-between" mb="15px">
         <Text color="grey">{dayjs(CreatedAt).format('DD/MM/YYYY')}</Text>
         <Text color="grey">Updated:{dayjs(UpdatedAt).format('DD/MM/YYYY')}</Text>

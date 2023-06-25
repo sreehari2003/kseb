@@ -30,19 +30,34 @@ import { AiFillExclamationCircle } from 'react-icons/ai';
 import { surakshaAPI } from '@app/config';
 import { NextPageWithLayout } from 'next';
 import { BaseLayout } from '@app/layout';
+import { useIssueStatus } from '@app/hooks/api/useIssueStatus';
 
 const App: NextPageWithLayout = () => {
   const toast = useToast();
+  const { getStatus } = useIssueStatus();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isStatusOpen, onOpen: onStatusOpen, onClose: onStatusClose } = useDisclosure();
   const [data, setData] = useState<Issue[] | null>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
   const [isError, setError] = useState<boolean>(false);
   const steps = [{ title: 'Waiting' }, { title: 'On Working' }, { title: 'Completed' }];
-  const { activeStep } = useSteps({
+  const { activeStep,setActiveStep } = useSteps({
     index: 1,
     count: steps.length,
   });
+
+  const showStatus =async (id:number) => {
+    console.log(id)
+     onStatusOpen()
+    const res =  await getStatus(id)
+    if(res=== "WORKING"){
+      setActiveStep(2)
+    }
+    if(res=== "COMPLETED"){
+      setActiveStep(3)
+    }
+  }
+
   useEffect(() => {
     (async () => {
       try {
@@ -117,7 +132,7 @@ const App: NextPageWithLayout = () => {
           {data &&
             data.map((el) => (
               <Card
-                desc={el.title}
+                desc={el.desc}
                 title={el.title}
                 CreatedAt={el.CreatedAt}
                 DeletedAt={el.DeletedAt}
@@ -125,7 +140,7 @@ const App: NextPageWithLayout = () => {
                 id={el.ID}
                 ID={el.ID}
                 UpdatedAt={el.UpdatedAt}
-                onClick={onStatusOpen}
+                onClick={()=>showStatus(el.ID)}
               />
             ))}
           {isError && <Error />}

@@ -237,3 +237,23 @@ func (h Handler) VerifyUser(c *gin.Context) {
 		"data":     User,
 	})
 }
+
+func (h Handler) GetOfficialByID(c *gin.Context) {
+	var user models.Officials
+	ID := c.Param("id")
+	if result := h.DB.Find(&user, ID); result.Error != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "couldn't find the data",
+			"ok":     false,
+		})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": "Data read successfully",
+		"ok":       true,
+		"data":     user,
+	})
+}

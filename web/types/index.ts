@@ -10,7 +10,7 @@ export interface Issue {
   title: string;
   desc: string;
   post_id: string;
-  onClick: () => void;
+  onClick: () => Promise<void>;
 }
 export interface Data {
   data: Issue;

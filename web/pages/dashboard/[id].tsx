@@ -9,6 +9,7 @@ import { One, Two, NavigationButtons, Three } from '@app/views/form';
 import { FinalForm, StepByStepForm } from '@app/views/validator';
 import { DashBoardLayout } from '@app/layout';
 import { surakshaAPI } from '@app/config';
+import { supabaseClient} from "@app/config/supaBase"
 import { useAuthCtx } from '@app/hooks';
 
 type FormType = InferType<typeof FinalForm>;
@@ -37,24 +38,21 @@ const Home = () => {
       // send post request
       try {
         const { id } = router.query;
-        const lineMan = [];
-        lineMan.push({ official_id: datas.employee1.value,form_id:id });
-        lineMan.push({ official_id: datas.employee2.value,form_id:id });
-
+       
         // creating new form
-        const { data } = await surakshaAPI.post(`/form?id=${id}`, {
+        const info =  {
           ...datas,
           typeofjob: datas.typeofjob.value,
           voltage: Number(datas.voltage.value),
           status: 'WORKING',
-          assignees: lineMan,
           official_id: user?.ID,
           issue_id: Number(id),
-          employee1: undefined,
-          employee2: undefined,
-          employee3: undefined,
-        });
-        if (!data.ok) {
+          employee1: datas.employee1.value,
+          employee2: datas.employee2.value,
+        };
+        const res = await supabaseClient.from("form").insert(info)
+
+        if (res.error) {
           throw new Error();
         } else {
           toast({
@@ -64,6 +62,7 @@ const Home = () => {
             duration: 9000,
             isClosable: true,
           });
+          router.replace("/dashboard")
         }
       } catch {
         toast({

@@ -1,11 +1,28 @@
 import React from 'react';
 import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 
-export const TodoCard = () => (
-  <Box w="450px" bg="#418E9E" h="230px" borderRadius="3xl">
+
+type Info ={
+  number:number;
+  desc:string;
+  admin:string;
+  location:string;
+  date:string
+  finish:()=>Promise<void>
+}
+
+export const TodoCard = ({
+  number,
+  desc,
+  admin,
+  location,
+  date,
+  finish
+}:Info) => (
+  <Box minW="450px" bg="#418E9E" h="230px" borderRadius="3xl">
     <Flex mb="15px">
       <Heading mt="20px" ml="20px" lineHeight="20px" fontSize="large" fontWeight="medium">
-        Task 1
+        Task {number}
       </Heading>
       <Heading
         mt="20px"
@@ -15,7 +32,7 @@ export const TodoCard = () => (
         fontSize="large"
         fontWeight="medium"
       >
-        2023 may 30
+        {date.slice(0,10)}
       </Heading>
     </Flex>
     <Flex justifyContent="flex-start" alignItems="flex-start" width="440px">
@@ -30,7 +47,7 @@ export const TodoCard = () => (
         Task Provider &nbsp; &nbsp;:
       </Heading>
       <Heading width="260px" lineHeight="30px" fontSize="medium" fontWeight="medium" color="white">
-        yaser
+        {admin}
       </Heading>
     </Flex>
     <Flex mt="15px" justifyContent="flex-start" alignItems="flex-start" width="440px">
@@ -45,7 +62,7 @@ export const TodoCard = () => (
         Location &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; :
       </Heading>
       <Heading width="260px" lineHeight="30px" fontSize="medium" fontWeight="medium" color="white">
-        kozhikode
+        {location}
       </Heading>
     </Flex>
     <Flex mt="15px" justifyContent="flex-start" alignItems="flex-start" width="440px">
@@ -57,25 +74,25 @@ export const TodoCard = () => (
         fontWeight="bold"
         color="white"
       >
-        Discription &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:
+        Description &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:
       </Heading>
       <Heading width="260px" lineHeight="30px" fontSize="medium" fontWeight="medium" color="white">
-        fuise disconnection
+        {desc}
       </Heading>
     </Flex>
-    <Flex>
       <Button
-        ml="320px"
-        mt="15px"
+      mt="10px"
+      ml="10px"
+       alignSelf="flex-end"
         color="#000000"
         fontWeight="extrabold"
         colorScheme="#418E9E"
         borderColor="#000000"
-        size="xs"
+        size="sm"
         border="1px"
+        onClick={finish}
       >
         Mark as done
       </Button>
-    </Flex>
   </Box>
 );
