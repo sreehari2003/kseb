@@ -7,11 +7,10 @@ import { useRouter } from 'next/router';
 interface Icard extends Issue {
   // eslint-disable-next-line react/require-default-props
   isAdmin?: boolean;
-  id:number
 }
 
 export const Card = ({
-  id,
+  ID,
   title,
   desc,
   post_id,
@@ -23,7 +22,7 @@ export const Card = ({
   const router = useRouter();
 
   return (
-    <Box borderWidth="1px" borderRadius="13.42px" color="#FFFFFF" width="300px" p="4" key={id}>
+    <Box borderWidth="1px" borderRadius="13.42px" color="#FFFFFF" width="300px" p="4" key={ID}>
       <Flex justifyContent="space-between" mb="15px">
         <Text color="grey">{dayjs(CreatedAt).format('DD/MM/YYYY')}</Text>
         <Text color="grey">Updated:{dayjs(UpdatedAt).format('DD/MM/YYYY')}</Text>
@@ -42,7 +41,7 @@ export const Card = ({
           View Status
         </Button>
         {isAdmin && (
-          <Button colorScheme="teal" onClick={() => router.push(`/dashboard/${id}`)} w="100%">
+          <Button colorScheme="teal" onClick={() => router.push(`/dashboard/${ID}`)} w="100%">
             More Info
           </Button>
         )}

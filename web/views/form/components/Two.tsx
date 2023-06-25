@@ -21,7 +21,6 @@ export const Two = () => {
     setFocus,
     formState: { errors },
   } = useFormContext<FormType>();
-  console.log(errors);
 
   useEffect(() => {
     setFocus('description');

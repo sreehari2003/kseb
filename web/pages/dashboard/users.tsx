@@ -108,7 +108,7 @@ const Users: NextPageWithLayout = () => {
   }, []);
 
   return (
-    <Box w={{base:"400px",lg:"full"}}>
+    <Box w={{ base: '400px', lg: 'full' }}>
       <Heading mt="20px" mb="20px" ml="30">
         All Users
       </Heading>

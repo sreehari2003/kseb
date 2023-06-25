@@ -23,8 +23,6 @@ import { issueValidator } from '@app/views/validator';
 import { surakshaAPI } from '@app/config';
 import { Issue } from '@app/types';
 import { FileInput } from './File';
-import { useIssueStatus } from '@app/hooks/api/useIssueStatus';
-import { useEffect } from 'react';
 
 interface Prop {
   isOpen: boolean;
@@ -71,9 +69,7 @@ export const IssueModal = ({ isOpen, onClose, setData }: Prop) => {
       });
     }
   };
-  
- 
-  
+
   return (
     <Modal isOpen={isOpen} size="xl" onClose={onClose} scrollBehavior="outside">
       <ModalOverlay backdropFilter="blur(10px)" />

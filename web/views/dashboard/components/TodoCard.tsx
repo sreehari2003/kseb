@@ -1,24 +1,16 @@
 import React from 'react';
 import { Box, Button, Flex, Heading } from '@chakra-ui/react';
 
+type Info = {
+  number: number;
+  desc: string;
+  admin: string;
+  location: string;
+  date: string;
+  finish: () => Promise<void>;
+};
 
-type Info ={
-  number:number;
-  desc:string;
-  admin:string;
-  location:string;
-  date:string
-  finish:()=>Promise<void>
-}
-
-export const TodoCard = ({
-  number,
-  desc,
-  admin,
-  location,
-  date,
-  finish
-}:Info) => (
+export const TodoCard = ({ number, desc, admin, location, date, finish }: Info) => (
   <Box minW="450px" bg="#418E9E" h="230px" borderRadius="3xl">
     <Flex mb="15px">
       <Heading mt="20px" ml="20px" lineHeight="20px" fontSize="large" fontWeight="medium">
@@ -32,7 +24,7 @@ export const TodoCard = ({
         fontSize="large"
         fontWeight="medium"
       >
-        {date.slice(0,10)}
+        {date.slice(0, 10)}
       </Heading>
     </Flex>
     <Flex justifyContent="flex-start" alignItems="flex-start" width="440px">
@@ -80,19 +72,19 @@ export const TodoCard = ({
         {desc}
       </Heading>
     </Flex>
-      <Button
+    <Button
       mt="10px"
       ml="10px"
-       alignSelf="flex-end"
-        color="#000000"
-        fontWeight="extrabold"
-        colorScheme="#418E9E"
-        borderColor="#000000"
-        size="sm"
-        border="1px"
-        onClick={finish}
-      >
-        Mark as done
-      </Button>
+      alignSelf="flex-end"
+      color="#000000"
+      fontWeight="extrabold"
+      colorScheme="#418E9E"
+      borderColor="#000000"
+      size="sm"
+      border="1px"
+      onClick={finish}
+    >
+      Mark as done
+    </Button>
   </Box>
 );

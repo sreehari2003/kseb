@@ -42,21 +42,21 @@ const Dashboard: NextPageWithLayout = () => {
   const { getStatus } = useIssueStatus();
 
   const steps = [{ title: 'Waiting' }, { title: 'On Working' }, { title: 'Completed' }];
-  const { activeStep,setActiveStep } = useSteps({
+  const { activeStep, setActiveStep } = useSteps({
     index: 1,
     count: steps.length,
   });
 
-  const showStatus =async (id:number) => {
-     onStatusOpen()
-    const res =  await getStatus(id)
-    if(res=== "WORKING"){
-      setActiveStep(2)
+  const showStatus = async (id: number) => {
+    onStatusOpen();
+    const res = await getStatus(id);
+    if (res === 'WORKING') {
+      setActiveStep(2);
     }
-    if(res=== "COMPLETED"){
-      setActiveStep(3)
+    if (res === 'COMPLETED') {
+      setActiveStep(3);
     }
-  }
+  };
 
   useEffect(() => {
     (async () => {
@@ -162,10 +162,9 @@ const Dashboard: NextPageWithLayout = () => {
                 CreatedAt={el.CreatedAt}
                 DeletedAt={el.DeletedAt}
                 post_id={el.post_id}
-                id={el.ID}
                 ID={el.ID}
                 UpdatedAt={el.UpdatedAt}
-                onClick={()=>showStatus(el.ID)}
+                onClick={() => showStatus(el.ID)}
                 isAdmin
               />
             ))}
