@@ -6,6 +6,7 @@ import { LoggerModule } from 'nestjs-pino';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 
 const coreModules = [
   ConfigModule.forRoot({
@@ -34,7 +35,6 @@ const coreModules = [
 @Module({
   imports: [
     ...coreModules,
-    PrismaModule,
     AuthModule.forRoot({
       connectionURI: process.env.SUPERTOKENS_URI,
       apiKey: process.env.SUPERTOKENS_API_KEY,
@@ -46,6 +46,8 @@ const coreModules = [
         websiteBasePath: '/',
       },
     }),
+    PrismaModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -23,6 +23,7 @@ export class AuthGuard implements CanActivate {
       } else {
         throw new HttpException(
           {
+            ok: false,
             message: 'Session Error',
           },
           HttpStatus.SERVICE_UNAVAILABLE,

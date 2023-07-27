@@ -23,11 +23,12 @@ model Issue {
 
 model User {
   id          String     @id @default(cuid())
+  authId      String     @unique
   createdAt   DateTime   @default(now())
   name        String
   role        Role
   phone       String
-  isVerified  String
+  isVerified  Boolean    @default(false)
   location    String
   Form        Form[]
   Assignees   Assignees? @relation(fields: [assigneesId], references: [id])
