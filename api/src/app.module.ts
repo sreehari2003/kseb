@@ -6,35 +6,42 @@ import { LoggerModule } from 'nestjs-pino';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
-import { ENV } from './config';
+
+const coreModules = [
+  ConfigModule.forRoot({
+    isGlobal: true,
+    validationSchema: Joi.object({
+      DATABASE_URL: Joi.string(),
+      WEBSITE_DOMAIN: Joi.string(),
+      API_DOMAIN: Joi.string(),
+      SUPERTOKENS_API_KEY: Joi.string(),
+      SUPERTOKENS_URI: Joi.string(),
+      PORT: Joi.string().optional(),
+    }),
+    validationOptions: {
+      allowUnknown: true,
+      abortEarly: true,
+    },
+  }),
+  LoggerModule.forRoot({
+    pinoHttp: {
+      level: 'info',
+      redact: ['req.headers', 'req.remoteAddress', 'res.headers'],
+    },
+  }),
+];
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      validationSchema: Joi.object({
-        DATABASE_URL: Joi.string(),
-        WEBSITE_DOMAIN: Joi.string(),
-      }),
-      validationOptions: {
-        allowUnknown: true,
-        abortEarly: true,
-      },
-    }),
-    LoggerModule.forRoot({
-      pinoHttp: {
-        level: 'info',
-        redact: ['req.headers', 'req.remoteAddress', 'res.headers'],
-      },
-    }),
+    ...coreModules,
     PrismaModule,
     AuthModule.forRoot({
-      connectionURI: ENV.SUPERTOKENS_URI,
-      apiKey: ENV.SUPERTOKENS_API_KEY,
+      connectionURI: process.env.SUPERTOKENS_URI,
+      apiKey: process.env.SUPERTOKENS_API_KEY,
       appInfo: {
         appName: 'KSEB',
-        apiDomain: ENV.API_DOMAIN,
-        websiteDomain: ENV.WEBSITE_DOMAIN,
+        apiDomain: process.env.API_DOMAIN,
+        websiteDomain: process.env.WEBSITE_DOMAIN,
         apiBasePath: '/api/v1',
         websiteBasePath: '/',
       },
