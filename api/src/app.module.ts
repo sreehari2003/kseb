@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { IssuesModule } from './issues/issues.module';
 
 const coreModules = [
   ConfigModule.forRoot({
@@ -48,6 +49,7 @@ const coreModules = [
     }),
     PrismaModule,
     UserModule,
+    IssuesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -17,7 +17,7 @@ model Issue {
   postID    String
   photo     String?
   createdAt DateTime @default(now())
-  formId    String
+  formId    String?
   Form      Form?
 }
 
