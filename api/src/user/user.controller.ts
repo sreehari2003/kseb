@@ -8,7 +8,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { AuthGuard } from '../auth/auth.guard';
-import { Session } from '../auth/session.decorator';
+import { Session } from '../auth/session/session.decorator';
 import { SessionRequest } from 'supertokens-node/lib/build/framework/express';
 import { User } from './dto/user.dto';
 
