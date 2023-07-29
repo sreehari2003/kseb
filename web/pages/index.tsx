@@ -30,11 +30,11 @@ import { AiFillExclamationCircle } from 'react-icons/ai';
 import { surakshaAPI } from '@app/config';
 import { NextPageWithLayout } from 'next';
 import { BaseLayout } from '@app/layout';
-import { useIssueStatus } from '@app/hooks/api/useIssueStatus';
+// import { useIssueStatus } from '@app/hooks/api/useIssueStatus';
 
 const App: NextPageWithLayout = () => {
   const toast = useToast();
-  const { getStatus } = useIssueStatus();
+  // const { getStatus } = useIssueStatus();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isStatusOpen, onOpen: onStatusOpen, onClose: onStatusClose } = useDisclosure();
   const [data, setData] = useState<Issue[] | null>(null);
@@ -47,8 +47,10 @@ const App: NextPageWithLayout = () => {
   });
 
   const showStatus = async (id: number) => {
+    console.log(id);
     onStatusOpen();
-    const res = await getStatus(id);
+    // const res = await getStatus(id);
+    const res = 'WROKING';
     if (res === 'WORKING') {
       setActiveStep(2);
     }
@@ -94,7 +96,7 @@ const App: NextPageWithLayout = () => {
         <Flex
           flexWrap="wrap"
           position="relative"
-          flexDir={{ base: 'column', md: 'row' }}
+          flexDir={{ base: 'column', sm: 'row' }}
           columnGap="50px"
           rowGap="50px"
           p="6"
@@ -135,7 +137,7 @@ const App: NextPageWithLayout = () => {
                 title={el.title}
                 CreatedAt={el.CreatedAt}
                 DeletedAt={el.DeletedAt}
-                post_id={el.post_id}
+                postID={el.postID}
                 ID={el.ID}
                 UpdatedAt={el.UpdatedAt}
                 onClick={() => showStatus(el.ID)}

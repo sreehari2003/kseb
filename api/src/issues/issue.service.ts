@@ -7,7 +7,7 @@ export class IssueService {
   constructor(private readonly prisma: PrismaService) {}
   async getAllIssues() {
     try {
-      const data = this.prisma.issue.findMany();
+      const data = await this.prisma.issue.findMany();
       if (!data) {
         throw new Error();
       }
@@ -25,12 +25,12 @@ export class IssueService {
   }
   async createIssue(info: Issue) {
     try {
-      const data = this.prisma.issue.create({
+      const data = await this.prisma.issue.create({
         data: {
           title: info.title,
           photo: info.photo,
           desc: info.desc,
-          postID: info.postID,
+          postID: info.post_id,
         },
       });
       if (!data) {

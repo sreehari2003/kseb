@@ -3,6 +3,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 import { AppModule } from './app.module';
+import { SupertokensExceptionFilter } from './auth/auth/auth.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -21,6 +22,7 @@ async function bootstrap() {
     origin: process.env.WEBSITE_DOMAIN,
     credentials: true,
   });
+  app.useGlobalFilters(new SupertokensExceptionFilter());
   await app.listen(process.env.PORT);
 }
 bootstrap();

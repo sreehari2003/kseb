@@ -5,7 +5,6 @@ export class IssueDto {
   @IsNotEmpty()
   title: string;
 
-  @IsString()
   photo?: string;
 
   @IsString()
@@ -14,5 +13,5 @@ export class IssueDto {
 
   @IsString()
   @IsNotEmpty()
-  postID: string;
+  post_id: string;
 }

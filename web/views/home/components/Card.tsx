@@ -13,7 +13,7 @@ export const Card = ({
   ID,
   title,
   desc,
-  post_id,
+  postID,
   CreatedAt,
   UpdatedAt,
   onClick,
@@ -22,7 +22,17 @@ export const Card = ({
   const router = useRouter();
 
   return (
-    <Box borderWidth="1px" borderRadius="13.42px" color="#FFFFFF" width="300px" p="4" key={ID}>
+    <Box
+      borderWidth="1px"
+      borderRadius="13.42px"
+      color="#FFFFFF"
+      width="300px"
+      p="4"
+      key={ID}
+      display="flex"
+      flexDirection="column"
+      justifyContent="space-between"
+    >
       <Flex justifyContent="space-between" mb="15px">
         <Text color="grey">{dayjs(CreatedAt).format('DD/MM/YYYY')}</Text>
         <Text color="grey">Updated:{dayjs(UpdatedAt).format('DD/MM/YYYY')}</Text>
@@ -31,12 +41,12 @@ export const Card = ({
         {title.toLocaleUpperCase()}
       </Heading>
       <Heading color="black" fontSize="20px">
-        Post number:{post_id}
+        Post number:{postID}
       </Heading>
       <Text color="black" mt="20px">
         {desc}
       </Text>
-      <Flex justifyContent="space-between" mt="20px" gap="20px" alignSelf="flex-end ">
+      <Flex justifyContent="space-between" mt="20px" gap="20px">
         <Button colorScheme="teal" variant="outline" onClick={onClick} w="100%">
           View Status
         </Button>

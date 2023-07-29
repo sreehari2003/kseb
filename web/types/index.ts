@@ -9,7 +9,7 @@ export interface Issue {
   ID: number;
   title: string;
   desc: string;
-  post_id: string;
+  postID: string;
   onClick: () => Promise<void>;
 }
 export interface Data {

@@ -3,27 +3,26 @@ import { Box, Flex, Heading, Grid, GridItem } from '@chakra-ui/react';
 import { DashBoardLayout } from '@app/layout';
 import { NextPageWithLayout } from 'next';
 import { TodoCard } from '@app/views/dashboard';
-import { useIssueStatus } from '@app/hooks/api/useIssueStatus';
-import { supabaseClient } from '@app/config/supaBase';
+// import { useIssueStatus } from '@app/hooks/api/useIssueStatus';
 import { useAuthCtx } from '@app/hooks';
 
 const Todo: NextPageWithLayout = () => {
-  const { getMyStatus } = useIssueStatus();
-  const { data: user } = useAuthCtx();
+  // const { getMyStatus } = useIssueStatus();
+  // const { data: user } = useAuthCtx();
   const [task, setTask] = useState<any[] | null>(null);
-  useEffect(() => {
-    (async () => {
-      const data = await getMyStatus(user?.ID);
-      setTask(data as any[]);
-    })();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  // (async () => {
+  // const data = await getMyStatus(user?.ID);
+  // setTask(data as any[]);
+  // })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const finish = async (id: string) => {
-    await supabaseClient.from('form').update({ status: 'COMPLETED' }).eq('id', id);
+    // await supabaseClient.from('form').update({ status: 'COMPLETED' }).eq('id', id);
     setTimeout(() => {}, 2000);
-    const data = await getMyStatus(user?.id);
-    setTask(data as any[]);
+    // const data = await getMyStatus(user?.id);
+    // setTask(data as any[]);
   };
 
   return (
