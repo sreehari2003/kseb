@@ -8,14 +8,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/sreehari2003/kseb/models"
-	"gorm.io/gorm"
+	"github.com/uptrace/bun"
 )
 
 type Handler struct {
-	DB *gorm.DB
+	DB *bun.DB
 }
 
-func New(db *gorm.DB) Handler {
+func New(db *bun.DB) Handler {
 	return Handler{db}
 }
 
