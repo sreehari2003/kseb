@@ -33,7 +33,7 @@ func (h Handler) CreateOffical(c *gin.Context) {
 		})
 		return
 	}
-
+	h.DB.NewInsert()
 	err = json.Unmarshal(body, &officials)
 	if err != nil {
 		errList["Invalid_body"] = "Invalid data provided"

@@ -2,7 +2,6 @@ package controller
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -62,14 +61,24 @@ func (h Handler) CreateIssue(c *gin.Context) {
 		return
 	}
 	// creating data in db
-	h.DB.Create(&issue)
+	res, err := h.DB.NewInsert().Model(&issue).Exec(c)
+
+	if err != nil {
+		// sending succes message with data to client
+		c.JSON(http.StatusCreated, gin.H{
+			"status":   http.StatusExpectationFailed,
+			"response": "Issue creation failed",
+			"ok":       false,
+		})
+		return
+	}
 
 	// sending succes message with data to client
 	c.JSON(http.StatusCreated, gin.H{
 		"status":   http.StatusCreated,
 		"response": "Issue created successfully",
 		"ok":       true,
-		"data":     issue,
+		"data":     res,
 	})
 
 }
@@ -82,13 +91,16 @@ func (h Handler) GetAllIssues(c *gin.Context) {
 	// results will be stored in this variable
 	// if request is successful
 	var issues []models.Issue
-	if result := h.DB.Find(&issues); result.Error != nil {
+	err := h.DB.NewSelect().Model(&issues).Scan(c)
+	if err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't find the issues",
 			"ok":     false,
 		})
+		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"status":   http.StatusOK,
 		"response": "Issues read successfully",
@@ -104,7 +116,7 @@ func (h Handler) GetAllIssues(c *gin.Context) {
 func (h Handler) GetIssueByID(c *gin.Context) {
 	var issues []models.Issue
 	ID := c.Param("id")
-	if result := h.DB.Find(&issues, ID).Preload("form"); result.Error != nil {
+	if result := h.DB.NewSelect().Model(&issues).Where("id=?", ID).Scan(c); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't find the issue",
@@ -138,7 +150,7 @@ func (h Handler) SearchIssueByPostNumber(c *gin.Context) {
 		return
 	}
 
-	if result := h.DB.Where("post_id = ?", post_id).Find(&issues); result.Error != nil {
+	if result := h.DB.NewSelect().Model(&issues).Where("post_id = ?", post_id).Scan(c); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't find the issues",
@@ -158,7 +170,7 @@ func (h Handler) SearchIssueByPostNumber(c *gin.Context) {
 func (h Handler) GetIssueWithFormHandler(c *gin.Context) {
 	ID := c.Param("id")
 	var issue models.Issue
-	if result := h.DB.Preload("Form").First(&issue, ID); result.Error != nil {
+	if result := h.DB.NewSelect().Model(&issue).Where("id=?", ID).Scan(c); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't find the issue",
@@ -176,24 +188,20 @@ func (h Handler) GetIssueWithFormHandler(c *gin.Context) {
 
 func (h Handler) DeleteAllIssue(c *gin.Context) {
 	var issues []models.Issue
-	if err := h.DB.Preload("Form").Find(&issues).Error; err != nil {
+	res, err := h.DB.NewDelete().Model(&issues).Exec(c)
+	if err != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't Delete the issue",
 			"ok":     false,
 		})
+		return
 	}
-
-	for _, issue := range issues {
-		h.DB.Delete(&issue)
-	}
-
-	fmt.Print("api is here nice")
 
 	c.JSON(http.StatusOK, gin.H{
 		"status":   http.StatusOK,
 		"response": "All Issue Was Deleted successfully",
 		"ok":       true,
-		"data":     nil,
+		"data":     res,
 	})
 }

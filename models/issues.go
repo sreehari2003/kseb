@@ -3,15 +3,16 @@ package models
 import (
 	"errors"
 
-	"gorm.io/gorm"
+	"github.com/uptrace/bun"
 )
 
 // swagger:model Issue
 type Issue struct {
-	gorm.Model
-	Title  string `gorm:"size:255;not null" json:"title"`
-	Desc   string `gorm:"size:255;not null" json:"desc"`
-	PostID string `gorm:"not null" json:"post_id"`
+	bun.BaseModel `bun:"table:issue,alias:u"`
+	ID            int64  `bun:"id,pk,autoincrement"`
+	Title         string `bun:"title,notnull"`
+	Desc          string `bun:"desc,notnull"`
+	PostID        string `bun:"post_id,notnull"`
 }
 
 // custom vaidation for body data from backend
