@@ -30,11 +30,9 @@ import { AiFillExclamationCircle } from 'react-icons/ai';
 import { surakshaAPI } from '@app/config';
 import { NextPageWithLayout } from 'next';
 import { BaseLayout } from '@app/layout';
-import { useIssueStatus } from '@app/hooks/api/useIssueStatus';
 
 const App: NextPageWithLayout = () => {
   const toast = useToast();
-  const { getStatus } = useIssueStatus();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { isOpen: isStatusOpen, onOpen: onStatusOpen, onClose: onStatusClose } = useDisclosure();
   const [data, setData] = useState<Issue[] | null>(null);
@@ -48,13 +46,13 @@ const App: NextPageWithLayout = () => {
 
   const showStatus = async (id: number) => {
     onStatusOpen();
-    const res = await getStatus(id);
+    const res = 'WORKING';
     if (res === 'WORKING') {
       setActiveStep(2);
     }
-    if (res === 'COMPLETED') {
-      setActiveStep(3);
-    }
+    // if (res === 'COMPLETED') {
+    //   setActiveStep(3);
+    // }
   };
 
   useEffect(() => {

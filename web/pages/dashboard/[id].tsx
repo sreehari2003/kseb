@@ -8,7 +8,6 @@ import { useRouter } from 'next/router';
 import { One, Two, NavigationButtons, Three } from '@app/views/form';
 import { FinalForm, StepByStepForm } from '@app/views/validator';
 import { DashBoardLayout } from '@app/layout';
-import { supabaseClient } from '@app/config/supaBase';
 import { useAuthCtx } from '@app/hooks';
 
 type FormType = InferType<typeof FinalForm>;
@@ -50,9 +49,9 @@ const Home = () => {
           employee2: datas.employee2.value,
           workers: 3,
         };
-        const res = await supabaseClient.from('form').insert(info);
-
-        if (res.error) {
+        // const res = await supabaseClient.from('form').insert(info);
+        const res = false;
+        if (res) {
           throw new Error();
         } else {
           toast({

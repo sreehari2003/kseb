@@ -88,6 +88,7 @@ func (h Handler) GetAllIssues(c *gin.Context) {
 			"error":  "couldn't find the issues",
 			"ok":     false,
 		})
+		return
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"status":   http.StatusOK,
