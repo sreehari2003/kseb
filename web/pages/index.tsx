@@ -44,7 +44,7 @@ const App: NextPageWithLayout = () => {
     count: steps.length,
   });
 
-  const showStatus = async (id: number) => {
+  const showStatus = async () => {
     onStatusOpen();
     const res = 'WORKING';
     if (res === 'WORKING') {
@@ -136,7 +136,7 @@ const App: NextPageWithLayout = () => {
                 post_id={el.post_id}
                 ID={el.ID}
                 UpdatedAt={el.UpdatedAt}
-                onClick={() => showStatus(el.ID)}
+                onClick={() => showStatus()}
               />
             ))}
           {isError && <Error />}

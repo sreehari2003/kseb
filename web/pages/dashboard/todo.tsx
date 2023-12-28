@@ -3,11 +3,9 @@ import { Box, Flex, Heading, Grid, GridItem } from '@chakra-ui/react';
 import { DashBoardLayout } from '@app/layout';
 import { NextPageWithLayout } from 'next';
 import { TodoCard } from '@app/views/dashboard';
-import { useAuthCtx } from '@app/hooks';
 
 const Todo: NextPageWithLayout = () => {
-  const { data: user } = useAuthCtx();
-  const [task, setTask] = useState<any[] | null>(null);
+  const [task] = useState<any[] | null>(null);
   // useEffect(() => {
   //   (async () => {
   //     const data = await getMyStatus(user?.ID);
@@ -48,7 +46,6 @@ const Todo: NextPageWithLayout = () => {
                 desc={el.description}
                 location={el.location}
                 number={index + 1}
-                finish={() => {}}
               />
             </Box>
           ))}

@@ -61,6 +61,7 @@ func (h Handler) CreateIssue(c *gin.Context) {
 		})
 		return
 	}
+
 	// creating data in db
 	h.DB.Create(&issue)
 
@@ -81,7 +82,8 @@ func (h Handler) CreateIssue(c *gin.Context) {
 func (h Handler) GetAllIssues(c *gin.Context) {
 	// results will be stored in this variable
 	// if request is successful
-	var issues []models.Issue
+
+	issues := []models.Issue{}
 	if result := h.DB.Find(&issues); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
@@ -90,12 +92,14 @@ func (h Handler) GetAllIssues(c *gin.Context) {
 		})
 		return
 	}
+
 	c.JSON(http.StatusOK, gin.H{
 		"status":   http.StatusOK,
 		"response": "Issues read successfully",
 		"ok":       true,
 		"data":     issues,
 	})
+
 }
 
 // Get Single Issue
@@ -202,7 +206,7 @@ func (h Handler) DeleteAllIssue(c *gin.Context) {
 func (h Handler) GetIssueSatus(c *gin.Context) {
 	ID := c.Param("id")
 	var issue models.Issue
-	if result := h.DB.Preload("Form").First(&issue, ID); result.Error != nil {
+	if result := h.DB.First(&issue, ID); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't find the issue",

@@ -45,15 +45,15 @@ const Dashboard: NextPageWithLayout = () => {
     count: steps.length,
   });
 
-  const showStatus = async (id: number) => {
+  const showStatus = async () => {
     onStatusOpen();
     const res = 'WORKING';
     if (res === 'WORKING') {
       setActiveStep(2);
     }
-    if (res === 'COMPLETED') {
-      setActiveStep(3);
-    }
+    // if (res === 'COMPLETED') {
+    //   setActiveStep(3);
+    // }
   };
 
   useEffect(() => {
@@ -162,7 +162,7 @@ const Dashboard: NextPageWithLayout = () => {
                 post_id={el.post_id}
                 ID={el.ID}
                 UpdatedAt={el.UpdatedAt}
-                onClick={() => showStatus(el.ID)}
+                onClick={() => showStatus()}
                 isAdmin
               />
             ))}

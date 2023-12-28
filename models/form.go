@@ -27,8 +27,7 @@ type Form struct {
 	Ptw             string     `gorm:"not null" json:"ptwAllowed"`
 	Substation      string     `gorm:"not null" json:"substation"`
 	Transformer     string     `gorm:"not null" json:"transformer"`
-	IssueID         uint       `gorm:"not null" json:"issue_id"`
-	Issue           Issue      `gorm:"foreignKey:IssueID;references:ID"`
+	IssueID         uint       `gorm:"uniqueIndex" json:"-"`
 	Status          ROLE       `sql:"type:ENUM('WAITING', 'WORKING', 'COMPLETED')" gorm:"column:status"`
 	Admin           uint       `gorm:"not null" json:"official_id"`
 	Assignees       []Assignee `json:"assignees"`
