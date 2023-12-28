@@ -30,7 +30,6 @@ import { Issue } from '@app/types';
 import { surakshaAPI } from '@app/config';
 import { IssueModal, Loader, Card } from '@app/views/home';
 import { useAuthCtx } from '@app/hooks';
-import { useIssueStatus } from '@app/hooks/api/useIssueStatus';
 
 const Dashboard: NextPageWithLayout = () => {
   const toast = useToast();
@@ -39,7 +38,6 @@ const Dashboard: NextPageWithLayout = () => {
   const { isOpen: isStatusOpen, onOpen: onStatusOpen, onClose: onStatusClose } = useDisclosure();
   const [data, setData] = useState<Issue[] | null>(null);
   const [isLoading, setLoading] = useState<boolean>(true);
-  const { getStatus } = useIssueStatus();
 
   const steps = [{ title: 'Waiting' }, { title: 'On Working' }, { title: 'Completed' }];
   const { activeStep, setActiveStep } = useSteps({
@@ -47,15 +45,15 @@ const Dashboard: NextPageWithLayout = () => {
     count: steps.length,
   });
 
-  const showStatus = async (id: number) => {
+  const showStatus = async () => {
     onStatusOpen();
-    const res = await getStatus(id);
+    const res = 'WORKING';
     if (res === 'WORKING') {
       setActiveStep(2);
     }
-    if (res === 'COMPLETED') {
-      setActiveStep(3);
-    }
+    // if (res === 'COMPLETED') {
+    //   setActiveStep(3);
+    // }
   };
 
   useEffect(() => {
@@ -164,7 +162,7 @@ const Dashboard: NextPageWithLayout = () => {
                 post_id={el.post_id}
                 ID={el.ID}
                 UpdatedAt={el.UpdatedAt}
-                onClick={() => showStatus(el.ID)}
+                onClick={() => showStatus()}
                 isAdmin
               />
             ))}

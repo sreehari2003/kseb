@@ -7,10 +7,9 @@ type Info = {
   admin: string;
   location: string;
   date: string;
-  finish: () => Promise<void>;
 };
 
-export const TodoCard = ({ number, desc, admin, location, date, finish }: Info) => (
+export const TodoCard = ({ number, desc, admin, location, date }: Info) => (
   <Box minW="450px" bg="#418E9E" h="230px" borderRadius="3xl">
     <Flex mb="15px">
       <Heading mt="20px" ml="20px" lineHeight="20px" fontSize="large" fontWeight="medium">
@@ -82,7 +81,6 @@ export const TodoCard = ({ number, desc, admin, location, date, finish }: Info) 
       borderColor="#000000"
       size="sm"
       border="1px"
-      onClick={finish}
     >
       Mark as done
     </Button>

@@ -72,8 +72,18 @@ func CreateRoute(h controller.Handler) *gin.Engine {
 	v1.GET("/form", h.GetAllForm)
 	v1.GET("/form/:id", h.GetFormByID)
 	v1.PUT("/forms/status", h.CompleteIssue)
+	v1.GET("/forms/status/:id", h.GetIssueSatus)
 
 	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
+	router.NoRoute(wildCard)
+
 	return router
+}
+
+func wildCard(c *gin.Context) {
+	c.JSON(http.StatusNotFound, gin.H{
+		"ok":      false,
+		"message": "route does not exist",
+	})
 }

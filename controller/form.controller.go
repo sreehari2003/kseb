@@ -46,17 +46,6 @@ func (h Handler) CreateForm(c *gin.Context) {
 		})
 		return
 	}
-	// Validating the user data based on our schema
-	errorMessages := form.Validate()
-	if len(errorMessages) > 0 {
-		errList = errorMessages
-		c.JSON(http.StatusUnprocessableEntity, gin.H{
-			"status": http.StatusUnprocessableEntity,
-			"error":  errList,
-			"ok":     false,
-		})
-		return
-	}
 
 	// Creating data in the database
 	// If there's an error, send the error to the client

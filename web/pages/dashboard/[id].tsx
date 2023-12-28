@@ -8,15 +8,13 @@ import { useRouter } from 'next/router';
 import { One, Two, NavigationButtons, Three } from '@app/views/form';
 import { FinalForm, StepByStepForm } from '@app/views/validator';
 import { DashBoardLayout } from '@app/layout';
-import { supabaseClient } from '@app/config/supaBase';
-import { useAuthCtx } from '@app/hooks';
 
 type FormType = InferType<typeof FinalForm>;
 
 const Home = () => {
   const toast = useToast();
   const router = useRouter();
-  const { data: user } = useAuthCtx();
+
   const [currentStep, setCurrentStep] = useState<number>(1);
   const isReadyForSubmission = currentStep === 3;
   const methods = useForm<FormType>({
@@ -32,27 +30,25 @@ const Home = () => {
     setCurrentStep((el) => el - 1);
   };
 
-  const onSubmit: SubmitHandler<FormType> = async (datas) => {
+  const onSubmit: SubmitHandler<FormType> = async () => {
     if (isReadyForSubmission) {
       // send post request
       try {
-        const { id } = router.query;
-
         // creating new form
-        const info = {
-          ...datas,
-          typeofjob: datas.typeofjob.value,
-          voltage: Number(datas.voltage.value),
-          status: 'WORKING',
-          official_id: user?.ID,
-          issue_id: Number(id),
-          employee1: datas.employee1.value,
-          employee2: datas.employee2.value,
-          workers: 3,
-        };
-        const res = await supabaseClient.from('form').insert(info);
-
-        if (res.error) {
+        // const info = {
+        //   ...datas,
+        //   typeofjob: datas.typeofjob.value,
+        //   voltage: Number(datas.voltage.value),
+        //   status: 'WORKING',
+        //   official_id: user?.ID,
+        //   issue_id: Number(id),
+        //   employee1: datas.employee1.value,
+        //   employee2: datas.employee2.value,
+        //   workers: 3,
+        // };
+        // const res = await supabaseClient.from('form').insert(info);
+        const res = false;
+        if (res) {
           throw new Error();
         } else {
           toast({
