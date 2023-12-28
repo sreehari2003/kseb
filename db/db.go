@@ -22,6 +22,7 @@ func Init() *gorm.DB {
 	})
 
 	if err != nil {
+		fmt.Println(dbURL)
 		log.Fatalln(err)
 	}
 
@@ -29,6 +30,8 @@ func Init() *gorm.DB {
 	fmt.Println("server connected with db successfully")
 
 	db.AutoMigrate(&models.Issue{})
+	db.AutoMigrate(&models.Form{})
+	db.AutoMigrate(&models.Officials{})
 
 	return db
 }

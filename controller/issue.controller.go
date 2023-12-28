@@ -198,3 +198,22 @@ func (h Handler) DeleteAllIssue(c *gin.Context) {
 		"data":     nil,
 	})
 }
+
+func (h Handler) GetIssueSatus(c *gin.Context) {
+	ID := c.Param("id")
+	var issue models.Issue
+	if result := h.DB.Preload("Form").First(&issue, ID); result.Error != nil {
+		c.JSON(http.StatusUnprocessableEntity, gin.H{
+			"status": http.StatusInternalServerError,
+			"error":  "couldn't find the issue",
+			"ok":     false,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"status":   http.StatusOK,
+		"response": "Issue read successfully",
+		"ok":       true,
+		"data":     issue,
+	})
+}
