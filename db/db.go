@@ -16,6 +16,7 @@ func Init() *gorm.DB {
 	db_user := os.Getenv("DB_USER")
 	db_name := os.Getenv("DB_NAME")
 	db_port_host := os.Getenv("DB_PORT_HOST")
+	env := os.Getenv("ENV")
 	dbURL := "postgresql://" + db_user + ":" + pass + db_port_host + "/" + db_name
 	fmt.Println(dbURL)
 	db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{
@@ -33,7 +34,10 @@ func Init() *gorm.DB {
 	db.AutoMigrate(&models.Issue{})
 	db.AutoMigrate(&models.Form{})
 	db.AutoMigrate(&models.Officials{})
-	generateDummyData(db)
+	// generate dummey data on development environment
+	if env == "DEVELOPMENT" {
+		generateDummyData(db)
+	}
 
 	return db
 }
