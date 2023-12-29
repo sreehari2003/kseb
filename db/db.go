@@ -57,6 +57,7 @@ func generateDummyData(db *gorm.DB) error {
 			Ptw:             fmt.Sprintf("Ptw%d", i),
 			Substation:      fmt.Sprintf("Substation%d", i),
 			Transformer:     fmt.Sprintf("Transformer%d", i),
+			Status:          "WAITING",
 		}
 
 		// Create dummy issue with associated forms
