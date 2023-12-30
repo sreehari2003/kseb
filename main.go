@@ -29,11 +29,14 @@ import (
 
 func main() {
 
-	err := godotenv.Load()
-	auth.Init()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	if _, exists := os.LookupEnv("RAILWAY_ENVIRONMENT"); !exists {
+		if err := godotenv.Load(); err != nil {
+			log.Fatal("error loading .env file:", err)
+		}
 	}
+
+	auth.Init()
+
 	PORT := os.Getenv("PORT")
 
 	// initialising an instance of postgres db
