@@ -20,7 +20,8 @@ func Init() *gorm.DB {
 	env := os.Getenv("ENV")
 
 	dbURL := "postgresql://" + db_user + ":" + pass + db_port_host + "/" + db_name
-	if len(prod_url) > 1 {
+
+	if len(prod_url) > 0 {
 		dbURL = prod_url
 	}
 
