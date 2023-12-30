@@ -25,7 +25,7 @@ func Supertokens() gin.HandlerFunc {
 
 func Cors() gin.HandlerFunc {
 	return cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:3000", "https://suraksha.vercel.app/"},
+		AllowOrigins:     []string{"http://localhost:3000", "https://suraksha.vercel.app"},
 		AllowMethods:     []string{"GET", "POST", "DELETE", "PUT", "OPTIONS", "PATCH"},
 		AllowHeaders:     append([]string{"content-type"}, supertokens.GetAllCORSHeaders()...),
 		MaxAge:           1 * time.Minute,
