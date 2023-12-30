@@ -16,9 +16,14 @@ func Init() *gorm.DB {
 	db_user := os.Getenv("DB_USER")
 	db_name := os.Getenv("DB_NAME")
 	db_port_host := os.Getenv("DB_PORT_HOST")
+	prod_url := os.Getenv("PROD_URL")
 	env := os.Getenv("ENV")
+
 	dbURL := "postgresql://" + db_user + ":" + pass + db_port_host + "/" + db_name
-	fmt.Println(dbURL)
+	if len(prod_url) > 1 {
+		dbURL = prod_url
+	}
+
 	db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{
 		DisableForeignKeyConstraintWhenMigrating: true,
 	})
@@ -37,6 +42,7 @@ func Init() *gorm.DB {
 	// generate dummey data on development environment
 	if env == "DEVELOPMENT" {
 		generateDummyData(db)
+		fmt.Println(dbURL)
 	}
 
 	return db
