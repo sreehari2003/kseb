@@ -4,11 +4,11 @@ import (
 	"gorm.io/gorm"
 )
 
-const (
-	Waiting   ROLE = "WAITING"
-	Working   ROLE = "WORKING"
-	Completed ROLE = "COMPLETED"
-)
+// these are the enums of status
+// pg dont support enum
+// Waiting   ROLE = "WAITING"
+// Working   ROLE = "WORKING"
+// Completed ROLE = "COMPLETED"
 
 // swagger:model Form
 type Form struct {
@@ -28,7 +28,7 @@ type Form struct {
 	Substation      string     `gorm:"not null" json:"substation"`
 	Transformer     string     `gorm:"not null" json:"transformer"`
 	IssueID         uint       `gorm:"uniqueIndex" json:"-"`
-	Status          ROLE       `sql:"type:ENUM('WAITING', 'WORKING', 'COMPLETED')" gorm:"column:status"`
+	Status          string     `gorm:"default:'WAITING'" json:"status"`
 	Admin           uint       `gorm:"not null" json:"official_id"`
 	Assignees       []Assignee `json:"assignees"`
 }

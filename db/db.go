@@ -16,8 +16,15 @@ func Init() *gorm.DB {
 	db_user := os.Getenv("DB_USER")
 	db_name := os.Getenv("DB_NAME")
 	db_port_host := os.Getenv("DB_PORT_HOST")
+	prod_url := os.Getenv("PROD_URL")
+	env := os.Getenv("ENV")
+
 	dbURL := "postgresql://" + db_user + ":" + pass + db_port_host + "/" + db_name
-	fmt.Println(dbURL)
+
+	if len(prod_url) > 0 {
+		dbURL = prod_url
+	}
+
 	db, err := gorm.Open(postgres.Open(dbURL), &gorm.Config{
 		DisableForeignKeyConstraintWhenMigrating: true,
 	})
@@ -33,7 +40,11 @@ func Init() *gorm.DB {
 	db.AutoMigrate(&models.Issue{})
 	db.AutoMigrate(&models.Form{})
 	db.AutoMigrate(&models.Officials{})
-	generateDummyData(db)
+	// generate dummey data on development environment
+	if env == "DEVELOPMENT" {
+		generateDummyData(db)
+		fmt.Println(dbURL)
+	}
 
 	return db
 }
@@ -57,6 +68,7 @@ func generateDummyData(db *gorm.DB) error {
 			Ptw:             fmt.Sprintf("Ptw%d", i),
 			Substation:      fmt.Sprintf("Substation%d", i),
 			Transformer:     fmt.Sprintf("Transformer%d", i),
+			Status:          "WAITING",
 		}
 
 		// Create dummy issue with associated forms

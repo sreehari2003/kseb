@@ -204,9 +204,14 @@ func (h Handler) DeleteAllIssue(c *gin.Context) {
 }
 
 func (h Handler) GetIssueSatus(c *gin.Context) {
-	ID := c.Param("id")
-	var issue models.Issue
-	if result := h.DB.First(&issue, ID); result.Error != nil {
+	id := c.Param("id")
+
+	type Form struct {
+		Status string `json:"status" gorm:"column:status"`
+	}
+	var forms Form
+
+	if result := h.DB.Select("status").Where("issue_id = ?", id).First(&forms); result.Error != nil {
 		c.JSON(http.StatusUnprocessableEntity, gin.H{
 			"status": http.StatusInternalServerError,
 			"error":  "couldn't find the issue",
@@ -218,6 +223,6 @@ func (h Handler) GetIssueSatus(c *gin.Context) {
 		"status":   http.StatusOK,
 		"response": "Issue read successfully",
 		"ok":       true,
-		"data":     issue,
+		"data":     forms,
 	})
 }
