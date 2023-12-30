@@ -39,6 +39,14 @@ func main() {
 
 	PORT := os.Getenv("PORT")
 
+	host := "localhost"
+
+	env := os.Getenv("ENV")
+
+	if env != "DEVELOPMENT" {
+		host = "0.0.0.0"
+	}
+
 	// initialising an instance of postgres db
 	db := db.Init()
 	// using dependency injection to pass instance
@@ -48,6 +56,6 @@ func main() {
 
 	// CORS
 
-	router.Run("localhost:" + PORT)
+	router.Run(host + ":" + PORT)
 	// use ginSwagger middleware to serve the API docs
 }
