@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -56,6 +57,7 @@ func main() {
 
 	// CORS
 
+	fmt.Println("Server is running on", host+":"+PORT)
 	router.Run(host + ":" + PORT)
 	// use ginSwagger middleware to serve the API docs
 }
