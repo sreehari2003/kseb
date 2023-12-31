@@ -44,15 +44,28 @@ const App: NextPageWithLayout = () => {
     count: steps.length,
   });
 
-  const showStatus = async () => {
+  const getIssueStatus = async (id: number): Promise<string> => {
+    try {
+      const { data: res } = await surakshaAPI.get(`/forms/status/${id}`);
+      return res?.data.status || 'WAITING';
+    } catch {
+      return 'WAITING';
+    }
+  };
+
+  const showStatus = async (id: number) => {
     onStatusOpen();
-    const res = 'WORKING';
-    if (res === 'WORKING') {
+
+    const issueStatus = await getIssueStatus(id);
+
+    if (issueStatus === 'WORKING') {
       setActiveStep(2);
     }
-    // if (res === 'COMPLETED') {
-    //   setActiveStep(3);
-    // }
+    if (issueStatus === 'COMPLETED') {
+      setActiveStep(3);
+    } else {
+      setActiveStep(1);
+    }
   };
 
   useEffect(() => {
@@ -136,7 +149,7 @@ const App: NextPageWithLayout = () => {
                 post_id={el.post_id}
                 ID={el.ID}
                 UpdatedAt={el.UpdatedAt}
-                onClick={() => showStatus()}
+                onClick={() => showStatus(el.ID)}
               />
             ))}
           {isError && <Error />}
