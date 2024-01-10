@@ -64,7 +64,6 @@ export const AuthCtxWrapper = ({ children }: Child) => {
       getData();
     } else {
       router.push('/');
-      setUserLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [doesSessionExist]);
