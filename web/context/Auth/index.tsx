@@ -1,11 +1,10 @@
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import React, { createContext, useState, useMemo, useEffect } from 'react';
 import { useSessionContext } from 'supertokens-auth-react/recipe/session';
 import { Child } from '@app/types';
 import { surakshaAPI } from '@app/config';
 
 interface IAuth {
-  isUserLoading: boolean;
   data: Record<string, any> | null;
   setUserData: React.Dispatch<Record<string, any> | null>;
   isAuth: boolean;
@@ -16,7 +15,6 @@ export const AuthCtx = createContext({} as IAuth);
 const UN_PROTECTED_PATH = '/dashboard/profile';
 
 export const AuthCtxWrapper = ({ children }: Child) => {
-  const [isUserLoading, setUserLoading] = useState<boolean>(false);
   const [data, setUserData] = useState<Record<string, any> | null>(null);
   const session = useSessionContext();
   const router = useRouter();
@@ -25,18 +23,8 @@ export const AuthCtxWrapper = ({ children }: Child) => {
   // derived type
   const isAuth = !!data;
 
-  // listening for route change events
-  Router.events.on('routeChangeStart', () => {
-    // when route change loading screen popup
-    setUserLoading(true);
-  });
-  Router.events.on('routeChangeComplete', () => {
-    setUserLoading(false);
-  });
-
   const getData = async () => {
     try {
-      setUserLoading(true);
       const { data: response } = await surakshaAPI.get('/officials');
       if (!response.ok) {
         throw new Error();
@@ -54,8 +42,6 @@ export const AuthCtxWrapper = ({ children }: Child) => {
       }
     } catch {
       router.push('/auth');
-    } finally {
-      setUserLoading(false);
     }
   };
 
@@ -76,7 +62,7 @@ export const AuthCtxWrapper = ({ children }: Child) => {
   }, [isAuth, router.pathname]);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const values = useMemo(() => ({ isUserLoading, data, setUserData, isAuth }), [isUserLoading]);
+  const values = useMemo(() => ({ data, setUserData, isAuth }), [data]);
 
   return <AuthCtx.Provider value={values}>{children}</AuthCtx.Provider>;
 };
